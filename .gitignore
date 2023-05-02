@@ -1,0 +1,21 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.dll
+*.so
+*.pyd
+
+# Local build directories
+build/
+dist/
+
+# Ignore the compiled QML files
+*.qmlc
+
+# Ignore the cached QML files
+.qmlcache
+
+# Ignore user-specific settings
+.idea/
+.vscode/
