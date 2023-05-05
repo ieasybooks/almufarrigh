@@ -21,8 +21,17 @@ ruff = "^0.0.264"
 [tool.black]  # https://black.readthedocs.io/en/stable/usage_and_configuration/the_basics.html#configuration-via-a-file
 line-length = 100
 target-version = ["py310"]
+include = '(src\/.*$|\.pyi?$)'
+exclude = '''
+/(
+    \.git
+  | __pycache__
+  | \.venv
+)/
+'''
 
 [tool.mypy]  # https://mypy.readthedocs.io/en/latest/config_file.html
+files = ["src"]
 strict = true
 disallow_subclassing_any = false
 disallow_untyped_decorators = false
