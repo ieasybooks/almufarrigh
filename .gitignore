@@ -1,0 +1,43 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.dll
+*.so
+*.pyd
+
+# Local build directories
+build/
+dist/
+
+# Ignore the compiled QML files
+*.qmlc
+
+# Ignore the cached QML files
+.qmlcache
+
+# Ignore user-specific settings
+.idea/
+.vscode/
+
+# Ignore virtual environment
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# macOS
+.DS_Store
+
+# pyenv
+.python-version
+
+# Ruff
+.ruff_cache/
+
+# mypy
+.dmypy.json
+.mypy_cache/
