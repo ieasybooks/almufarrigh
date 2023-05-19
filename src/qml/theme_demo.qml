@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.6
 import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
 import QtQuick.Window 2.12
@@ -7,7 +7,7 @@ import QtQuick.Controls.Material 2.12
 import "Themes"
 ApplicationWindow {
 
-    width: 200
+    width: 400
     height: 800
     visible: true
     color: "#CCCCCC"
@@ -16,7 +16,12 @@ ApplicationWindow {
 
     Column {
         spacing: 10
-
+        padding: 10
+        FontLoader {
+            id: poppinsFontLoader
+            source: "Fonts/Poppins-Regular.ttf" // Adjust the path to the correct location of the font file
+            
+        }
         Switch {
             id: themeSwitch
             text: "Dark/ Light"
@@ -27,6 +32,8 @@ ApplicationWindow {
         }
         Text {
             text: theme.theme_name
+            font.family: 'Poppins'
+            font.pointSize: 24
         }
         Rectangle {
             width: 100

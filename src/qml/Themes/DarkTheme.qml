@@ -2,7 +2,7 @@ pragma Singleton
 import QtQuick 2.8
 
 QtObject {
-    property string theme_name: "Dark Theme"
+    property string theme_name: "غامق"
 
     property color primary: "#23A173"
     property color background: "#2C2C2C"
