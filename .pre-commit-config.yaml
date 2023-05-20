@@ -1,6 +1,6 @@
 # https://pre-commit.com
-default_install_hook_types: [commit-msg, pre-commit]
-default_stages: [commit, manual]
+default_install_hook_types: [ commit-msg, pre-commit ]
+default_stages: [ commit, manual ]
 fail_fast: true
 repos:
   - repo: meta
@@ -35,34 +35,33 @@ repos:
       - id: destroyed-symlinks
       - id: detect-private-key
       - id: end-of-file-fixer
-        types: [python]
+        types: [ python ]
       - id: fix-byte-order-marker
       - id: mixed-line-ending
       - id: name-tests-test
-        args: [--pytest-test-first]
+        args: [ --pytest-test-first ]
       - id: trailing-whitespace
-        types: [python]
-  - repo: local
+        types: [ python ]
+  - repo: https://github.com/MarcoGorelli/absolufy-imports
+    rev: v0.3.1
     hooks:
       - id: absolufy-imports
-        name: absolufy-imports
-        entry: absolufy-imports
-        require_serial: true
-        language: system
-        types: [python]
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    # Ruff version.
+    rev: 'v0.0.269'
+    hooks:
       - id: ruff
-        name: ruff
-        entry: ruff
-        args: ["--fixable=ERA001,F401,F841,T201,T203"]
-        require_serial: true
-        language: system
-        types: [python]
+  - repo: https://github.com/psf/black
+    rev: 23.1.0
+    hooks:
       - id: black
-        name: black
-        entry: black
-        require_serial: true
-        language: system
-        types: [python]
+        args: [ --config=pyproject.toml ]
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: 'v1.2.0'  # Use the sha / tag you want to point at
+    hooks:
+      - id: mypy
+  - repo: local
+    hooks:
       - id: poetry-check
         name: poetry check
         entry: poetry check
@@ -72,11 +71,6 @@ repos:
       - id: poetry-lock-check
         name: poetry lock check
         entry: poetry lock
-        args: [--check]
+        args: [ --check ]
         language: system
         pass_filenames: false
-      - id: mypy
-        name: mypy
-        entry: mypy
-        language: system
-        types: [python]
