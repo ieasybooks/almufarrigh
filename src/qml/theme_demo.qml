@@ -18,13 +18,13 @@ ApplicationWindow {
         spacing: 10
         padding: 10
         FontLoader {
-            id: poppinsFontLoader
-            source: "Fonts/Poppins-Regular.ttf" // Adjust the path to the correct location of the font file
+            id: poppinsFont
+            source: "../Fonts/Poppins-Regular.ttf" // Adjust the path to the correct location of the font file
             
         }
         Switch {
             id: themeSwitch
-            text: "Dark/ Light"
+            text: "Dark / Light"
             onToggled: {
                 isLightTheme = themeSwitch.checked
                 theme = isLightTheme ? LightTheme : DarkTheme
@@ -32,7 +32,7 @@ ApplicationWindow {
         }
         Text {
             text: theme.theme_name
-            font.family: 'Poppins'
+            font.family: poppinsFont.name
             font.pointSize: 24
         }
         Rectangle {
