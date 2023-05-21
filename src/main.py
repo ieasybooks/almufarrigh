@@ -2,7 +2,7 @@
 import sys
 from pathlib import Path
 
-from PySide6.QtCore import QObject, Slot
+from PySide6.QtCore import QObject, QUrl, Slot
 from PySide6.QtQml import QQmlApplicationEngine
 from PySide6.QtWidgets import QApplication
 
@@ -11,7 +11,7 @@ class Bridge(QObject):
 
     """Bridge class."""
 
-    @Slot(str)
+    @Slot(str, result="str")
     def getColor(self, s: str) -> str:
         if s.lower() == "red":
             return "#ef9a9a"
@@ -47,9 +47,12 @@ if __name__ == "__main__":
     bridge = Bridge()
 
     # Expose the Python object to QML
-    context = engine.rootContext()
-    context.setContextProperty("con", bridge)
-    qml_file: Path = Path(__file__).parent / "qml/main.qml"
+    engine.rootContext().setContextProperty("con", bridge)
+    qml_file: Path = Path(__file__).parent / "qml/theme_demo.qml"
+    # qml_file: Path = Path(__file__).parent / "qml/main.qml"
+    # to Work with qmldir
+    engine.load(QUrl.fromLocalFile(qml_file))
+    if not engine.rootObjects():
+        sys.exit(-1)
 
-    engine.load(qml_file)
     sys.exit(app.exec())

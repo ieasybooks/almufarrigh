@@ -46,7 +46,7 @@ import QtQuick.Window 2.12
 import QtQuick.Controls.Material 2.12
 
 import "Components"
-
+import "Themes"
 ApplicationWindow {
     id: page
     width: 800
@@ -67,7 +67,7 @@ ApplicationWindow {
                 Layout.alignment: Qt.AlignHCenter
                 color: "white"
                 font.pointSize: 16
-                text: "Simple Example"
+                text: Theme.fontSize
                 Layout.preferredHeight: 100
                 Material.accent: Material.Green
             }
