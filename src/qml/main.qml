@@ -66,8 +66,12 @@ ApplicationWindow {
 
         StackLayout {
             id: stackLayout
-            width: parent.width - sidebar.width
+            width: Layout.fillWidth
             height: parent.height
+
+            SettingsPage {
+                id: settingsPage
+            }
 
             Rectangle {
                 color: "lightblue"
