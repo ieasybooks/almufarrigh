@@ -48,9 +48,9 @@ import QtQuick.Controls.Material 2.12
 import "Components"
 import "Themes"
 ApplicationWindow {
-    id: page
-    width: 800
-    height: 400
+    id: mainWindow
+    width: 1200
+    height: 1320
     visible: true
 
     property var theme: LightTheme

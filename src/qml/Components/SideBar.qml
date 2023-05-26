@@ -24,11 +24,11 @@ Rectangle {
             id: spacer
             Layout.fillHeight: true
             Layout.fillWidth: true
+            Layout.minimumHeight: 450
         }
 
         Image {
             source: "../resources/Resize.png"
-
             Layout.alignment:Qt.AlignHCenter
 
             MouseArea {
