@@ -11,4 +11,3 @@ class Controller(QObject):
     def resize(self):
         print("resizing... ")
     
-
