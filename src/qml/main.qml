@@ -11,15 +11,15 @@
 ** "Redistribution and use in source and binary forms, with or without
 ** modification, are permitted provided that the following conditions are
 ** met:
-**   * Redistributions of source code must retain the above copyright
-**     notice, this list of conditions and the following disclaimer.
-**   * Redistributions in binary form must reproduce the above copyright
-**     notice, this list of conditions and the following disclaimer in
-**     the documentation and/or other materials provided with the
-**     distribution.
-**   * Neither the name of The Qt Company Ltd nor the names of its
-**     contributors may be used to endorse or promote products derived
-**     from this software without specific prior written permission.
+** * Redistributions of source code must retain the above copyright
+** notice, this list of conditions and the following disclaimer.
+** * Redistributions in binary form must reproduce the above copyright
+** notice, this list of conditions and the following disclaimer in
+** the documentation and/or other materials provided with the
+** distribution.
+** * Neither the name of The Qt Company Ltd nor the names of its
+** contributors may be used to endorse or promote products derived
+** from this software without specific prior written permission.
 **
 **
 ** THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -48,93 +48,39 @@ import QtQuick.Controls.Material 2.12
 import "Components"
 import "Themes"
 ApplicationWindow {
-    id: page
-    width: 800
-    height: 400
+    id: mainWindow
+    width: 1200
+    height: 1320
     visible: true
 
-    GridLayout {
-        id: grid
-        columns: 2
-        rows: 3
-
-        ColumnLayout {
-            spacing: 2
-            Layout.preferredWidth: 400
-
-            Text {
-                id: leftlabel
-                Layout.alignment: Qt.AlignHCenter
-                color: "white"
-                font.pointSize: 16
-                text: Theme.fontSize
-                Layout.preferredHeight: 100
-                Material.accent: Material.Green
+    property var theme: LightTheme
+        RowLayout {
+            anchors.fill:parent
+            SideBar {
+                id: sidebar
+                onSidebarButtonClicked: (index)=> {
+                stackLayout.currentIndex = index
+                console.log("lol index changed")
             }
-
-            FontRadioButton {
-                fontStyle: "Italic"
-            }
-            
-            FontRadioButton {
-                fontStyle: "Bold"
-            }
-            FontRadioButton {
-                fontStyle: "Underline"
-            }
-            FontRadioButton {
-                fontStyle: "None"
-            }
-            
-
-
         }
 
-        ColumnLayout {
-            id: rightcolumn
-            spacing: 2
-            Layout.columnSpan: 1
-            Layout.preferredWidth: 400
-            Layout.preferredHeight: 400
-            Layout.fillWidth: true
+        StackLayout {
+            id: stackLayout
+            width: parent.width - sidebar.width
+            height: parent.height
 
-            RowLayout {
-                Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-
-
-                ColoredButton {
-                    buttonText: "Red"
-                }
-                ColoredButton {
-                    buttonText: "Green"
-                }
-                ColoredButton {
-                    buttonText: "Blue"
-                }
-                ColoredButton {
-                    buttonText: "None"
-                }
-
-            }
-            RowLayout {
+            Rectangle {
+                color: "lightblue"
+                Layout.fillHeight: true
                 Layout.fillWidth: true
-                Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-                Text {
-                    id: rightlabel
-                    color: "white"
-                    text: "Font size"
-                    Material.accent: Material.White
-                }
-                Slider {
-                    width: rightcolumn.width*0.6
-                    Layout.alignment: Qt.AlignRight
-                    id: slider
-                    value: 0.5
-                    onValueChanged: {
-                        leftlabel.font.pointSize = con.getSize(value)
-                    }
-                }
+            }
+
+            Rectangle {
+                color: "lightgray"
+                Layout.fillHeight: true
+                Layout.fillWidth: true
             }
         }
     }
 }
+

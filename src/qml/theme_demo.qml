@@ -13,14 +13,17 @@ ApplicationWindow {
     color: "#CCCCCC"
     property bool isLightTheme: false
     property var theme: isLightTheme ? LightTheme : DarkTheme
+    LayoutMirroring.enabled: true
 
+    Image {
+        source: "resources/Logo.png"
+    }
     Column {
         spacing: 10
         padding: 10
         FontLoader {
             id: poppinsFont
-            source: "../Fonts/Poppins-Regular.ttf" // Adjust the path to the correct location of the font file
-            
+            source: "../resources/Fonts/Poppins-Regular.ttf" // Adjust the path to the correct location of the font file
         }
         Switch {
             id: themeSwitch
