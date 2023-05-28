@@ -5,6 +5,7 @@ from pathlib import Path
 from PySide6.QtCore import QObject, QUrl, Slot
 from PySide6.QtQml import QQmlApplicationEngine
 from PySide6.QtWidgets import QApplication
+
 from controller import Controller
 
 
