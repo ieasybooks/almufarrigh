@@ -23,7 +23,7 @@ Rectangle {
             }
             dropdownIndex: 0
         }
-                SettingsDropDown {
+        SettingsDropDown {
             iconSource: "../resources/icon.png"
             labelText: "Dropdown Component"
             dropdownModel: ListModel {
@@ -32,6 +32,7 @@ Rectangle {
                 ListElement { text: "Option 3" }
             }
             dropdownIndex: 0
+            Button{}
         }
     }
  
