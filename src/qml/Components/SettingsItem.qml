@@ -4,7 +4,7 @@ import QtQuick.Layouts 1.15
 Rectangle {
     color: theme.card
     Layout.fillWidth: true
-    height: 50
+    implicitHeight: 50
     radius: 10
 
     RowLayout { 
@@ -37,7 +37,7 @@ Rectangle {
             // spacer item
             Layout.fillWidth: true
             Layout.fillHeight: true
-            Rectangle { anchors.fill: parent; color: "#ffaaaa" } // to visualize the spacer
+            // Rectangle { anchors.fill: parent; color: "#ffaaaa" } // to visualize the spacer
         }
 
     property string iconSource: ""

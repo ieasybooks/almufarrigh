@@ -56,6 +56,7 @@ ApplicationWindow {
     property bool isLightTheme: true
     property var theme: isLightTheme ? LightTheme : DarkTheme    
     RowLayout {
+        spacing: 0
         anchors.fill:parent
         SideBar {
             id: sidebar

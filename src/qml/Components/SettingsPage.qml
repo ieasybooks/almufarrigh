@@ -9,10 +9,11 @@ Rectangle {
     ColumnLayout {
         spacing: 10
 
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: parent.top        
-
+        // anchors.left: parent.left
+        // anchors.right: parent.right
+        // anchors.top: parent.top
+        // anchors.bottom: parent.bottom
+        anchors.fill: parent
         anchors.margins: 50
         SettingsDropDown {
                 iconSource: "../resources/SettingsIcons/ConvertLanguage.png"
@@ -201,10 +202,28 @@ Rectangle {
             }
 
         }
+        Item {
+            // spacer item
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            Rectangle { anchors.fill: parent; color: "#ffaaaa" } // to visualize the spacer
+        }
+        ColumnLayout {
+            Layout.alignment: Qt.AlignHCenter
+            implicitHeight: 60 // Set a fixed height for the column
+
+            Text {
+                text: "Copyright © 2022-2023 almufaragh.com."
+                horizontalAlignment: Text.AlignHCenter
+            }
+
+            Text {
+                text: "الاصدار 1.0.6"
+                horizontalAlignment: Text.AlignHCenter
+            }
+        }
+
     }
-    //End of common box
-    //for Wit
-    //TODO أقصي مدة للجزء 
-    //TODO اسقاط الأجزاء الفارغة 
+
 
 }
