@@ -5,9 +5,13 @@ import QtQuick.Layouts 1.15
 RowLayout {
     Layout.fillWidth: true
     Layout.fillHeight: false
-     
+    
         spacing: 10
         layoutDirection: Qt.RightToLeft
+        FontLoader {
+            id: poppinsFontLoader
+            source: "src/qml/resources/Fonts/Poppins-Regular.ttf" // Replace with the actual path to the font file
+        }
 
         Image {
             source: iconSource
@@ -17,7 +21,9 @@ RowLayout {
 
         Text {
             text: labelText
-            font.pixelSize: 14
+            font.family: poppinsFontLoader.font.family
+            font.pixelSize: 30
+            color: theme.fontPrimary
         }
         Item {
             // spacer item
