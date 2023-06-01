@@ -9,11 +9,10 @@ Rectangle {
     ColumnLayout {
         spacing: 10
 
-        // anchors.left: parent.left
-        // anchors.right: parent.right
-        // anchors.top: parent.top
-        // anchors.bottom: parent.bottom
-        anchors.fill: parent
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: parent.top
+        // anchors.fill: parent
         anchors.margins: 50
         SettingsDropDown {
                 iconSource: "../resources/SettingsIcons/ConvertLanguage.png"
@@ -211,6 +210,8 @@ Rectangle {
         ColumnLayout {
             Layout.alignment: Qt.AlignHCenter
             implicitHeight: 60 // Set a fixed height for the column
+            Layout.fillHeight: true
+            Layout.fillWidth: true
 
             Text {
                 text: "Copyright © 2022-2023 almufaragh.com."

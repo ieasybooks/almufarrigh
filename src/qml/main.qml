@@ -65,11 +65,15 @@ ApplicationWindow {
                 console.log("lol index changed")
             }
         }
-
-        StackLayout {
-            id: stackLayout
-            width: Layout.fillWidth
-            height: parent.height
+    StackLayout {
+        id: stackLayout
+        width: Layout.fillWidth
+        height: parent.height
+        Rectangle {
+            color: "lightgray"
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+        }
         SettingsPage {
             id: settingsPage
             onSwitchToggledSignal: (state) => isLightTheme = !state
