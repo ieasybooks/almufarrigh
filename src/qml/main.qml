@@ -53,12 +53,13 @@ ApplicationWindow {
     height: 1320
     visible: true
 
-    property var theme: LightTheme
-        RowLayout {
-            anchors.fill:parent
-            SideBar {
-                id: sidebar
-                onSidebarButtonClicked: (index)=> {
+    property bool isLightTheme: true
+    property var theme: isLightTheme ? LightTheme : DarkTheme    
+    RowLayout {
+        anchors.fill:parent
+        SideBar {
+            id: sidebar
+            onSidebarButtonClicked: (index)=> {
                 stackLayout.currentIndex = index
                 console.log("lol index changed")
             }
@@ -68,22 +69,9 @@ ApplicationWindow {
             id: stackLayout
             width: Layout.fillWidth
             height: parent.height
-
-            SettingsPage {
-                id: settingsPage
-            }
-
-            Rectangle {
-                color: "lightblue"
-                Layout.fillHeight: true
-                Layout.fillWidth: true
-            }
-
-            Rectangle {
-                color: "lightgray"
-                Layout.fillHeight: true
-                Layout.fillWidth: true
-            }
+        SettingsPage {
+            id: settingsPage
+            onSwitchToggledSignal: (state) => isLightTheme = !state
         }
     }
 }

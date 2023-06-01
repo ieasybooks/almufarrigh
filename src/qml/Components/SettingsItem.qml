@@ -2,7 +2,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 Rectangle {
-    color: "#FFFFFF"
+    color: theme.card
     Layout.fillWidth: true
     height: 50
     radius: 10

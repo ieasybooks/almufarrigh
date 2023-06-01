@@ -5,12 +5,13 @@ import "."
 SettingsItem {
         //TODO instead of all this hustle extract into its own style 
         //TODO Look here https://doc.qt.io/qtforpython-6.2/overviews/qtquickcontrols-flatstyle-example.html#qt-quick-controls-flat-style
-        
+        signal changedSelection(int index)
         ComboBox {
             id: combo
             font.family: poppinsFontLoader.font.family
             model: dropdownModel
             currentIndex: dropdownIndex
+            onCurrentIndexChanged : changedSelection(combo.currentIndex)
             background: Rectangle {
                     radius: 10
                     border.color: theme.stroke // Replace with your custom border color

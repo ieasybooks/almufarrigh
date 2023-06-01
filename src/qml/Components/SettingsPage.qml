@@ -4,8 +4,10 @@ import QtQuick.Controls 2.12
 Rectangle {
     color: mainWindow.theme.background
     property bool isWitEngine: true
+    signal switchToggledSignal(bool state)
+
     ColumnLayout {
-        spacing: 20
+        spacing: 10
 
         anchors.left: parent.left
         anchors.right: parent.right
@@ -20,11 +22,27 @@ Rectangle {
                     ListElement { text: "الانجليزية" }
                 }
                 dropdownIndex: 0
+
         }
 
         SettingsDropDown {
+            id: engineSelector
             iconSource: "../resources/SettingsIcons/ConvertEngine.png"
             labelText: "محرك التحويل"
+            dropdownModel: ListModel {
+                ListElement { text: "wit.ai" }
+                ListElement { text: "whisper" }
+            }
+            dropdownIndex: 0
+            onChangedSelection: index => {
+                isWitEngine =  index === 0 
+                console.log(isWitEngine, index)       
+            }
+        }
+        SettingsDropDown {
+            visible: !isWitEngine
+            iconSource: "../resources/SettingsIcons/SelectModel.png"
+            labelText: "تحديد النموذج"
             dropdownModel: ListModel {
                 ListElement { text: "Option 1" }
                 ListElement { text: "Option 2" }
@@ -45,7 +63,6 @@ Rectangle {
                     border.width: 1
                     radius: 4
                 }
-                validator: IntValidator { bottom: 0; top: 999 } // Limits input to positive integers between 0 and 999
                 font.pixelSize: 16 // Sets the font size to a small value
                 selectByMouse: true // Allows selecting the text with the mouse
                 inputMethodHints: Qt.ImhDigitsOnly // Restricts input to digits only
@@ -74,6 +91,25 @@ Rectangle {
                 inputMethodHints: Qt.ImhDigitsOnly // Restricts input to digits only
 
                 }
+        }
+        SettingsItem {
+            visible: isWitEngine
+
+            iconSource: "../resources/SettingsIcons/PartMax.png"
+            labelText: "أقصي مدة للجزء"
+            Slider {
+                implicitWidth: parent.width /3
+            }
+        }
+        SettingsItem {
+            visible: isWitEngine
+
+            iconSource: "../resources/SettingsIcons/DropEmptyParts.png"
+            labelText: "اسقاط الأجزاء الفارغة"
+            CheckBox {
+
+            }
+
         }
         SettingsItem {
             iconSource: "../resources/SettingsIcons/ExportExtentions.png"
@@ -155,8 +191,12 @@ Rectangle {
             iconSource: "../resources/SettingsIcons/Theme.png"
             labelText: "الثيم"
             Switch {
+                id: themeSwitch
+
                 onToggled: {
-                    
+
+                    switchToggledSignal(checked)
+
             }
             }
 
@@ -164,7 +204,6 @@ Rectangle {
     }
     //End of common box
     //for Wit
-    //TODO مفتاح التحويل 
     //TODO أقصي مدة للجزء 
     //TODO اسقاط الأجزاء الفارغة 
 
