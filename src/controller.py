@@ -1,15 +1,19 @@
 """The main entrypoint from UI to the business logic.
 
-When needed the necessary job will be delegated to another objects.
+When needed, the necessary job will be delegated to other objects.
 """
 
+import logging
+
 from PySide6.QtCore import QObject, Slot
+
+logger = logging.getLogger(__name__)
 
 
 class Controller(QObject):
 
-    """Controller for the UI."""
+    """Controller class for handling UI interactions and business logic."""
 
     @Slot(None, result=None)
     def resize(self) -> None:
-        print("resizing... ")  # noqa: T201
+        logger.info("Resizing...")
