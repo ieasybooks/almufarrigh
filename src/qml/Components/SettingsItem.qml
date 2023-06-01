@@ -1,12 +1,20 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
-
-RowLayout {
+Rectangle {
+    color: "#FFFFFF"
     Layout.fillWidth: true
-    Layout.fillHeight: false
-    
-        spacing: 10
+    height: 50
+    radius: 10
+
+    RowLayout { 
+        id: myRow
+
+        anchors.fill: parent
+        anchors.leftMargin: 10
+        anchors.rightMargin: 10
+        // anchors.margins: 10
+        spacing: 20
         layoutDirection: Qt.RightToLeft
         FontLoader {
             id: poppinsFontLoader
@@ -32,11 +40,6 @@ RowLayout {
             Rectangle { anchors.fill: parent; color: "#ffaaaa" } // to visualize the spacer
         }
 
-
-
-    
-
     property string iconSource: ""
     property string labelText: ""
-
 }

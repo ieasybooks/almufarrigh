@@ -3,7 +3,9 @@ import QtQuick.Controls
 
 import "."
 SettingsItem {
-
+        //TODO instead of all this hustle extract into its own style 
+        //TODO Look here https://doc.qt.io/qtforpython-6.2/overviews/qtquickcontrols-flatstyle-example.html#qt-quick-controls-flat-style
+        
         ComboBox {
             id: combo
             font.family: poppinsFontLoader.font.family
@@ -13,7 +15,7 @@ SettingsItem {
                     radius: 10
                     border.color: theme.stroke // Replace with your custom border color
                     border.width: 2
-                    color: "#FFFFFF" // Replace with your custom background color
+                    color: theme.background // Replace with your custom background color
                 }
   
             
