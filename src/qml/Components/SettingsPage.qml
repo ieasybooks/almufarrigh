@@ -3,7 +3,7 @@ import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
 Rectangle {
     color: mainWindow.theme.background
-
+    property bool isWitEngine: true
     ColumnLayout {
         spacing: 20
 
@@ -32,6 +32,28 @@ Rectangle {
             }
             dropdownIndex: 0
         }
+        SettingsItem {
+            visible: isWitEngine
+            iconSource: "../resources/SettingsIcons/ConvertKey.png"
+            labelText: "مفتاح التحويل"
+            TextField {
+                implicitWidth : parent.width * (2/3)
+                implicitHeight: 30
+                background: Rectangle {
+                    color: theme.background
+                    border.color: "gray"
+                    border.width: 1
+                    radius: 4
+                }
+                validator: IntValidator { bottom: 0; top: 999 } // Limits input to positive integers between 0 and 999
+                font.pixelSize: 16 // Sets the font size to a small value
+                selectByMouse: true // Allows selecting the text with the mouse
+                inputMethodHints: Qt.ImhDigitsOnly // Restricts input to digits only
+
+                }
+
+        }
+
         SettingsItem {
             iconSource: "../resources/SettingsIcons/WordCount.png"
             labelText: "عدد كلمات الجزء"
@@ -132,10 +154,18 @@ Rectangle {
         SettingsItem {
             iconSource: "../resources/SettingsIcons/Theme.png"
             labelText: "الثيم"
-            Switch {}
+            Switch {
+                onToggled: {
+                    
+            }
+            }
 
         }
     }
     //End of common box
+    //for Wit
+    //TODO مفتاح التحويل 
+    //TODO أقصي مدة للجزء 
+    //TODO اسقاط الأجزاء الفارغة 
 
 }
