@@ -57,6 +57,7 @@ Rectangle {
             }
         }
         Rectangle {
+            visible: audioFilesModel.count > 0
             id: audioDeck
             width: parent.width
             height: 198
@@ -82,6 +83,7 @@ Rectangle {
         }
 
         RowLayout {
+            visible: audioFilesModel.count > 0
             Layout.fillWidth: true
             layoutDirection: Qt.RightToLeft
 

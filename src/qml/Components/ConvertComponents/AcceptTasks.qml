@@ -3,7 +3,7 @@ import QtQml
 import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
 import QtQuick.Dialogs
-
+import "../../utils/audiohelper.mjs" as AudioHelper
 DropArea {
     id: dropArea
     height: 305
@@ -108,19 +108,13 @@ DropArea {
         target: clipboard
         enabled: parent.visible
         onTextChanged: {
-            detectYoutube() 
+            let text = clipboard.getClipboardText()
+            if(AudioHelper.isYoutubeLink(text))
+                pasteConfirm.openWithUrl(text)
     }
-    // Component.onCompleted: {
-    //     detectYoutube() 
-    // }
-    function detectYoutube() {
-        let text = clipboard.getClipboardText()
-        // Perform further actions with the clipboard text
-        console.log("Clipboard text changed:", text)
-        let youtubeUrlRegex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+$/
-        if (youtubeUrlRegex.test(text)) {
-            pasteConfirm.openWithUrl(text)
-        }
+
     }
-    }
+ 
+   
+
 }
