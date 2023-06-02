@@ -6,8 +6,7 @@ Rectangle {
     Layout.fillWidth: true
     implicitHeight: 50
     radius: 10
-
-    RowLayout { 
+    RowLayout {
         id: myRow
 
         anchors.fill: parent
@@ -18,15 +17,13 @@ Rectangle {
         layoutDirection: Qt.RightToLeft
         FontLoader {
             id: poppinsFontLoader
-            source: "src/qml/resources/Fonts/Poppins-Regular.ttf" // Replace with the actual path to the font file
+            source: "../resources/Fonts/Poppins-Regular.ttf"
         }
-
         Image {
             source: iconSource
             width: 20
             height: 20
         }
-
         Text {
             text: labelText
             font.family: poppinsFontLoader.font.family
@@ -39,7 +36,8 @@ Rectangle {
             Layout.fillHeight: true
             // Rectangle { anchors.fill: parent; color: "#ffaaaa" } // to visualize the spacer
         }
-
+    }
     property string iconSource: ""
-    property string labelText: ""
-}
+        property string labelText: ""
+            default property alias children: myRow.children;
+        }

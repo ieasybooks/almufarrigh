@@ -1,20 +1,20 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
+import QtQuick.Dialogs
 Rectangle {
     color: mainWindow.theme.background
     property bool isWitEngine: true
-    signal switchToggledSignal(bool state)
+        signal switchToggledSignal(bool state)
 
-    ColumnLayout {
-        spacing: 10
-
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: parent.top
-        // anchors.fill: parent
-        anchors.margins: 50
-        SettingsDropDown {
+        ColumnLayout {
+            spacing: 10
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: parent.top
+            // anchors.fill: parent
+            anchors.margins: 50
+            SettingsDropDown {
                 iconSource: "../resources/SettingsIcons/ConvertLanguage.png"
                 labelText: "لغة التحويل"
                 dropdownModel: ListModel {
@@ -22,23 +22,23 @@ Rectangle {
                     ListElement { text: "الانجليزية" }
                 }
                 dropdownIndex: 0
+            }
 
+            SettingsDropDown {
+                id: engineSelector
+                iconSource: "../resources/SettingsIcons/ConvertEngine.png"
+                labelText: "محرك التحويل"
+                dropdownModel: ListModel {
+                    ListElement { text: "wit.ai" }
+                    ListElement { text: "whisper" }
+                }
+                dropdownIndex: 0
+                onChangedSelection: index => {
+                isWitEngine = index === 0
+                console.log(isWitEngine, index)
+            }
         }
 
-        SettingsDropDown {
-            id: engineSelector
-            iconSource: "../resources/SettingsIcons/ConvertEngine.png"
-            labelText: "محرك التحويل"
-            dropdownModel: ListModel {
-                ListElement { text: "wit.ai" }
-                ListElement { text: "whisper" }
-            }
-            dropdownIndex: 0
-            onChangedSelection: index => {
-                isWitEngine =  index === 0 
-                console.log(isWitEngine, index)       
-            }
-        }
         SettingsDropDown {
             visible: !isWitEngine
             iconSource: "../resources/SettingsIcons/SelectModel.png"
@@ -50,6 +50,7 @@ Rectangle {
             }
             dropdownIndex: 0
         }
+
         SettingsItem {
             visible: isWitEngine
             iconSource: "../resources/SettingsIcons/ConvertKey.png"
@@ -66,9 +67,7 @@ Rectangle {
                 font.pixelSize: 16 // Sets the font size to a small value
                 selectByMouse: true // Allows selecting the text with the mouse
                 inputMethodHints: Qt.ImhDigitsOnly // Restricts input to digits only
-
-                }
-
+            }
         }
 
         SettingsItem {
@@ -89,47 +88,43 @@ Rectangle {
                 font.pixelSize: 16 // Sets the font size to a small value
                 selectByMouse: true // Allows selecting the text with the mouse
                 inputMethodHints: Qt.ImhDigitsOnly // Restricts input to digits only
-
-                }
+            }
         }
+
         SettingsItem {
             visible: isWitEngine
-
             iconSource: "../resources/SettingsIcons/PartMax.png"
             labelText: "أقصي مدة للجزء"
             Slider {
                 implicitWidth: parent.width /3
             }
         }
+
         SettingsItem {
             visible: isWitEngine
-
             iconSource: "../resources/SettingsIcons/DropEmptyParts.png"
             labelText: "اسقاط الأجزاء الفارغة"
             CheckBox {
-
             }
-
         }
+
         SettingsItem {
             iconSource: "../resources/SettingsIcons/ExportExtentions.png"
             labelText: "صيغ المخرجات"
             RowLayout {
                 spacing: 10
-
                 CheckBox {
                     text: "srt"
                 }
-
                 CheckBox {
                     text: "txt"
                 }
-
                 CheckBox {
-                    text: "vat"
+                    text: "vtt"
                 }
             }
         }
+
         SettingsDropDown {
             iconSource: "../resources/SettingsIcons/GUILanguage.png"
             labelText: "لغة الواجهة"
@@ -139,6 +134,7 @@ Rectangle {
             }
             dropdownIndex: 0
         }
+
         SettingsItem {
             iconSource: "../resources/SettingsIcons/SaveLocation.png"
             labelText: "مجلد الحفظ"
@@ -146,32 +142,31 @@ Rectangle {
                 id: openFileDialogButton
                 width: 120
                 height: 40
+
                 Text {
                     text: "<"
                     font.pixelSize: 16
-                    
-                    anchors.verticalCenter: parent.verticalCenter 
+                    anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left
                 }
-                
+
                 radius: 10
                 border.color: theme.stroke // Replace with your custom border color
                 border.width: 2
                 color: theme.background // Replace with your custom background color
+
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                                folderDialog.open()
-                            }
+                        folderDialog.open()
+                    }
                 }
-       
 
                 FolderDialog {
                     id: folderDialog
                     title: "Please choose a file"
                     onAccepted: {
-
-                        console.log(selectedFolder  )
+                        console.log(selectedFolder )
                     }
                     onRejected: {
                         console.log("Canceled")
@@ -179,52 +174,47 @@ Rectangle {
                 }
             }
         }
+
         SettingsItem {
             iconSource: "../resources/SettingsIcons/JsonLoad.png"
             labelText: "تحميل ملف json"
             CheckBox {
-
             }
-
         }
+
         SettingsItem {
             iconSource: "../resources/SettingsIcons/Theme.png"
             labelText: "الثيم"
             Switch {
                 id: themeSwitch
-
                 onToggled: {
-
                     switchToggledSignal(checked)
-
+                }
             }
-            }
-
         }
+
         Item {
             // spacer item
             Layout.fillWidth: true
             Layout.fillHeight: true
             Rectangle { anchors.fill: parent; color: "#ffaaaa" } // to visualize the spacer
-        }
-        ColumnLayout {
-            Layout.alignment: Qt.AlignHCenter
-            implicitHeight: 60 // Set a fixed height for the column
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-
-            Text {
-                text: "Copyright © 2022-2023 almufaragh.com."
-                horizontalAlignment: Text.AlignHCenter
             }
 
-            Text {
-                text: "الاصدار 1.0.6"
-                horizontalAlignment: Text.AlignHCenter
+            ColumnLayout {
+                Layout.alignment: Qt.AlignHCenter
+                implicitHeight: 60 // Set a fixed height for the column
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+
+                Text {
+                    text: "Copyright © 2022-2023 almufaragh.com."
+                    horizontalAlignment: Text.AlignHCenter
+                }
+
+                Text {
+                    text: "الاصدار 1.0.6"
+                    horizontalAlignment: Text.AlignHCenter
+                }
             }
         }
-
     }
-
-
-}
