@@ -69,10 +69,8 @@ ApplicationWindow {
             width: parent.width - sidebar.width
             height: parent.height
 
-            Rectangle {
-                color: "lightblue"
-                Layout.fillHeight: true
-                Layout.fillWidth: true
+            ConvertPage {
+                
             }
 
             Rectangle {

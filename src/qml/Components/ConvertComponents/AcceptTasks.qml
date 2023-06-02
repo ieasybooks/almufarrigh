@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtQml
 import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
 import QtQuick.Dialogs
@@ -77,6 +78,7 @@ DropArea {
                 console.log("Canceled")
             }
         }
+
     }
 //Drag Drop logic 
     onDropped: dragEvent => {
@@ -97,13 +99,28 @@ DropArea {
             }
         }
     }
+    PasteConfirm {
+        id: pasteConfirm
+        onPasteConfirmed: addedNewAudio(urlStr)
+    }
     // 
     Connections {
         target: clipboard
+        enabled: parent.visible
         onTextChanged: {
-            var text = clipboard.getText()
-            // Perform further actions with the clipboard text
-            console.log("Clipboard text changed:", text)
+            detectYoutube() 
+    }
+    // Component.onCompleted: {
+    //     detectYoutube() 
+    // }
+    function detectYoutube() {
+        let text = clipboard.getClipboardText()
+        // Perform further actions with the clipboard text
+        console.log("Clipboard text changed:", text)
+        let youtubeUrlRegex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+$/
+        if (youtubeUrlRegex.test(text)) {
+            pasteConfirm.openWithUrl(text)
         }
+    }
     }
 }

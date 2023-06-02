@@ -20,7 +20,6 @@ Rectangle {
         Text {
             color: theme.fontPrimary
             font.pixelSize: 42
-            font.family: poppinsFontLoader.font.family
             horizontalAlignment: Text.AlignRight
             text: "تحويل مقطع صوتي <br>إلي <Item>نص</Item>"
             Layout.alignment: Qt.AlignRight
