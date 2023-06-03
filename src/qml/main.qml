@@ -17,6 +17,7 @@ ApplicationWindow {
     property var theme: isLightTheme ? LightTheme : DarkTheme
     RowLayout {
         anchors.fill:parent
+        spacing: 0
         SideBar {
             id: sidebar
             onSidebarButtonClicked: (index)=> {
@@ -24,12 +25,7 @@ ApplicationWindow {
                 console.log("lol index changed")
             }
         }
-        Button {
-            onClicked: {
-                
-                console.log( JSON.stringify(settingsPage.getSettingsData(), null, 2))
-            }
-        }
+
         StackLayout {
         id: stackLayout
         width: parent.width - sidebar.width
