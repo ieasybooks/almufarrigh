@@ -6,6 +6,7 @@ SettingsItem {
     //TODO instead of all this hustle extract into its own style
     //TODO Look here https://doc.qt.io/qtforpython-6.2/overviews/qtquickcontrols-flatstyle-example.html#qt-quick-controls-flat-style
     signal changedSelection(int index)
+    property alias selectedText: combo.currentText 
     ComboBox {
         FontLoader {
             id: poppinsFontLoader

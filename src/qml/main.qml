@@ -14,19 +14,36 @@ ApplicationWindow {
     visible: true
 
     property bool isLightTheme: true
-        property var theme: isLightTheme ? LightTheme : DarkTheme
-
-        StackLayout {
-            id: stackLayout
-            width: parent.width - sidebar.width
-            height: parent.height
-
-            ConvertPage {
-                
-            }
-            SettingsPage {
-                id: settingsPage
-                onSwitchToggledSignal: (state) => isLightTheme = !state
+    property var theme: isLightTheme ? LightTheme : DarkTheme
+    RowLayout {
+        anchors.fill:parent
+        SideBar {
+            id: sidebar
+            onSidebarButtonClicked: (index)=> {
+                stackLayout.currentIndex = index
+                console.log("lol index changed")
             }
         }
+        Button {
+            onClicked: {
+                
+                console.log( JSON.stringify(settingsPage.getSettingsData(), null, 2))
+            }
+        }
+        StackLayout {
+        id: stackLayout
+        width: parent.width - sidebar.width
+        height: parent.height
+
+        ConvertPage {
+            
+        }
+        SettingsPage {
+            id: settingsPage
+            onThemeChanged: (state) => isLightTheme = !state
+        }
+
     }
+    
+    }
+}

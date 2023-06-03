@@ -92,7 +92,12 @@ Rectangle {
                 text: "البدء" 
                 Layout.fillWidth: true
                 onClicked: {
-                    let jsonString = JSON.stringify(audioFilesModel)
+                    let convertData = {audioUrlList: []}
+                    for (var i = 0; i < audioFilesModel.count; i++) {
+                        convertData.audioUrlList.push(audioFilesModel.get(i))
+                    }
+                    let jsonString = JSON.stringify(convertData)
+
                     controller.sendListModel(jsonString)
                 }
             }
