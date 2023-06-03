@@ -36,7 +36,10 @@ ApplicationWindow {
         height: parent.height
 
         ConvertPage {
-            
+            onConvertRequested: (audioUrls) => {
+                controller.setAudioUrls(audioUrls)
+                controller.setSettings(JSON.stringify(settingsPage.getSettingsData()))
+            }
         }
         SettingsPage {
             id: settingsPage

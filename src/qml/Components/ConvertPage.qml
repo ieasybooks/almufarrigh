@@ -5,6 +5,8 @@ import QtQuick.Dialogs
 import "ConvertComponents"
 Rectangle {
     color: mainWindow.theme.background
+    //audioUrls must be in jsonstring format
+    signal convertRequested(string audioUrls)
     FontLoader {
         id: poppinsFontLoader
         source: "../resources/Fonts/Poppins-Regular.ttf" 
@@ -73,6 +75,7 @@ Rectangle {
                     policy: ScrollBar.AsNeeded
                 }
                 delegate: AudioTask {
+                    //! This don't show full youtube link
                     fileName: modelData.toString().substring(modelData.toString().lastIndexOf("/") + 1)
                     onRemoveAudioRequested: {
                         audioFilesModel.remove(index)  // Remove the audio file from the model
@@ -98,7 +101,7 @@ Rectangle {
                     }
                     let jsonString = JSON.stringify(convertData)
 
-                    controller.sendListModel(jsonString)
+                    convertRequested(jsonString)
                 }
             }
             CustomButton {

@@ -20,19 +20,31 @@ class Controller(QObject):
         logger.info("Resizing...")
 
     @Slot(str, result=None)
-    def sendListModel(self, jsonString):
-        # Convert the JSON string back to a Python object
-        dataList = json.loads(jsonString)
+    def setAudioUrls(self, json_string: str) -> None:
+        """Get list of audio urls from the front end.
 
-        print("The audioFiles is in python")
+        param:
+        ----
+            json_string (str): audio urls in json format
+        """
+        # Convert the JSON string back to a Python object
+        data_list = json.loads(json_string)
+
+        print("The audioFiles is in python")  # noqa: T201
         # Process the received ListModel
-        print(json.dumps(dataList, indent=4))
+        print(json.dumps(data_list, indent=4))  # noqa: T201
 
     @Slot(str, result=None)
-    def sendListModel(self, jsonString):
-        # Convert the JSON string back to a Python object
-        dataList = json.loads(jsonString)
+    def setSettings(self, json_string: str) -> None:
+        """Get user defined settings from the frontend.
 
-        print("The audioFiles is in python")
+        param:
+        ----
+            json_string (str): settings in json string format
+        """
+        # Convert the JSON string back to a Python object
+        data_list = json.loads(json_string)
+
+        print("The Settings is in python")  # noqa: T201
         # Process the received ListModel
-        print(json.dumps(dataList, indent=4))
+        print(json.dumps(data_list, indent=4))  # noqa: T201
