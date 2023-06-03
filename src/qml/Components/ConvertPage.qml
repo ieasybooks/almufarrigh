@@ -91,6 +91,10 @@ Rectangle {
             CustomButton {
                 text: "البدء" 
                 Layout.fillWidth: true
+                onClicked: {
+                    let jsonString = JSON.stringify(audioFilesModel)
+                    controller.sendListModel(jsonString)
+                }
             }
             CustomButton {
                 text: "الغاء"
