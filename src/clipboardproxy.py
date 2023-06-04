@@ -1,20 +1,36 @@
+"""Clipboard Warapper for sys clipboard so that it can be accessed from qml."""
 from PySide6.QtCore import QObject, Signal, Slot
-from PySide6.QtGui import QClipboard
-from PySide6.QtWidgets import QApplication
 
 
 class ClipboardProxy(QObject):
-    def __init__(self, clipboard):
+
+    """The proxy class.
+
+    params:
+        QObject (QObject): used by pyside
+    """
+
+    def __init__(self, clipboard: QObject):
+        """Initialize and connect signal for the clipboard.
+
+        params:
+            clipboard (QClipboard): System clipboard module
+        """
         super().__init__()
         self._clipboard = clipboard
         self._clipboard.dataChanged.connect(self.onClipboardDataChanged)
 
     @Slot(None, result=str)
-    def getClipboardText(self):
-        print(self._clipboard.text())
-        return self._clipboard.text()
+    def getClipboardText(self) -> str:
+        """Get the latest string from the clipboard.
 
-    textChanged = Signal()
+        Returns
+        -------
+            str: _description_
+        """
+        return str(self._clipboard.text())
 
-    def onClipboardDataChanged(self):
-        self.textChanged.emit()
+    text_changed = Signal()
+
+    def onClipboardDataChanged(self) -> None:
+        self.text_changed.emit()
