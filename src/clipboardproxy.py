@@ -30,7 +30,7 @@ class ClipboardProxy(QObject):
         """
         return str(self._clipboard.text())
 
-    text_changed = Signal()
+    textChanged = Signal()  # noqa: N815
 
     def onClipboardDataChanged(self) -> None:
-        self.text_changed.emit()
+        self.textChanged.emit()
