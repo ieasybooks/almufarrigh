@@ -1,4 +1,6 @@
 # https://pre-commit.com
+ci:
+  skip: [qmlformat, qmllint]
 default_install_hook_types: [ commit-msg, pre-commit ]
 default_stages: [ commit, manual ]
 fail_fast: true
@@ -65,3 +67,21 @@ repos:
     rev: 'v1.3.0'  # Use the sha / tag you want to point at
     hooks:
       - id: mypy
+  - repo: local
+    hooks:
+      - id: qmlformat
+        name: qmlformat
+        entry: qmlformat
+        pass_filenames: true
+        require_serial: true
+        language: system
+        types: [ text ]
+        files: ^.*\.qml$
+      - id: qmllint
+        name: qmllint
+        entry: qmllint
+        pass_filenames: true
+        require_serial: true
+        language: system
+        types: [ text ]
+        files: ^.*\.qml$

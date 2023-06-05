@@ -1,9 +1,8 @@
-pragma Singleton
 import QtQuick 2.8
+pragma Singleton
 
 QtObject {
     property string theme_name: "فاتح"
-
     property color primary: "#4ED7A4"
     property color background: "#F1F1F1"
     property color card: "#FFFFFF"
@@ -12,11 +11,9 @@ QtObject {
     property color fontPrimary: Qt.rgba(0, 0, 0, 0.87)
     property color fontSecondary: Qt.rgba(0, 0, 0, 0.6)
     property color fontThirty: Qt.rgba(0, 0, 0, 0.37)
-
-    
-
+    // Add Other font properties...
     property var font: {
-        name: "Poppins"
-        // Other font properties...
+        name:
+        "Poppins";
     }
 }
