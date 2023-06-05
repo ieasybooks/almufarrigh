@@ -1,22 +1,29 @@
+import "."
 import QtQuick 2.15
 import QtQuick.Controls
 
-import "."
 SettingsItem {
+    property alias selectedText: combo.currentText
+    property ListModel dropdownModel
+    property int dropdownIndex: -1
+
     //TODO instead of all this hustle extract into its own style
     //TODO Look here https://doc.qt.io/qtforpython-6.2/overviews/qtquickcontrols-flatstyle-example.html#qt-quick-controls-flat-style
     signal changedSelection(int index)
-    property alias selectedText: combo.currentText 
+
     ComboBox {
-        FontLoader {
-            id: poppinsFontLoader
-            source: "../resources/Fonts/Poppins-Regular.ttf"
-        }
         id: combo
+
         font.family: poppinsFontLoader.font.family
         model: dropdownModel
         currentIndex: dropdownIndex
-        onCurrentIndexChanged : changedSelection(combo.currentIndex)
+        onCurrentIndexChanged: changedSelection(combo.currentIndex)
+
+        FontLoader {
+            id: poppinsFontLoader
+
+            source: "../../resources/Fonts/Poppins-Regular.ttf"
+        }
 
         background: Rectangle {
             radius: 10
@@ -27,23 +34,22 @@ SettingsItem {
 
         delegate: ItemDelegate {
             width: combo.width
+            highlighted: combo.highlightedIndex === index
+
             contentItem: Text {
                 anchors.centerIn: parent
-                text: combo.textRole
-                ? (Array.isArray(combo.model) ? modelData[combo.textRole] : model[combo.textRole])
-                : modelData
+                text: combo.textRole ? (Array.isArray(combo.model) ? modelData[combo.textRole] : model[combo.textRole]) : modelData
                 color: theme.fontPrimary
                 // font: combo.font
                 elide: Text.ElideRight
                 verticalAlignment: Text.AlignVCenter
             }
-            highlighted: combo.highlightedIndex === index
+
         }
 
         contentItem: Text {
             leftPadding: 0
             rightPadding: combo.indicator.width + combo.spacing
-
             text: combo.displayText
             font.family: "Poppins"
             font.pixelSize: 24
@@ -61,28 +67,32 @@ SettingsItem {
             width: 12
             height: 8
             contextType: "2d"
+            onPaint: {
+                context.reset();
+                context.moveTo(0, 0);
+                // context.lineTo(width, 0);
+                context.lineTo(width / 2, height - 1);
+                // Omit the bottom line
+                context.lineTo(width, 0);
+                // context.closePath();
+                context.strokeStyle = "black";
+                context.lineWidth = 1;
+                context.stroke();
+            }
 
             Connections {
+                function onPressedChanged() {
+                    canvas.requestPaint();
+                }
+
                 target: combo
-                function onPressedChanged()
-                { canvas.requestPaint(); }
-                }
-
-                onPaint: {
-                    context.reset();
-                    context.moveTo(0, 0);
-                    // context.lineTo(width, 0);
-                    context.lineTo(width / 2, height - 1);  // Omit the bottom line
-                    context.lineTo(width, 0);
-
-                    // context.closePath();
-                    context.strokeStyle = "black";
-                    context.lineWidth = 1;
-                    context.stroke();
-                }
             }
+
         }
 
-        property ListModel dropdownModel: ListModel { }
-        property int dropdownIndex: -1
-        }
+    }
+
+    dropdownModel: ListModel {
+    }
+
+}
