@@ -1,4 +1,6 @@
 # https://pre-commit.com
+ci:
+  skip: [qmlformat, qmllint]
 default_install_hook_types: [ commit-msg, pre-commit ]
 default_stages: [ commit, manual ]
 fail_fast: true
