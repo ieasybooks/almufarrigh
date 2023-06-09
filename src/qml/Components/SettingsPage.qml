@@ -20,7 +20,6 @@ Rectangle {
             "maxPartLength": maxPartLength.selectedText,
             "dropEmptyParts": dropEmptyParts.selectedValue,
             "exportFormats": exportFormats.getSelectedValue(),
-            "guiLanguage": guiLanguage.selectedText,
             "saveLocation": saveLocation.selectedValue,
             "jsonLoad": jsonLoad.selectedValue
         };
@@ -242,27 +241,6 @@ Rectangle {
             }
 
         }
-
-        SettingsDropDown {
-            id: guiLanguage
-
-            iconSource: "../resources/SettingsIcons/GUILanguage.png"
-            labelText: "لغة الواجهة"
-            dropdownIndex: 0
-
-            dropdownModel: ListModel {
-                ListElement {
-                    text: "العربية"
-                }
-
-                ListElement {
-                    text: "الانجليزية"
-                }
-
-            }
-
-        }
-
         SettingsItem {
             id: saveLocation
 
@@ -353,7 +331,7 @@ Rectangle {
                 Layout.alignment: Qt.AlignHCenter
                 horizontalAlignment: Text.AlignHCenter
             }
-
+        
         }
 
     }
