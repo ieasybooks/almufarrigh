@@ -10,6 +10,7 @@ homepage = "https://github.com/ieasybooks/almufarrigh/"
 [tool.poetry.dependencies]
 python = ">=3.10,<3.12"
 pyside6 = "^6.5.0"
+tafrigh = {git = "https://github.com/ieasybooks/tafrigh", rev = "d4e36b3"}
 
 [tool.poetry.group.dev.dependencies]
 absolufy-imports = "^0.3.1"
@@ -44,7 +45,6 @@ show_error_codes = true
 show_error_context = true
 warn_unreachable = true
 
-
 [tool.ruff]  # https://github.com/charliermarsh/ruff
 fix = true
 ignore-init-module-imports = true
@@ -54,7 +54,6 @@ ignore = ["E501", "PGH001", "RET504", "S101", "D211", "D213", "N802", "D102", "E
 unfixable = ["ERA001", "F401", "F841", "T201", "T203"]
 src = ["src", "tests"]
 target-version = "py310"
-
 
 [build-system]
 requires = ["poetry-core"]
