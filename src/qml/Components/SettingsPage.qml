@@ -195,7 +195,7 @@ Rectangle {
 
             visible: isWitEngine
             iconSource: "../resources/SettingsIcons/DropEmptyParts.png"
-            labelText: "اسقاط الأجزاء الفارغة"
+            labelText: "إسقاط الأجزاء الفارغة"
 
             CheckBox {
                 id: checkbox
@@ -305,7 +305,7 @@ Rectangle {
 
         SettingsItem {
             iconSource: "../resources/SettingsIcons/Theme.png"
-            labelText: "الثيم"
+            labelText: "السمة"
 
             Switch {
                 id: themeSwitch
@@ -327,11 +327,11 @@ Rectangle {
             }
 
             Text {
-                text: "الاصدار 1.0.6"
+                text: "الإصدار 1.0.6"
                 Layout.alignment: Qt.AlignHCenter
                 horizontalAlignment: Text.AlignHCenter
             }
-        
+
         }
 
     }
