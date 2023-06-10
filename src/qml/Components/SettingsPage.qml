@@ -241,6 +241,7 @@ Rectangle {
             }
 
         }
+
         SettingsItem {
             id: saveLocation
 
