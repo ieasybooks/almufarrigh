@@ -688,7 +688,7 @@ files = [
 [package.dependencies]
 av = "==10.*"
 ctranslate2 = ">=3.10,<4"
-huggingface_hub = ">=0.13"
+huggingface-hub = ">=0.13"
 onnxruntime = ">=1.14,<2"
 tokenizers = "==0.13.*"
 
@@ -2160,7 +2160,7 @@ mpmath = ">=0.19"
 [[package]]
 name = "tafrigh"
 version = "1.0"
-description = "تفريغ النصوص وإنشاء ملفات SRT و VTT بناءً على نموذج Whisper من OpenAI."
+description = ""
 optional = false
 python-versions = "*"
 files = []
