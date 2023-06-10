@@ -16,7 +16,7 @@ absolufy-imports = "^0.3.1"
 black = "^23.3.0"
 mypy = "^1.2.0"
 pre-commit = "^3.3.1"
-ruff = "^0.0.270"
+ruff = "^0.0.272"
 
 [tool.black]  # https://black.readthedocs.io/en/stable/usage_and_configuration/the_basics.html#configuration-via-a-file
 line-length = 100
