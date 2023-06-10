@@ -71,7 +71,7 @@ repos:
     hooks:
       - id: qmlformat
         name: qmlformat
-        entry: qmlformat
+        entry: qmlformat -i
         pass_filenames: true
         require_serial: true
         language: system
