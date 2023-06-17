@@ -6,6 +6,8 @@ from PySide6.QtCore import QUrl
 from PySide6.QtQml import QQmlApplicationEngine
 from PySide6.QtWidgets import QApplication
 
+# noinspection PyUnresolvedReferences
+import resources_rc
 from clipboardproxy import ClipboardProxy
 from controller import Controller
 

@@ -39,8 +39,8 @@ Rectangle {
         SettingsDropDown {
             id: convertLanguage
 
-            iconSource: "../resources/SettingsIcons/ConvertLanguage.png"
-            labelText: "لغة التحويل"
+            iconSource: "qrc:/convert_language"
+            labelText: qsTr("لــغة التحـويل")
             dropdownIndex: 0
 
             dropdownModel: ListModel {
@@ -59,8 +59,8 @@ Rectangle {
         SettingsDropDown {
             id: engineSelector
 
-            iconSource: "../resources/SettingsIcons/ConvertEngine.png"
-            labelText: "محرك التحويل"
+            iconSource: "qrc:/convert_engine"
+            labelText: qsTr("محرك التحـويل")
             dropdownIndex: 0
             onChangedSelection: (index) => {
                 isWitEngine = index === 0;
@@ -84,8 +84,8 @@ Rectangle {
             id: modelSelector
 
             visible: !isWitEngine
-            iconSource: "../resources/SettingsIcons/SelectModel.png"
-            labelText: "تحديد النموذج"
+            iconSource: "qrc:/select_model"
+            labelText: qsTr("تحديد النموذج")
             dropdownIndex: 0
 
             dropdownModel: ListModel {
@@ -111,8 +111,8 @@ Rectangle {
             property alias selectedText: inputText.text
 
             visible: isWitEngine
-            iconSource: "../resources/SettingsIcons/ConvertKey.png"
-            labelText: "مفتاح التحويل"
+            iconSource: "qrc:/key"
+            labelText: qsTr("مفتاح التحـويل")
 
             TextField {
                 id: inputText
@@ -140,8 +140,8 @@ Rectangle {
 
             property alias selectedText: count.text
 
-            iconSource: "../resources/SettingsIcons/WordCount.png"
-            labelText: "عدد كلمات الجزء"
+            iconSource: "qrc:/word_count"
+            labelText: qsTr("عدد كلمات الجزء")
 
             TextField {
                 id: count
@@ -177,8 +177,8 @@ Rectangle {
             property alias selectedText: slider.value
 
             visible: isWitEngine
-            iconSource: "../resources/SettingsIcons/PartMax.png"
-            labelText: "أقصي مدة للجزء"
+            iconSource: "qrc:/part_max"
+            labelText: qsTr("أقصى مدة للجزء")
 
             Slider {
                 id: slider
@@ -194,8 +194,9 @@ Rectangle {
             property alias selectedValue: checkbox.checked
 
             visible: isWitEngine
-            iconSource: "../resources/SettingsIcons/DropEmptyParts.png"
-            labelText: "إسقاط الأجزاء الفارغة"
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            iconSource: "qrc:/drop_empty"
+            labelText: qsTr("إسقاط الأجزاء الفارغة")
 
             CheckBox {
                 id: checkbox
@@ -214,8 +215,8 @@ Rectangle {
                 };
             }
 
-            iconSource: "../resources/SettingsIcons/ExportExtentions.png"
-            labelText: "صيغ المخرجات"
+            iconSource: "qrc:/export"
+            labelText: qsTr("صيغ المخرجات")
 
             RowLayout {
                 spacing: 10
@@ -247,8 +248,8 @@ Rectangle {
 
             property alias selectedValue: folderDialog.selectedFolder
 
-            iconSource: "../resources/SettingsIcons/SaveLocation.png"
-            labelText: "مجلد الحفظ"
+            iconSource: "qrc:/folder"
+            labelText: qsTr("مجلـد الحفــظ")
 
             Rectangle {
                 id: openFileDialogButton
@@ -260,10 +261,9 @@ Rectangle {
                 border.width: 2
                 color: theme.background // Replace with your custom background color
 
-                Text {
-                    text: "<"
-                    font.pixelSize: 16
-                    anchors.verticalCenter: parent.verticalCenter
+                IconImage {
+                    source: "qrc:/arrow_left"
+                    color: theme.fontPrimary
                     anchors.left: parent.left
                 }
 
@@ -295,8 +295,8 @@ Rectangle {
 
             property alias selectedValue: jsonCheck.checked
 
-            iconSource: "../resources/SettingsIcons/JsonLoad.png"
-            labelText: "تحميل ملف json"
+            iconSource: "qrc:/download"
+            labelText: qsTr("تحميل ملف json")
 
             CheckBox {
                 id: jsonCheck
@@ -305,8 +305,8 @@ Rectangle {
         }
 
         SettingsItem {
-            iconSource: "../resources/SettingsIcons/Theme.png"
-            labelText: "السمة"
+            iconSource: "qrc:/theme"
+            labelText: qsTr("الثـــيـــم")
 
             Switch {
                 id: themeSwitch

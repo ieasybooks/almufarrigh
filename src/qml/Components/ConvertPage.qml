@@ -12,8 +12,7 @@ Rectangle {
 
     FontLoader {
         id: poppinsFontLoader
-
-        source: "../resources/Fonts/Poppins-Regular.ttf"
+        source: theme.font.source
     }
 
     ListModel {

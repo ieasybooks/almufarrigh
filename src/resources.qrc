@@ -1,0 +1,34 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="poppins">resources/fonts/Poppins.ttf</file>
+        <file alias="theme">resources/icons/theme.svg</file>
+        <file alias="add_task">resources/icons/add_task.svg</file>
+        <file alias="export">resources/icons/export.svg</file>
+        <file alias="key">resources/icons/key.svg</file>
+        <file alias="download">resources/icons/download.svg</file>
+        <file alias="folder">resources/icons/folder.svg</file>
+        <file alias="link">resources/icons/link.svg</file>
+        <file alias="minimize">resources/icons/minimize.svg</file>
+        <file alias="audio">resources/icons/audio.svg</file>
+        <file alias="quit">resources/icons/quit.svg</file>
+        <file alias="arrow_left">resources/icons/arrow_left.svg</file>
+        <file alias="arrow_down">resources/icons/arrow_down.svg</file>
+        <file alias="home_selected">resources/icons/home_selected.svg</file>
+        <file alias="home_unselected">resources/icons/home_unselected.svg</file>
+        <file alias="settings_selected">resources/icons/settings_selected.svg</file>
+        <file alias="settings_unselected">resources/icons/settings_unselected.svg</file>
+        <file alias="video">resources/icons/video.svg</file>
+        <file alias="word_count">resources/icons/word_count.svg</file>
+        <file alias="ui_language">resources/icons/ui_language.svg</file>
+        <file alias="convert_language">resources/icons/convert_language.svg</file>
+        <file alias="logo">resources/images/logo.png</file>
+        <file alias="text_background_light">resources/images/text_background_light.png</file>
+        <file alias="text_background_dark">resources/images/text_background_dark.png</file>
+        <file alias="select_model">resources/icons/select_model.svg</file>
+        <file alias="part_max">resources/icons/part_max.svg</file>
+        <file alias="drop_empty">resources/icons/drop_empty.svg</file>
+        <file alias="convert_engine">resources/icons/convert_engine.svg</file>
+        <file alias="close_circle">resources/icons/close_circle.svg</file>
+        <file alias="checked">resources/icons/checked.svg</file>
+    </qresource>
+</RCC>
