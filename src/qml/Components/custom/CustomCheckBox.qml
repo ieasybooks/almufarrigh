@@ -1,14 +1,15 @@
 import QtQuick 6.4
 import QtQuick.Controls 6.4
 
-
 CheckBox {
     id: checkbox
+
     font.pixelSize: 16
+
     contentItem: Text {
         text: qsTr(checkbox.text)
         font: checkbox.font
-        opacity: enabled ? 1.0 : 0.3
+        opacity: enabled ? 1 : 0.3
         color: theme.fontPrimary
         verticalAlignment: Text.AlignVCenter
         leftPadding: checkbox.indicator.width + checkbox.spacing
@@ -33,5 +34,7 @@ CheckBox {
             color: theme.primary
             visible: checkbox.checked
         }
+
     }
+
 }

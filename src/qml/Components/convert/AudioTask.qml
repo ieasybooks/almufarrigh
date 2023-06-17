@@ -5,7 +5,8 @@ import QtQuick.Layouts 6.4
 
 RowLayout {
     property string fileName
-    signal removeAudioRequested
+
+    signal removeAudioRequested()
 
     width: parent ? parent.width : 0
     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
@@ -20,7 +21,9 @@ RowLayout {
 
     Text {
         id: audioText
+
         property var maxLength: 50
+
         text: fileName.length > maxLength ? fileName.substring(0, maxLength) + '...' : fileName
         font.family: theme.font.name
         font.pixelSize: 20
@@ -34,8 +37,10 @@ RowLayout {
         width: 32
         height: 24
         color: "transparent"
-        
-        IconImage { source: "qrc:/close_circle" }
+
+        IconImage {
+            source: "qrc:/close_circle"
+        }
 
         MouseArea {
             anchors.fill: parent
@@ -43,5 +48,7 @@ RowLayout {
             cursorShape: Qt.PointingHandCursor
             onClicked: removeAudioRequested()
         }
+
     }
+
 }

@@ -21,6 +21,7 @@ SettingsItem {
 
         FontLoader {
             id: poppinsFontLoader
+
             source: theme.font.source
         }
 
@@ -40,13 +41,13 @@ SettingsItem {
 
             contentItem: Text {
                 anchors.centerIn: parent
-                text: combo.textRole ? (Array.isArray(
-                                            combo.model) ? modelData[combo.textRole] : model[combo.textRole]) : modelData
+                text: combo.textRole ? (Array.isArray(combo.model) ? modelData[combo.textRole] : model[combo.textRole]) : modelData
                 color: theme.fontPrimary
                 // font: combo.font
                 elide: Text.ElideRight
                 verticalAlignment: Text.AlignVCenter
             }
+
         }
 
         contentItem: Text {
@@ -66,7 +67,10 @@ SettingsItem {
             y: (combo.background.implicitHeight / 2) - 4
             anchors.leftMargin: 16
         }
+
     }
 
-    dropdownModel: ListModel {}
+    dropdownModel: ListModel {
+    }
+
 }

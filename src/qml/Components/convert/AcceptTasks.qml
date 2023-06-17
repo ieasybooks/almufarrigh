@@ -12,27 +12,25 @@ DropArea {
 
     height: 350
     width: parent.width
-    onDropped: dragEvent => {
-                   //Drag Drop logic
-                   console.log(dragEvent.urls)
-                   console.log(dropArea.data)
-                   for (let file in dragEvent.urls) {
-                       let path = file.toString()
-                       let extension = path.substring(path.lastIndexOf(".") + 1).toLowerCase()
-                       
-                       console.log(extension)
-                       
-                       if (extension === "mp3" || extension === "m4a") {
-                           // File is an audio file, process it
-                           console.log("Audio file dropped:", file)
-                           addedNewAudio(file)
-                       } else {
-                           // File is not supported, show an error message or ignore it
-                           //TODO add warning pop
-                           console.log("Unsupported file format:", file)
-                       }
-                   }
-               }
+    onDropped: (dragEvent) => {
+        //Drag Drop logic
+        console.log(dragEvent.urls);
+        console.log(dropArea.data);
+        for (let file in dragEvent.urls) {
+            let path = file.toString();
+            let extension = path.substring(path.lastIndexOf(".") + 1).toLowerCase();
+            console.log(extension);
+            if (extension === "mp3" || extension === "m4a") {
+                // File is an audio file, process it
+                console.log("Audio file dropped:", file);
+                addedNewAudio(file);
+            } else {
+                // File is not supported, show an error message or ignore it
+                //TODO add warning pop
+                console.log("Unsupported file format:", file);
+            }
+        }
+    }
 
     Rectangle {
         anchors.fill: parent
@@ -42,26 +40,27 @@ DropArea {
         Canvas {
             anchors.fill: parent
             onPaint: {
-                var ctx = getContext("2d")
-                var borderRadius = 24
-                var halfBorderWidth = 1.5  // Half the desired border width for proper positioning
-                ctx.strokeStyle = theme.primary
-                ctx.lineWidth = 3
-                ctx.setLineDash([5, 5])
-                ctx.beginPath()
-                ctx.moveTo(borderRadius + halfBorderWidth, halfBorderWidth)  // Start slightly offset to correctly position the border
-                ctx.lineTo(width - borderRadius - halfBorderWidth, halfBorderWidth)
-                ctx.arcTo(width - halfBorderWidth, halfBorderWidth, width - halfBorderWidth, borderRadius + halfBorderWidth, borderRadius)
-                ctx.lineTo(width - halfBorderWidth, height - borderRadius - halfBorderWidth)
-                ctx.arcTo(width - halfBorderWidth, height - halfBorderWidth, width - borderRadius - halfBorderWidth, height - halfBorderWidth, borderRadius)
-                ctx.lineTo(borderRadius + halfBorderWidth, height - halfBorderWidth)
-                ctx.arcTo(halfBorderWidth, height - halfBorderWidth, halfBorderWidth, height - borderRadius - halfBorderWidth, borderRadius)
-                ctx.lineTo(halfBorderWidth, borderRadius + halfBorderWidth)
-                ctx.arcTo(halfBorderWidth, halfBorderWidth, borderRadius + halfBorderWidth, halfBorderWidth, borderRadius)
-                ctx.closePath()  // Close the path for better rendering
-                ctx.stroke()
+                var ctx = getContext("2d");
+                var borderRadius = 24;
+                var halfBorderWidth = 1.5; // Half the desired border width for proper positioning
+                ctx.strokeStyle = theme.primary;
+                ctx.lineWidth = 3;
+                ctx.setLineDash([5, 5]);
+                ctx.beginPath();
+                ctx.moveTo(borderRadius + halfBorderWidth, halfBorderWidth); // Start slightly offset to correctly position the border
+                ctx.lineTo(width - borderRadius - halfBorderWidth, halfBorderWidth);
+                ctx.arcTo(width - halfBorderWidth, halfBorderWidth, width - halfBorderWidth, borderRadius + halfBorderWidth, borderRadius);
+                ctx.lineTo(width - halfBorderWidth, height - borderRadius - halfBorderWidth);
+                ctx.arcTo(width - halfBorderWidth, height - halfBorderWidth, width - borderRadius - halfBorderWidth, height - halfBorderWidth, borderRadius);
+                ctx.lineTo(borderRadius + halfBorderWidth, height - halfBorderWidth);
+                ctx.arcTo(halfBorderWidth, height - halfBorderWidth, halfBorderWidth, height - borderRadius - halfBorderWidth, borderRadius);
+                ctx.lineTo(halfBorderWidth, borderRadius + halfBorderWidth);
+                ctx.arcTo(halfBorderWidth, halfBorderWidth, borderRadius + halfBorderWidth, halfBorderWidth, borderRadius);
+                ctx.closePath(); // Close the path for better rendering
+                ctx.stroke();
             }
         }
+
     }
 
     ColumnLayout {
@@ -78,6 +77,7 @@ DropArea {
 
         RowLayout {
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+
             Text {
                 text: qsTr("كمبيوترك")
                 color: theme.primary
@@ -91,6 +91,7 @@ DropArea {
                 font.pixelSize: 22
                 font.weight: Font.Medium
             }
+
         }
 
         Text {
@@ -114,12 +115,13 @@ DropArea {
             title: qsTr("Please choose a file")
             nameFilters: ["Audio Files (*.mp3 *.wav *.m4a *.ogg)"]
             onAccepted: {
-                addedNewAudio(selectedFile)
+                addedNewAudio(selectedFile);
             }
             onRejected: {
-                console.log("Canceled")
+                console.log("Canceled");
             }
         }
+
     }
 
     PasteConfirm {
@@ -130,12 +132,14 @@ DropArea {
 
     Connections {
         function onTextChanged() {
-            let text = clipboard.getClipboardText()
+            let text = clipboard.getClipboardText();
             if (AudioHelper.isYoutubeLink(text))
-                pasteConfirm.openWithUrl(text)
+                pasteConfirm.openWithUrl(text);
+
         }
 
         target: clipboard
         enabled: parent.visible
     }
+
 }

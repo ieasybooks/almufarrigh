@@ -2,17 +2,18 @@ import QtQuick 6.4
 import QtQuick.Controls 6.4
 import QtQuick.Dialogs
 import QtQuick.Layouts 6.4
-import "settings"
 import "custom"
+import "settings"
 
 Rectangle {
     id: rectangle
+
     property bool isWitEngine: true
 
     signal themeChanged(bool state)
 
     function getSettingsData() {
-        console.log("hi ", convertLanguage.currentText)
+        console.log("hi ", convertLanguage.currentText);
         let settingsData = {
             "convertLanguage": convertLanguage.selectedText,
             "engineSelector": engineSelector.selectedText,
@@ -24,8 +25,8 @@ Rectangle {
             "exportFormats": exportFormats.getSelectedValue(),
             "saveLocation": saveLocation.selectedValue,
             "jsonLoad": jsonLoad.selectedValue
-        }
-        return settingsData
+        };
+        return settingsData;
     }
 
     color: theme.background
@@ -57,7 +58,9 @@ Rectangle {
                 ListElement {
                     text: qsTr("الانجليزية")
                 }
+
             }
+
         }
 
         SettingsDropDown {
@@ -66,10 +69,10 @@ Rectangle {
             iconSource: "qrc:/convert_engine"
             labelText: qsTr("محرك التحـويل")
             dropdownIndex: 0
-            onChangedSelection: index => {
-                                    isWitEngine = index === 0
-                                    console.log(isWitEngine, index)
-                                }
+            onChangedSelection: (index) => {
+                isWitEngine = index === 0;
+                console.log(isWitEngine, index);
+            }
 
             dropdownModel: ListModel {
                 ListElement {
@@ -79,7 +82,9 @@ Rectangle {
                 ListElement {
                     text: "whisper"
                 }
+
             }
+
         }
 
         SettingsDropDown {
@@ -102,7 +107,9 @@ Rectangle {
                 ListElement {
                     text: "Option 3"
                 }
+
             }
+
         }
 
         SettingsItem {
@@ -116,6 +123,7 @@ Rectangle {
 
             TextField {
                 id: inputText
+
                 color: theme.fontPrimary
                 implicitWidth: parent.width * (2 / 3)
                 implicitHeight: 40
@@ -130,7 +138,9 @@ Rectangle {
                     radius: 8
                 }
                 // Sets the font size to a small value
+
             }
+
         }
 
         SettingsItem {
@@ -164,7 +174,9 @@ Rectangle {
                     bottom: 0
                     top: 999
                 }
+
             }
+
         }
 
         SettingsItem {
@@ -181,6 +193,7 @@ Rectangle {
 
                 implicitWidth: parent.width / 3
             }
+
         }
 
         SettingsItem {
@@ -196,6 +209,7 @@ Rectangle {
             CustomCheckBox {
                 id: checkbox
             }
+
         }
 
         SettingsItem {
@@ -206,7 +220,7 @@ Rectangle {
                     "srt": srt.checked,
                     "txt": txt.checked,
                     "vtt": vtt.checked
-                }
+                };
             }
 
             iconSource: "qrc:/export"
@@ -218,19 +232,24 @@ Rectangle {
 
                 CustomCheckBox {
                     id: srt
+
                     text: "srt"
                 }
 
                 CustomCheckBox {
                     id: txt
+
                     text: "txt"
                 }
 
                 CustomCheckBox {
                     id: vtt
+
                     text: "vtt"
                 }
+
             }
+
         }
 
         SettingsItem {
@@ -263,7 +282,7 @@ Rectangle {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        folderDialog.open()
+                        folderDialog.open();
                     }
                 }
 
@@ -272,13 +291,15 @@ Rectangle {
 
                     title: qsTr("Please choose a file")
                     onAccepted: {
-                        console.log(selectedFolder)
+                        console.log(selectedFolder);
                     }
                     onRejected: {
-                        console.log("Canceled")
+                        console.log("Canceled");
                     }
                 }
+
             }
+
         }
 
         SettingsItem {
@@ -292,6 +313,7 @@ Rectangle {
             CustomCheckBox {
                 id: jsonCheck
             }
+
         }
 
         SettingsItem {
@@ -302,14 +324,17 @@ Rectangle {
                 id: themeSwitch
 
                 onToggled: {
-                    themeChanged(checked)
+                    themeChanged(checked);
                 }
             }
+
         }
+
     }
 
     ColumnLayout {
         id: copyRights
+
         spacing: 0
         anchors.bottom: parent.bottom
         anchors.right: parent.right
@@ -330,5 +355,7 @@ Rectangle {
             horizontalAlignment: Text.AlignHCenter
             color: theme.fontPrimary
         }
+
     }
+
 }

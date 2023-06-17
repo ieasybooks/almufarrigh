@@ -15,6 +15,7 @@ Rectangle {
 
     RowLayout {
         id: myRow
+
         Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
         anchors.fill: parent
         anchors.leftMargin: 10
@@ -22,8 +23,10 @@ Rectangle {
         spacing: 20
         layoutDirection: Qt.RightToLeft
         Layout.fillHeight: true
+
         FontLoader {
             id: poppinsFontLoader
+
             source: theme.font.source
         }
 
@@ -53,5 +56,7 @@ Rectangle {
             Layout.fillWidth: true
             Layout.fillHeight: true
         }
+
     }
+
 }

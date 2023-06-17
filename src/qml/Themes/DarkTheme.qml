@@ -12,9 +12,10 @@ QtObject {
     property color fontPrimary: Qt.rgba(1, 1, 1, 0.87)
     property color fontSecondary: Qt.rgba(1, 1, 1, 0.6)
     property color fontThirty: Qt.rgba(1, 1, 1, 0.37)
-
     property var font: {
-        name: "Poppins"
-        source: "qrc:/poppins"
+        name:
+        "Poppins";
+        source:
+        "qrc:/poppins";
     }
 }

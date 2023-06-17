@@ -15,10 +15,10 @@ Button {
     // Set hand cursor on hover
     MouseArea {
         id: mouseArea
+
         anchors.fill: parent
         hoverEnabled: true
         cursorShape: Qt.PointingHandCursor
-
         onClicked: control.clicked()
     }
 
@@ -46,4 +46,5 @@ Button {
         opacity: enabled ? 1 : 0.3
         radius: 15
     }
+
 }

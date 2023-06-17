@@ -3,8 +3,9 @@ import QtQuick.Controls 6.4
 import QtQuick.Layouts 6.4
 
 Rectangle {
-    signal sidebarButtonClicked(int index)
     property int index: 0
+
+    signal sidebarButtonClicked(int index)
 
     color: theme.primary
     width: 80
@@ -12,14 +13,16 @@ Rectangle {
 
     Image {
         source: "qrc:/logo"
+        width: 80
+        height: 80
+        Layout.topMargin: 10
+
         anchors {
             top: parent.top
             left: parent.left
             right: parent.right
         }
-        width: 80
-        height: 80
-        Layout.topMargin: 10
+
     }
 
     ColumnLayout {
@@ -41,10 +44,11 @@ Rectangle {
                 hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
                 onClicked: {
-                    index = 0
-                    sidebarButtonClicked(0)
+                    index = 0;
+                    sidebarButtonClicked(0);
                 }
             }
+
         }
 
         IconImage {
@@ -56,10 +60,11 @@ Rectangle {
                 hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
                 onClicked: {
-                    index = 1
-                    sidebarButtonClicked(1)
+                    index = 1;
+                    sidebarButtonClicked(1);
                 }
             }
+
         }
 
         Rectangle {
@@ -77,9 +82,9 @@ Rectangle {
                 hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
                 onClicked: {
-
                 }
             }
+
         }
 
         IconImage {
@@ -92,6 +97,7 @@ Rectangle {
                 cursorShape: Qt.PointingHandCursor
                 onClicked: mainWindow.showMinimized()
             }
+
         }
 
         IconImage {
@@ -104,6 +110,9 @@ Rectangle {
                 cursorShape: Qt.PointingHandCursor
                 onClicked: Qt.quit()
             }
+
         }
+
     }
+
 }

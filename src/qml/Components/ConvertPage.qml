@@ -1,9 +1,9 @@
 import "../utils/audiohelper.mjs" as AudioHelper
-import "convert"
 import QtQuick 6.4
 import QtQuick.Controls 6.4
 import QtQuick.Dialogs
 import QtQuick.Layouts 6.4
+import "convert"
 
 Rectangle {
     //audioUrls must be in jsonstring format
@@ -13,6 +13,7 @@ Rectangle {
 
     FontLoader {
         id: poppinsFontLoader
+
         source: theme.font.source
     }
 
@@ -22,6 +23,7 @@ Rectangle {
 
     Text {
         id: title
+
         color: theme.fontPrimary
         font.pixelSize: 40
         font.weight: Font.Bold
@@ -29,17 +31,22 @@ Rectangle {
         text: qsTr('تحــــويل مقــطع صوتي <br>إلى')
         Layout.alignment: Qt.AlignRight
         textFormat: Text.RichText
+
         anchors {
             top: parent.top
             right: parent.right
             topMargin: 64
             rightMargin: 75
         }
+
     }
 
     Image {
         id: textBackground
+
         source: mainWindow.isLightTheme ? "qrc:/text_background_light" : "qrc:/text_background_dark"
+        width: 128
+
         anchors {
             top: parent.top
             right: title.right
@@ -47,7 +54,6 @@ Rectangle {
             rightMargin: 60
         }
 
-        width: 128
     }
 
     Text {
@@ -67,25 +73,38 @@ Rectangle {
             topMargin: 6
             rightMargin: 10
         }
+
     }
 
     Text {
         id: subtitle
+
         color: theme.fontSecondary
         font.pixelSize: 28
         text: qsTr("تلقائياً ومجاناً")
         font.weight: Font.Normal
         horizontalAlignment: Text.AlignRight
         Layout.alignment: Qt.AlignRight
+
         anchors {
             top: title.bottom
             right: title.right
             topMargin: 16
         }
+
     }
 
     AcceptTasks {
         id: acceptTasks
+
+        onAddedNewAudio: (audio) => {
+            console.log('From ConverPage ', audio);
+            console.log("The list ", audioFilesModel.count);
+            audioFilesModel.append({
+                "audioUrl": audio
+            });
+        }
+
         anchors {
             top: title.bottom
             right: subtitle.left
@@ -93,28 +112,24 @@ Rectangle {
             rightMargin: 72
             leftMargin: 72
         }
-        onAddedNewAudio: audio => {
-                             console.log('From ConverPage ', audio)
-                             console.log("The list ", audioFilesModel.count)
-                             audioFilesModel.append({
-                                                        "audioUrl": audio
-                                                    })
-                         }
+
     }
 
     Rectangle {
         id: audioDeck
+
+        visible: audioFilesModel.count > 0
+        width: parent.width
+        height: 200
+        color: theme.card
+        radius: 10
+
         anchors {
             top: acceptTasks.bottom
             right: acceptTasks.right
             left: acceptTasks.left
             topMargin: 16
         }
-        visible: audioFilesModel.count > 0
-        width: parent.width
-        height: 200
-        color: theme.card
-        radius: 10
 
         ListView {
             anchors.fill: parent
@@ -129,23 +144,26 @@ Rectangle {
             delegate: AudioTask {
                 fileName: AudioHelper.extractTextIdentifier(modelData.toString())
                 onRemoveAudioRequested: {
-                    audioFilesModel.remove(index) // Remove the audio file from the model
+                    audioFilesModel.remove(index); // Remove the audio file from the model
                 }
             }
+
         }
+
     }
 
     RowLayout {
+        visible: audioFilesModel.count > 0
+        Layout.fillWidth: true
+        layoutDirection: Qt.RightToLeft
+        height: 50
+
         anchors {
             top: audioDeck.bottom
             right: audioDeck.right
             left: audioDeck.left
             topMargin: 16
         }
-        visible: audioFilesModel.count > 0
-        Layout.fillWidth: true
-        layoutDirection: Qt.RightToLeft
-        height: 50
 
         CustomButton {
             text: qsTr("البــــدء")
@@ -153,12 +171,12 @@ Rectangle {
             onClicked: {
                 let convertData = {
                     "audioUrlList": []
-                }
+                };
                 for (var i = 0; i < audioFilesModel.count; i++) {
-                    convertData.audioUrlList.push(audioFilesModel.get(i))
+                    convertData.audioUrlList.push(audioFilesModel.get(i));
                 }
-                let jsonString = JSON.stringify(convertData)
-                convertRequested(jsonString)
+                let jsonString = JSON.stringify(convertData);
+                convertRequested(jsonString);
             }
         }
 
@@ -168,6 +186,7 @@ Rectangle {
             Layout.fillWidth: true
             onClicked: audioFilesModel.clear()
         }
+
     }
 
 }
