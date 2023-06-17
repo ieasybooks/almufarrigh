@@ -1,0 +1,24 @@
+{
+    "files": [
+    "main.py",
+    "clipboardproxy.py",
+    "controller.py",
+    "resources.qrc",
+    "update_resources.bat",
+    "qml/components/convert/AcceptTasks.qml",
+    "qml/components/convert/AudioTask.qml",
+    "qml/components/convert/CustomButton.qml",
+    "qml/components/convert/PasteConfirm.qml",
+    "qml/components/ConvertPage.qml",
+    "qml/components/settings/SettingsDropDown.qml",
+    "qml/components/settings/SettingsItem.qml",
+    "qml/components/custom/CustomCheckBox.qml",
+    "qml/components/SettingsPage.qml",
+    "qml/components/SideBar.qml",
+    "qml/themes/DarkTheme.qml",
+    "qml/themes/LightTheme.qml",
+    "qml/main.qml",
+    "qml/theme_demo.qml",
+    "qml/utils/audiohelper.mjs"
+    ]
+}

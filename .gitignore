@@ -41,3 +41,7 @@ venv.bak/
 # mypy
 .dmypy.json
 .mypy_cache/
+
+# Qt
+resources_rc.py
+main.pyproject.user
