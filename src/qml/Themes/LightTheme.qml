@@ -1,4 +1,4 @@
-import QtQuick 2.8
+import QtQuick 6.4
 pragma Singleton
 
 QtObject {
@@ -7,13 +7,14 @@ QtObject {
     property color background: "#F1F1F1"
     property color card: "#FFFFFF"
     property color stroke: "#CCCCCC"
+    property color field: "#F1F1F1"
     property color error: "#E06D6D"
     property color fontPrimary: Qt.rgba(0, 0, 0, 0.87)
     property color fontSecondary: Qt.rgba(0, 0, 0, 0.6)
     property color fontThirty: Qt.rgba(0, 0, 0, 0.37)
-    // Add Other font properties...
+
     property var font: {
-        name:
-        "Poppins";
+        name: "Poppins"
+        source: "qrc:/poppins"
     }
 }

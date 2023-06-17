@@ -1,20 +1,31 @@
-import QtQuick
-import QtQuick.Controls
+import QtQuick 6.4
+import QtQuick.Controls 6.4
 
 Button {
     id: control
 
-    property var back_color
+    property var backColor
 
     text: qsTr("Button")
     font.family: poppinsFontLoader.font.family
-    font.pixelSize: 24
+    font.pixelSize: 22
+    font.weight: Font.Bold
     flat: true
+
+    // Set hand cursor on hover
+    MouseArea {
+        id: mouseArea
+        anchors.fill: parent
+        hoverEnabled: true
+        cursorShape: Qt.PointingHandCursor
+
+        onClicked: control.clicked()
+    }
 
     FontLoader {
         id: poppinsFontLoader
 
-        source: "../../resources/Fonts/Poppins-Regular.ttf" // Replace with the actual path to the font file
+        source: theme.font.source
     }
 
     contentItem: Text {
@@ -22,7 +33,7 @@ Button {
         font: control.font
         opacity: enabled ? 1 : 0.3
         // color: control.down ? "#17a81a" : "#21be2b"
-        color: back_color ? theme.fontPrimary : Qt.rgba(255, 255, 255, 0.87)
+        color: backColor ? theme.fontPrimary : Qt.rgba(255, 255, 255, 0.87)
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
         elide: Text.ElideRight
@@ -31,9 +42,8 @@ Button {
     background: Rectangle {
         implicitWidth: 100
         implicitHeight: 40
-        color: back_color ? back_color : theme.primary
+        color: backColor ? backColor : theme.primary
         opacity: enabled ? 1 : 0.3
         radius: 15
     }
-
 }

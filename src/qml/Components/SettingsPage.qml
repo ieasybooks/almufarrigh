@@ -1,16 +1,18 @@
-import QtQuick 2.0
-import QtQuick.Controls 2.12
+import QtQuick 6.4
+import QtQuick.Controls 6.4
 import QtQuick.Dialogs
-import QtQuick.Layouts 1.12
-import "SettingsComponents"
+import QtQuick.Layouts 6.4
+import "settings"
+import "custom"
 
 Rectangle {
+    id: rectangle
     property bool isWitEngine: true
 
     signal themeChanged(bool state)
 
     function getSettingsData() {
-        console.log("hi ", convertLanguage.currentText);
+        console.log("hi ", convertLanguage.currentText)
         let settingsData = {
             "convertLanguage": convertLanguage.selectedText,
             "engineSelector": engineSelector.selectedText,
@@ -22,19 +24,23 @@ Rectangle {
             "exportFormats": exportFormats.getSelectedValue(),
             "saveLocation": saveLocation.selectedValue,
             "jsonLoad": jsonLoad.selectedValue
-        };
-        return settingsData;
+        }
+        return settingsData
     }
 
-    color: mainWindow.theme.background
+    color: theme.background
 
     ColumnLayout {
         spacing: 10
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: parent.top
+        anchors.bottom: copyRights.top
         // anchors.fill: parent
-        anchors.margins: 50
+        anchors.rightMargin: 24
+        anchors.topMargin: 48
+        anchors.leftMargin: 24
+        anchors.bottomMargin: 48
 
         SettingsDropDown {
             id: convertLanguage
@@ -45,15 +51,13 @@ Rectangle {
 
             dropdownModel: ListModel {
                 ListElement {
-                    text: "العربية"
+                    text: qsTr("العــربية")
                 }
 
                 ListElement {
-                    text: "الانجليزية"
+                    text: qsTr("الانجليزية")
                 }
-
             }
-
         }
 
         SettingsDropDown {
@@ -62,10 +66,10 @@ Rectangle {
             iconSource: "qrc:/convert_engine"
             labelText: qsTr("محرك التحـويل")
             dropdownIndex: 0
-            onChangedSelection: (index) => {
-                isWitEngine = index === 0;
-                console.log(isWitEngine, index);
-            }
+            onChangedSelection: index => {
+                                    isWitEngine = index === 0
+                                    console.log(isWitEngine, index)
+                                }
 
             dropdownModel: ListModel {
                 ListElement {
@@ -75,9 +79,7 @@ Rectangle {
                 ListElement {
                     text: "whisper"
                 }
-
             }
-
         }
 
         SettingsDropDown {
@@ -100,9 +102,7 @@ Rectangle {
                 ListElement {
                     text: "Option 3"
                 }
-
             }
-
         }
 
         SettingsItem {
@@ -116,23 +116,21 @@ Rectangle {
 
             TextField {
                 id: inputText
-
+                color: theme.fontPrimary
                 implicitWidth: parent.width * (2 / 3)
-                implicitHeight: 30
+                implicitHeight: 40
                 font.pixelSize: 16
                 selectByMouse: true // Allows selecting the text with the mouse
                 inputMethodHints: Qt.ImhDigitsOnly // Restricts input to digits only
 
                 background: Rectangle {
-                    color: theme.background
-                    border.color: "gray"
+                    color: theme.field
+                    border.color: theme.stroke
                     border.width: 1
-                    radius: 4
+                    radius: 8
                 }
                 // Sets the font size to a small value
-
             }
-
         }
 
         SettingsItem {
@@ -146,19 +144,19 @@ Rectangle {
             TextField {
                 id: count
 
-                implicitWidth: 30
-                implicitHeight: 30
+                implicitWidth: 40
+                implicitHeight: 40
                 text: "0"
-                placeholderText: "Enter number"
+                color: theme.fontPrimary
                 font.pixelSize: 16 // Sets the font size to a small value
                 selectByMouse: true // Allows selecting the text with the mouse
                 inputMethodHints: Qt.ImhDigitsOnly // Restricts input to digits only
 
                 background: Rectangle {
-                    color: theme.background
-                    border.color: "gray"
+                    color: theme.field
+                    border.color: theme.stroke
                     border.width: 1
-                    radius: 4
+                    radius: 8
                 }
 
                 // Limits input to positive integers between 0 and 999
@@ -166,9 +164,7 @@ Rectangle {
                     bottom: 0
                     top: 999
                 }
-
             }
-
         }
 
         SettingsItem {
@@ -185,7 +181,6 @@ Rectangle {
 
                 implicitWidth: parent.width / 3
             }
-
         }
 
         SettingsItem {
@@ -198,10 +193,9 @@ Rectangle {
             iconSource: "qrc:/drop_empty"
             labelText: qsTr("إسقاط الأجزاء الفارغة")
 
-            CheckBox {
+            CustomCheckBox {
                 id: checkbox
             }
-
         }
 
         SettingsItem {
@@ -212,7 +206,7 @@ Rectangle {
                     "srt": srt.checked,
                     "txt": txt.checked,
                     "vtt": vtt.checked
-                };
+                }
             }
 
             iconSource: "qrc:/export"
@@ -220,27 +214,23 @@ Rectangle {
 
             RowLayout {
                 spacing: 10
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
-                CheckBox {
+                CustomCheckBox {
                     id: srt
-
                     text: "srt"
                 }
 
-                CheckBox {
+                CustomCheckBox {
                     id: txt
-
                     text: "txt"
                 }
 
-                CheckBox {
+                CustomCheckBox {
                     id: vtt
-
                     text: "vtt"
                 }
-
             }
-
         }
 
         SettingsItem {
@@ -256,7 +246,7 @@ Rectangle {
 
                 width: 120
                 height: 40
-                radius: 10
+                radius: 8
                 border.color: theme.stroke // Replace with your custom border color
                 border.width: 2
                 color: theme.background // Replace with your custom background color
@@ -265,29 +255,30 @@ Rectangle {
                     source: "qrc:/arrow_left"
                     color: theme.fontPrimary
                     anchors.left: parent.left
+                    y: 8
+                    anchors.leftMargin: 8
+                    Layout.alignment: Qt.AlignVCenter
                 }
 
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        folderDialog.open();
+                        folderDialog.open()
                     }
                 }
 
                 FolderDialog {
                     id: folderDialog
 
-                    title: "Please choose a file"
+                    title: qsTr("Please choose a file")
                     onAccepted: {
-                        console.log(selectedFolder);
+                        console.log(selectedFolder)
                     }
                     onRejected: {
-                        console.log("Canceled");
+                        console.log("Canceled")
                     }
                 }
-
             }
-
         }
 
         SettingsItem {
@@ -298,10 +289,9 @@ Rectangle {
             iconSource: "qrc:/download"
             labelText: qsTr("تحميل ملف json")
 
-            CheckBox {
+            CustomCheckBox {
                 id: jsonCheck
             }
-
         }
 
         SettingsItem {
@@ -312,29 +302,33 @@ Rectangle {
                 id: themeSwitch
 
                 onToggled: {
-                    themeChanged(checked);
+                    themeChanged(checked)
                 }
             }
-
         }
-
-        ColumnLayout {
-            Layout.alignment: Qt.AlignHCenter
-
-            Text {
-                text: "Copyright © 2022-2023 almufaragh.com."
-                horizontalAlignment: Text.AlignHCenter
-                Layout.alignment: Qt.AlignHCenter
-            }
-
-            Text {
-                text: "الإصدار 1.0.6"
-                Layout.alignment: Qt.AlignHCenter
-                horizontalAlignment: Text.AlignHCenter
-            }
-
-        }
-
     }
 
+    ColumnLayout {
+        id: copyRights
+        spacing: 0
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+        anchors.left: parent.left
+        anchors.bottomMargin: 28
+        Layout.alignment: Qt.AlignHCenter
+
+        Text {
+            text: "Copyright © 2022-2023 almufaragh.com."
+            horizontalAlignment: Text.AlignHCenter
+            Layout.alignment: Qt.AlignHCenter
+            color: theme.fontPrimary
+        }
+
+        Text {
+            text: qsTr("الإصدار 1.0.6")
+            Layout.alignment: Qt.AlignHCenter
+            horizontalAlignment: Text.AlignHCenter
+            color: theme.fontPrimary
+        }
+    }
 }

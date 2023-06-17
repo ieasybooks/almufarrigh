@@ -4,12 +4,15 @@ from pathlib import Path
 
 from PySide6.QtCore import QUrl
 from PySide6.QtQml import QQmlApplicationEngine
+from PySide6.QtQuickControls2 import QQuickStyle
 from PySide6.QtWidgets import QApplication
 
 # noinspection PyUnresolvedReferences
 import resources_rc
 from clipboardproxy import ClipboardProxy
 from controller import Controller
+
+QQuickStyle.setStyle("Material")
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
