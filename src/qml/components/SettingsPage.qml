@@ -83,11 +83,13 @@ Rectangle {
 
             dropdownModel: ListModel {
                 ListElement {
-                    text: "wit.ai"
+                    text: "Wit.ai"
+                    value: "Wit"
                 }
 
                 ListElement {
-                    text: "whisper"
+                    text: "Whisper"
+                    value: "Whisper"
                 }
             }
         }
@@ -107,17 +109,29 @@ Rectangle {
 
             dropdownModel: ListModel {
                 ListElement {
-                    text: "Option 1"
+                    text: qsTr("أساسي")
+                    value: "base"
                 }
 
                 ListElement {
-                    text: "Option 2"
+                    text: qsTr("صغير")
+                    value: "small"
                 }
 
                 ListElement {
-                    text: "Option 3"
+                    text: qsTr("متوسط")
+                    value: "medium"
                 }
 
+                ListElement {
+                    text: qsTr("نحيف (أقل دقة)")
+                    value: "tiny"
+                }
+
+                ListElement {
+                    text: qsTr("كبير (أفضل دقة)")
+                    value: "large-v2"
+                }
             }
         }
 
@@ -280,6 +294,18 @@ Rectangle {
                     Layout.alignment: Qt.AlignVCenter
                 }
 
+                Text {
+                    id: path
+                    text: "/ " + saveLocation.value.split("/").slice(-1)
+                    color: theme.fontPrimary
+                    font.weight: Font.Medium
+                    font.pixelSize: 22
+                    anchors.centerIn: parent
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    x: 8
+                }
+
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
@@ -289,10 +315,11 @@ Rectangle {
 
                 FolderDialog {
                     id: folderDialog
-
+                    selectedFolder: saveLocation.value
                     title: qsTr("Please choose a file")
                     onAccepted: {
-                        console.log(selectedFolder);
+                        saveLocation.value = selectedFolder;
+                        console.log(saveLocation.value);
                     }
                     onRejected: {
                         console.log("Canceled");
