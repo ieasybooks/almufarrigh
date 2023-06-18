@@ -11,16 +11,16 @@ Rectangle {
     width: 80
     height: parent.height
 
-    Image {
+    IconImage {
         source: "qrc:/logo"
-        width: 80
-        height: 80
-        Layout.topMargin: 10
+        width: 50
+        height: 50
 
         anchors {
             top: parent.top
             left: parent.left
             right: parent.right
+            topMargin: 16
         }
 
     }
