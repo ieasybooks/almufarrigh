@@ -4,9 +4,10 @@ import QtQuick.Dialogs
 import QtQuick.Layouts 6.4
 import "custom"
 import "settings"
+import QtCore
 
 Rectangle {
-    id: rectangle
+    id: root
 
     property bool isWitEngine: true
 
@@ -45,32 +46,39 @@ Rectangle {
         SettingsDropDown {
             id: convertLanguage
 
+            property string value
+
+            onChangedSelection: (index, selected) => {
+                value = selected;
+            }
+
             iconSource: "qrc:/convert_language"
             labelText: qsTr("لــغة التحـويل")
-            dropdownIndex: 0
 
             dropdownModel: ListModel {
                 ListElement {
                     text: qsTr("العــربية")
+                    value: "ar"
                 }
 
                 ListElement {
                     text: qsTr("الانجليزية")
+                    value: "en"
                 }
-
             }
-
         }
 
         SettingsDropDown {
-            id: engineSelector
+            id: convertEngine
 
             iconSource: "qrc:/convert_engine"
             labelText: qsTr("محرك التحـويل")
-            dropdownIndex: 0
-            onChangedSelection: (index) => {
+
+            property string value
+
+            onChangedSelection: (index, selected) => {
                 isWitEngine = index === 0;
-                console.log(isWitEngine, index);
+                value = selected;
             }
 
             dropdownModel: ListModel {
@@ -81,18 +89,21 @@ Rectangle {
                 ListElement {
                     text: "whisper"
                 }
-
             }
-
         }
 
         SettingsDropDown {
-            id: modelSelector
+            id: whisperModel
 
-            visible: !isWitEngine
+            visible: !root.isWitEngine
             iconSource: "qrc:/select_model"
             labelText: qsTr("تحديد النموذج")
-            dropdownIndex: 0
+
+            property string value
+
+            onChangedSelection: (index, selected) => {
+                value = selected;
+            }
 
             dropdownModel: ListModel {
                 ListElement {
@@ -108,15 +119,14 @@ Rectangle {
                 }
 
             }
-
         }
 
         SettingsItem {
-            id: convertKey
+            id: witConvertKey
 
-            property alias selectedText: inputText.text
+            property alias value: inputText.text
 
-            visible: isWitEngine
+            visible: root.isWitEngine
             iconSource: "qrc:/key"
             labelText: qsTr("مفتاح التحـويل")
 
@@ -137,15 +147,13 @@ Rectangle {
                     radius: 8
                 }
                 // Sets the font size to a small value
-
             }
-
         }
 
         SettingsItem {
             id: wordCount
 
-            property alias selectedText: countInput.text
+            property alias value: countInput.text
 
             iconSource: "qrc:/word_count"
             labelText: qsTr("عدد كلمات الجزء")
@@ -173,17 +181,15 @@ Rectangle {
                     bottom: 0
                     top: 999
                 }
-
             }
-
         }
 
         SettingsItem {
             id: maxPartLength
 
-            property alias selectedText: slider.value
+            property alias value: slider.value
 
-            visible: isWitEngine
+            visible: root.isWitEngine
             iconSource: "qrc:/part_max"
             labelText: qsTr("أقصى مدة للجزء")
 
@@ -192,15 +198,14 @@ Rectangle {
 
                 implicitWidth: parent.width / 3
             }
-
         }
 
         SettingsItem {
             id: dropEmptyParts
 
-            property alias selectedValue: checkbox.checked
+            property alias checked: checkbox.checked
 
-            visible: isWitEngine
+            visible: root.isWitEngine
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             iconSource: "qrc:/drop_empty"
             labelText: qsTr("إسقاط الأجزاء الفارغة")
@@ -208,7 +213,6 @@ Rectangle {
             CustomCheckBox {
                 id: checkbox
             }
-
         }
 
         SettingsItem {
@@ -246,15 +250,13 @@ Rectangle {
 
                     text: "vtt"
                 }
-
             }
-
         }
 
         SettingsItem {
             id: saveLocation
 
-            property alias selectedValue: folderDialog.selectedFolder
+            property string value
 
             iconSource: "qrc:/folder"
             labelText: qsTr("مجلـد الحفــظ")
@@ -262,7 +264,7 @@ Rectangle {
             Rectangle {
                 id: openFileDialogButton
 
-                width: 120
+                width: Math.max(120, path.contentWidth + 64)
                 height: 40
                 radius: 8
                 border.color: theme.stroke
@@ -304,7 +306,7 @@ Rectangle {
         SettingsItem {
             id: jsonLoad
 
-            property alias selectedValue: jsonCheck.checked
+            property alias checked: jsonCheck.checked
 
             iconSource: "qrc:/download"
             labelText: qsTr("تحميل ملف json")
@@ -312,7 +314,6 @@ Rectangle {
             CustomCheckBox {
                 id: jsonCheck
             }
-
         }
 
         SettingsItem {
@@ -321,14 +322,12 @@ Rectangle {
 
             Switch {
                 id: themeSwitch
-
+                checked: !mainWindow.isLightTheme
                 onToggled: {
                     themeChanged(checked);
                 }
             }
-
         }
-
     }
 
     ColumnLayout {
@@ -354,7 +353,26 @@ Rectangle {
             horizontalAlignment: Text.AlignHCenter
             color: theme.fontPrimary
         }
-
     }
 
+    Settings {
+        id: settings
+        location: "file:settings.ini"
+        property alias isWitEngine: root.isWitEngine
+        property alias downloadJson: jsonCheck.checked
+        property alias saveLocation: saveLocation.value
+        property alias exportSrt: srt.checked
+        property alias exportTxt: txt.checked
+        property alias exportVtt: vtt.checked
+        property alias dropEmptyParts: dropEmptyParts.checked
+        property alias maxPartLength: maxPartLength.value
+        property alias wordCount: wordCount.value
+        property alias witConvertKey: witConvertKey.value
+        property alias whisperModel: whisperModel.value
+        property alias convertEngine: convertEngine.value
+        property alias convertLanguage: convertLanguage.value
+        property alias whisperModelIndex: whisperModel.currentIndex
+        property alias convertEngineIndex: convertEngine.currentIndex
+        property alias convertLanguageIndex: convertLanguage.currentIndex
+    }
 }

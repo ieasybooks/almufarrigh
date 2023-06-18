@@ -5,6 +5,7 @@ import QtQuick.Layouts 6.4
 import QtQuick.Window 6.4
 import "components"
 import "themes"
+import QtCore
 
 ApplicationWindow {
     id: mainWindow
@@ -79,7 +80,12 @@ ApplicationWindow {
                 return isLightTheme = !state;
             }
         }
+    }
 
+    Settings {
+        id: settings
+        location: "file:settings.ini"
+        property alias isLightTheme: mainWindow.isLightTheme
     }
 
 }
