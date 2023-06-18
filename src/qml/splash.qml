@@ -3,6 +3,7 @@ import QtQuick.Controls 6.4
 import QtQuick.Controls.Material 6.4
 import QtQuick.Layouts 6.4
 import "themes"
+import QtCore
 
 ApplicationWindow {
     id: splash
@@ -17,8 +18,7 @@ ApplicationWindow {
 
     Rectangle {
         anchors.fill: parent
-        color: theme.field
-        radius: 16
+        color: theme.background
 
         IconImage {
             id: logo
@@ -94,4 +94,10 @@ ApplicationWindow {
         }
     }
 
+
+    Settings {
+        id: settings
+        location: "file:settings.ini"
+        property alias isLightTheme: splash.isLightTheme
+    }
 }
