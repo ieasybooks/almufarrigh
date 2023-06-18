@@ -151,7 +151,7 @@ Rectangle {
             labelText: qsTr("عدد كلمات الجزء")
 
             TextField {
-                id: count
+                id: countInput
 
                 implicitHeight: 40
                 text: "0"
@@ -159,7 +159,7 @@ Rectangle {
                 font.pixelSize: 16 // Sets the font size to a small value
                 selectByMouse: true // Allows selecting the text with the mouse
                 inputMethodHints: Qt.ImhDigitsOnly // Restricts input to digits only
-                width: Math.max(textInput.contentWidth + 4, 40)
+                width: Math.max(countInput.contentWidth + 4, 40)
                 background: Rectangle {
                     color: theme.field
                     border.color: theme.stroke
