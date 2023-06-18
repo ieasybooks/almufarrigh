@@ -21,7 +21,7 @@
         <file alias="word_count">resources/icons/word_count.svg</file>
         <file alias="ui_language">resources/icons/ui_language.svg</file>
         <file alias="convert_language">resources/icons/convert_language.svg</file>
-        <file alias="logo">resources/images/logo.png</file>
+        <file alias="logo">resources/images/logo.ico</file>
         <file alias="text_background_light">resources/images/text_background_light.png</file>
         <file alias="text_background_dark">resources/images/text_background_dark.png</file>
         <file alias="select_model">resources/icons/select_model.svg</file>
