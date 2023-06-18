@@ -145,7 +145,7 @@ Rectangle {
         SettingsItem {
             id: wordCount
 
-            property alias selectedText: count.text
+            property alias selectedText: countInput.text
 
             iconSource: "qrc:/word_count"
             labelText: qsTr("عدد كلمات الجزء")
