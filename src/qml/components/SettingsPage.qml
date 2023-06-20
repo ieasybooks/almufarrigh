@@ -160,6 +160,7 @@ Rectangle {
                 selectByMouse: true // Allows selecting the text with the mouse
                 inputMethodHints: Qt.ImhDigitsOnly // Restricts input to digits only
                 width: Math.max(countInput.contentWidth + 4, 40)
+
                 background: Rectangle {
                     color: theme.field
                     border.color: theme.stroke
