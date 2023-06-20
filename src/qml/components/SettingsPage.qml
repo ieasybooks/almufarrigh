@@ -1,10 +1,10 @@
+import QtCore
 import QtQuick 6.4
 import QtQuick.Controls 6.4
 import QtQuick.Dialogs
 import QtQuick.Layouts 6.4
 import "custom"
 import "settings"
-import QtCore
 
 Rectangle {
     id: root
@@ -51,7 +51,6 @@ Rectangle {
             onChangedSelection: (index, selected) => {
                 value = selected;
             }
-
             iconSource: "qrc:/convert_language"
             labelText: qsTr("لــغة التحـويل")
 
@@ -65,17 +64,18 @@ Rectangle {
                     text: qsTr("الانجليزية")
                     value: "en"
                 }
+
             }
+
         }
 
         SettingsDropDown {
             id: convertEngine
 
-            iconSource: "qrc:/convert_engine"
-            labelText: qsTr("محرك التحـويل")
-
             property string value
 
+            iconSource: "qrc:/convert_engine"
+            labelText: qsTr("محرك التحـويل")
             onChangedSelection: (index, selected) => {
                 isWitEngine = index === 0;
                 value = selected;
@@ -91,18 +91,19 @@ Rectangle {
                     text: "Whisper"
                     value: "Whisper"
                 }
+
             }
+
         }
 
         SettingsDropDown {
             id: whisperModel
 
+            property string value
+
             visible: !root.isWitEngine
             iconSource: "qrc:/select_model"
             labelText: qsTr("تحديد النموذج")
-
-            property string value
-
             onChangedSelection: (index, selected) => {
                 value = selected;
             }
@@ -132,7 +133,9 @@ Rectangle {
                     text: qsTr("كبير (أفضل دقة)")
                     value: "large-v2"
                 }
+
             }
+
         }
 
         SettingsItem {
@@ -161,7 +164,9 @@ Rectangle {
                     radius: 8
                 }
                 // Sets the font size to a small value
+
             }
+
         }
 
         SettingsItem {
@@ -195,7 +200,9 @@ Rectangle {
                     bottom: 0
                     top: 999
                 }
+
             }
+
         }
 
         SettingsItem {
@@ -212,6 +219,7 @@ Rectangle {
 
                 implicitWidth: parent.width / 3
             }
+
         }
 
         SettingsItem {
@@ -227,6 +235,7 @@ Rectangle {
             CustomCheckBox {
                 id: checkbox
             }
+
         }
 
         SettingsItem {
@@ -264,7 +273,9 @@ Rectangle {
 
                     text: "vtt"
                 }
+
             }
+
         }
 
         SettingsItem {
@@ -296,6 +307,7 @@ Rectangle {
 
                 Text {
                     id: path
+
                     text: "/ " + saveLocation.value.split("/").slice(-1)
                     color: theme.fontPrimary
                     font.weight: Font.Medium
@@ -315,6 +327,7 @@ Rectangle {
 
                 FolderDialog {
                     id: folderDialog
+
                     selectedFolder: saveLocation.value
                     title: qsTr("Please choose a file")
                     onAccepted: {
@@ -341,6 +354,7 @@ Rectangle {
             CustomCheckBox {
                 id: jsonCheck
             }
+
         }
 
         SettingsItem {
@@ -349,12 +363,15 @@ Rectangle {
 
             Switch {
                 id: themeSwitch
+
                 checked: !mainWindow.isLightTheme
                 onToggled: {
                     themeChanged(checked);
                 }
             }
+
         }
+
     }
 
     ColumnLayout {
@@ -380,11 +397,12 @@ Rectangle {
             horizontalAlignment: Text.AlignHCenter
             color: theme.fontPrimary
         }
+
     }
 
     Settings {
         id: settings
-        location: "file:settings.ini"
+
         property alias isWitEngine: root.isWitEngine
         property alias downloadJson: jsonCheck.checked
         property alias saveLocation: saveLocation.value
@@ -401,5 +419,8 @@ Rectangle {
         property alias whisperModelIndex: whisperModel.currentIndex
         property alias convertEngineIndex: convertEngine.currentIndex
         property alias convertLanguageIndex: convertLanguage.currentIndex
+
+        location: "file:settings.ini"
     }
+
 }

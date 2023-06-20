@@ -1,9 +1,9 @@
+import QtCore
 import QtQuick 6.4
 import QtQuick.Controls 6.4
 import QtQuick.Controls.Material 6.4
 import QtQuick.Layouts 6.4
 import "themes"
-import QtCore
 
 ApplicationWindow {
     id: splash
@@ -94,10 +94,12 @@ ApplicationWindow {
         }
     }
 
-
     Settings {
         id: settings
-        location: "file:settings.ini"
+
         property alias isLightTheme: splash.isLightTheme
+
+        location: "file:settings.ini"
     }
+
 }

@@ -11,19 +11,21 @@ SettingsItem {
 
     ComboBox {
         id: combo
+
         textRole: "text"
         valueRole: "value"
         font.family: poppinsFontLoader.font.family
         model: dropdownModel
         onActivated: (index) => {
             var selectedValue = model.get(index)[combo.valueRole];
-            console.log(selectedValue)
+            console.log(selectedValue);
             changedSelection(index, selectedValue);
             combo.currentIndex = index;
         }
 
         FontLoader {
             id: poppinsFontLoader
+
             source: theme.font.source
         }
 
@@ -50,6 +52,7 @@ SettingsItem {
                 elide: Text.ElideRight
                 verticalAlignment: Text.AlignVCenter
             }
+
         }
 
         contentItem: Text {
@@ -84,14 +87,19 @@ SettingsItem {
 
                 ScrollIndicator.vertical: ScrollIndicator {
                 }
+
             }
+
             background: Rectangle {
                 color: theme.field
                 radius: 8
             }
-    }
+
+        }
+
     }
 
-    dropdownModel: ListModel {}
+    dropdownModel: ListModel {
+    }
 
 }
