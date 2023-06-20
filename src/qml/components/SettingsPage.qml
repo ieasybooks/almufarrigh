@@ -37,7 +37,6 @@ Rectangle {
         anchors.right: parent.right
         anchors.top: parent.top
         anchors.bottom: copyRights.top
-        // anchors.fill: parent
         anchors.rightMargin: 24
         anchors.topMargin: 48
         anchors.leftMargin: 24
@@ -146,21 +145,21 @@ Rectangle {
         SettingsItem {
             id: wordCount
 
-            property alias selectedText: count.text
+            property alias selectedText: countInput.text
 
             iconSource: "qrc:/word_count"
             labelText: qsTr("عدد كلمات الجزء")
 
             TextField {
-                id: count
+                id: countInput
 
-                implicitWidth: 40
                 implicitHeight: 40
                 text: "0"
                 color: theme.fontPrimary
                 font.pixelSize: 16 // Sets the font size to a small value
                 selectByMouse: true // Allows selecting the text with the mouse
                 inputMethodHints: Qt.ImhDigitsOnly // Restricts input to digits only
+                width: Math.max(countInput.contentWidth + 4, 40)
 
                 background: Rectangle {
                     color: theme.field
@@ -266,9 +265,9 @@ Rectangle {
                 width: 120
                 height: 40
                 radius: 8
-                border.color: theme.stroke // Replace with your custom border color
+                border.color: theme.stroke
                 border.width: 2
-                color: theme.background // Replace with your custom background color
+                color: theme.field
 
                 IconImage {
                     source: "qrc:/arrow_left"

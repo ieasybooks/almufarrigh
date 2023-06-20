@@ -14,19 +14,33 @@ from controller import Controller
 
 QQuickStyle.setStyle("Material")
 
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
+    app.setOrganizationName("ieasybooks")
+    app.setOrganizationDomain("https://almufaragh.com/")
+    app.setApplicationName("Almufaragh")
+
     engine = QQmlApplicationEngine()
     controller = Controller()
     clipboard = QApplication.clipboard()
     clipboard_proxy = ClipboardProxy(clipboard)
+
     # Expose the Python object to QML
     engine.rootContext().setContextProperty("controller", controller)
     engine.rootContext().setContextProperty("clipboard", clipboard_proxy)
-    qml_file: Path = Path(__file__).parent / "qml/main.qml"
-    # to Work with qmldir
-    engine.load(QUrl.fromLocalFile(qml_file))
+    path: Path = Path(__file__).parent / "qml"
+
+    # Load splash screen
+    engine.load(QUrl.fromLocalFile(path / "splash.qml"))
     if not engine.rootObjects():
         sys.exit(-1)
 
+    app.exec()
+
+    # Load Main Window
+    engine.load(QUrl.fromLocalFile(path / "main.qml"))
+
+    if not engine.rootObjects():
+        sys.exit(-1)
     sys.exit(app.exec())

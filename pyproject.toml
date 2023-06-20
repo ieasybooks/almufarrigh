@@ -30,11 +30,18 @@ extend-exclude = '''
   | ^/.venv
   | .*.png
   | .*.qml
+  | .*.svg
+  | .*.ico
+  | .*.ttf
+  | .*.qrc
+  | .*.bat
+  | src/resources_rc.py
 )
 '''
 
 [tool.mypy]  # https://mypy.readthedocs.io/en/latest/config_file.html
 files = ["src"]
+follow_imports = "skip"
 strict = true
 disallow_subclassing_any = false
 disallow_untyped_decorators = false
