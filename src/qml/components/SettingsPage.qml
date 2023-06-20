@@ -260,6 +260,7 @@ Rectangle {
                     id: srt
 
                     text: "srt"
+                    checked: true
                 }
 
                 CustomCheckBox {
