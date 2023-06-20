@@ -1,3 +1,4 @@
+import QtCore
 import QtQuick 6.4
 import QtQuick.Controls 6.4
 import QtQuick.Dialogs
@@ -6,7 +7,7 @@ import "custom"
 import "settings"
 
 Rectangle {
-    id: rectangle
+    id: root
 
     property bool isWitEngine: true
 
@@ -45,17 +46,23 @@ Rectangle {
         SettingsDropDown {
             id: convertLanguage
 
+            property string value
+
+            onChangedSelection: (index, selected) => {
+                value = selected;
+            }
             iconSource: "qrc:/convert_language"
             labelText: qsTr("لــغة التحـويل")
-            dropdownIndex: 0
 
             dropdownModel: ListModel {
                 ListElement {
                     text: qsTr("العــربية")
+                    value: "ar"
                 }
 
                 ListElement {
                     text: qsTr("الانجليزية")
+                    value: "en"
                 }
 
             }
@@ -63,23 +70,26 @@ Rectangle {
         }
 
         SettingsDropDown {
-            id: engineSelector
+            id: convertEngine
+
+            property string value
 
             iconSource: "qrc:/convert_engine"
             labelText: qsTr("محرك التحـويل")
-            dropdownIndex: 0
-            onChangedSelection: (index) => {
+            onChangedSelection: (index, selected) => {
                 isWitEngine = index === 0;
-                console.log(isWitEngine, index);
+                value = selected;
             }
 
             dropdownModel: ListModel {
                 ListElement {
-                    text: "wit.ai"
+                    text: "Wit.ai"
+                    value: "Wit"
                 }
 
                 ListElement {
-                    text: "whisper"
+                    text: "Whisper"
+                    value: "Whisper"
                 }
 
             }
@@ -87,24 +97,41 @@ Rectangle {
         }
 
         SettingsDropDown {
-            id: modelSelector
+            id: whisperModel
 
-            visible: !isWitEngine
+            property string value
+
+            visible: !root.isWitEngine
             iconSource: "qrc:/select_model"
             labelText: qsTr("تحديد النموذج")
-            dropdownIndex: 0
+            onChangedSelection: (index, selected) => {
+                value = selected;
+            }
 
             dropdownModel: ListModel {
                 ListElement {
-                    text: "Option 1"
+                    text: qsTr("أساسي")
+                    value: "base"
                 }
 
                 ListElement {
-                    text: "Option 2"
+                    text: qsTr("صغير")
+                    value: "small"
                 }
 
                 ListElement {
-                    text: "Option 3"
+                    text: qsTr("متوسط")
+                    value: "medium"
+                }
+
+                ListElement {
+                    text: qsTr("نحيف (أقل دقة)")
+                    value: "tiny"
+                }
+
+                ListElement {
+                    text: qsTr("كبير (أفضل دقة)")
+                    value: "large-v2"
                 }
 
             }
@@ -112,11 +139,11 @@ Rectangle {
         }
 
         SettingsItem {
-            id: convertKey
+            id: witConvertKey
 
-            property alias selectedText: inputText.text
+            property alias value: inputText.text
 
-            visible: isWitEngine
+            visible: root.isWitEngine
             iconSource: "qrc:/key"
             labelText: qsTr("مفتاح التحـويل")
 
@@ -145,7 +172,7 @@ Rectangle {
         SettingsItem {
             id: wordCount
 
-            property alias selectedText: countInput.text
+            property alias value: countInput.text
 
             iconSource: "qrc:/word_count"
             labelText: qsTr("عدد كلمات الجزء")
@@ -181,9 +208,9 @@ Rectangle {
         SettingsItem {
             id: maxPartLength
 
-            property alias selectedText: slider.value
+            property alias value: slider.value
 
-            visible: isWitEngine
+            visible: root.isWitEngine
             iconSource: "qrc:/part_max"
             labelText: qsTr("أقصى مدة للجزء")
 
@@ -198,9 +225,9 @@ Rectangle {
         SettingsItem {
             id: dropEmptyParts
 
-            property alias selectedValue: checkbox.checked
+            property alias checked: checkbox.checked
 
-            visible: isWitEngine
+            visible: root.isWitEngine
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             iconSource: "qrc:/drop_empty"
             labelText: qsTr("إسقاط الأجزاء الفارغة")
@@ -233,6 +260,7 @@ Rectangle {
                     id: srt
 
                     text: "srt"
+                    checked: true
                 }
 
                 CustomCheckBox {
@@ -254,7 +282,7 @@ Rectangle {
         SettingsItem {
             id: saveLocation
 
-            property alias selectedValue: folderDialog.selectedFolder
+            property string value
 
             iconSource: "qrc:/folder"
             labelText: qsTr("مجلـد الحفــظ")
@@ -262,7 +290,7 @@ Rectangle {
             Rectangle {
                 id: openFileDialogButton
 
-                width: 120
+                width: Math.max(120, path.contentWidth + 64)
                 height: 40
                 radius: 8
                 border.color: theme.stroke
@@ -278,6 +306,19 @@ Rectangle {
                     Layout.alignment: Qt.AlignVCenter
                 }
 
+                Text {
+                    id: path
+
+                    text: "/ " + saveLocation.value.split("/").slice(-1)
+                    color: theme.fontPrimary
+                    font.weight: Font.Medium
+                    font.pixelSize: 22
+                    anchors.centerIn: parent
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    x: 8
+                }
+
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
@@ -288,9 +329,11 @@ Rectangle {
                 FolderDialog {
                     id: folderDialog
 
+                    selectedFolder: saveLocation.value
                     title: qsTr("Please choose a file")
                     onAccepted: {
-                        console.log(selectedFolder);
+                        saveLocation.value = selectedFolder;
+                        console.log(saveLocation.value);
                     }
                     onRejected: {
                         console.log("Canceled");
@@ -304,7 +347,7 @@ Rectangle {
         SettingsItem {
             id: jsonLoad
 
-            property alias selectedValue: jsonCheck.checked
+            property alias checked: jsonCheck.checked
 
             iconSource: "qrc:/download"
             labelText: qsTr("تحميل ملف json")
@@ -322,6 +365,7 @@ Rectangle {
             Switch {
                 id: themeSwitch
 
+                checked: !mainWindow.isLightTheme
                 onToggled: {
                     themeChanged(checked);
                 }
@@ -355,6 +399,29 @@ Rectangle {
             color: theme.fontPrimary
         }
 
+    }
+
+    Settings {
+        id: settings
+
+        property alias isWitEngine: root.isWitEngine
+        property alias downloadJson: jsonCheck.checked
+        property alias saveLocation: saveLocation.value
+        property alias exportSrt: srt.checked
+        property alias exportTxt: txt.checked
+        property alias exportVtt: vtt.checked
+        property alias dropEmptyParts: dropEmptyParts.checked
+        property alias maxPartLength: maxPartLength.value
+        property alias wordCount: wordCount.value
+        property alias witConvertKey: witConvertKey.value
+        property alias whisperModel: whisperModel.value
+        property alias convertEngine: convertEngine.value
+        property alias convertLanguage: convertLanguage.value
+        property alias whisperModelIndex: whisperModel.currentIndex
+        property alias convertEngineIndex: convertEngine.currentIndex
+        property alias convertLanguageIndex: convertLanguage.currentIndex
+
+        location: "file:settings.ini"
     }
 
 }

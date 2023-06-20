@@ -1,3 +1,4 @@
+import QtCore
 import QtQuick 6.4
 import QtQuick.Controls 6.4
 import QtQuick.Controls.Material 6.4
@@ -17,8 +18,7 @@ ApplicationWindow {
 
     Rectangle {
         anchors.fill: parent
-        color: theme.field
-        radius: 16
+        color: theme.background
 
         IconImage {
             id: logo
@@ -92,6 +92,14 @@ ApplicationWindow {
             timer.stop();
             splash.close();
         }
+    }
+
+    Settings {
+        id: settings
+
+        property alias isLightTheme: splash.isLightTheme
+
+        location: "file:settings.ini"
     }
 
 }

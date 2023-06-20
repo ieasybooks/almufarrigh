@@ -45,3 +45,6 @@ venv.bak/
 # Qt
 resources_rc.py
 main.pyproject.user
+
+# App settings
+settings.ini

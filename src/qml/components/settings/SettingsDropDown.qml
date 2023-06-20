@@ -4,20 +4,24 @@ import QtQuick.Controls 6.4
 
 SettingsItem {
     property alias selectedText: combo.currentText
+    property alias currentIndex: combo.currentIndex
     property ListModel dropdownModel
-    property int dropdownIndex: -1
 
-    //TODO instead of all this hustle extract into its own style
-    //TODO Look here https://doc.qt.io/qtforpython-6.2/overviews/qtquickcontrols-flatstyle-example.html#qt-quick-controls-flat-style
-    signal changedSelection(int index)
+    signal changedSelection(int index, string value)
 
     ComboBox {
         id: combo
 
+        textRole: "text"
+        valueRole: "value"
         font.family: poppinsFontLoader.font.family
         model: dropdownModel
-        currentIndex: dropdownIndex
-        onCurrentIndexChanged: changedSelection(combo.currentIndex)
+        onActivated: (index) => {
+            var selectedValue = model.get(index)[combo.valueRole];
+            console.log(selectedValue);
+            changedSelection(index, selectedValue);
+            combo.currentIndex = index;
+        }
 
         FontLoader {
             id: poppinsFontLoader
@@ -41,9 +45,10 @@ SettingsItem {
 
             contentItem: Text {
                 anchors.centerIn: parent
-                text: combo.textRole ? (Array.isArray(combo.model) ? modelData[combo.textRole] : model[combo.textRole]) : modelData
+                text: model[combo.textRole]
                 color: theme.fontPrimary
-                // font: combo.font
+                font.family: theme.font.name
+                font.pixelSize: 16
                 elide: Text.ElideRight
                 verticalAlignment: Text.AlignVCenter
             }
@@ -66,6 +71,30 @@ SettingsItem {
             anchors.left: parent.left
             y: (combo.background.implicitHeight / 2) - 4
             anchors.leftMargin: 16
+        }
+
+        popup: Popup {
+            y: combo.height - 1
+            width: combo.width
+            implicitHeight: contentItem.implicitHeight
+            padding: 1
+
+            contentItem: ListView {
+                clip: true
+                implicitHeight: contentHeight
+                model: combo.popup.visible ? combo.delegateModel : null
+                currentIndex: combo.highlightedIndex
+
+                ScrollIndicator.vertical: ScrollIndicator {
+                }
+
+            }
+
+            background: Rectangle {
+                color: theme.field
+                radius: 8
+            }
+
         }
 
     }
