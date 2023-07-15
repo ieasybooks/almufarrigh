@@ -24,4 +24,4 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-      - uses: area28technologies/qmlformat-action@db44f99341ff1c54bc4b75a5a0f0be7fd2ded11c
+      - uses: area28technologies/qmlformat-action@752e3c5bc6813020569ce58f780b99a288e62aa4
