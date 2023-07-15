@@ -124,7 +124,5 @@ ApplicationWindow {
         Text {
             text: "fontThirty: " + theme.fontThirty
         }
-
     }
-
 }

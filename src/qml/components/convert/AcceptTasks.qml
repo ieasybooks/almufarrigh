@@ -12,7 +12,7 @@ DropArea {
 
     height: 350
     width: parent.width
-    onDropped: (dragEvent) => {
+    onDropped: dragEvent => {
         //Drag Drop logic
         console.log(dragEvent.urls);
         console.log(dropArea.data);
@@ -60,7 +60,6 @@ DropArea {
                 ctx.stroke();
             }
         }
-
     }
 
     ColumnLayout {
@@ -91,7 +90,6 @@ DropArea {
                 font.pixelSize: 22
                 font.weight: Font.Medium
             }
-
         }
 
         Text {
@@ -121,7 +119,6 @@ DropArea {
                 console.log("Canceled");
             }
         }
-
     }
 
     PasteConfirm {
@@ -135,11 +132,9 @@ DropArea {
             let text = clipboard.getClipboardText();
             if (AudioHelper.isYoutubeLink(text))
                 pasteConfirm.openWithUrl(text);
-
         }
 
         target: clipboard
         enabled: parent.visible
     }
-
 }

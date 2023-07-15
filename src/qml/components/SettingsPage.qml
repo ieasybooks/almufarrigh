@@ -64,9 +64,7 @@ Rectangle {
                     text: qsTr("الانجليزية")
                     value: "en"
                 }
-
             }
-
         }
 
         SettingsDropDown {
@@ -91,9 +89,7 @@ Rectangle {
                     text: "Whisper"
                     value: "Whisper"
                 }
-
             }
-
         }
 
         SettingsDropDown {
@@ -133,9 +129,7 @@ Rectangle {
                     text: qsTr("كبير (أفضل دقة)")
                     value: "large-v2"
                 }
-
             }
-
         }
 
         SettingsItem {
@@ -166,7 +160,6 @@ Rectangle {
                 // Sets the font size to a small value
 
             }
-
         }
 
         SettingsItem {
@@ -200,9 +193,7 @@ Rectangle {
                     bottom: 0
                     top: 999
                 }
-
             }
-
         }
 
         SettingsItem {
@@ -219,7 +210,6 @@ Rectangle {
 
                 implicitWidth: parent.width / 3
             }
-
         }
 
         SettingsItem {
@@ -235,7 +225,6 @@ Rectangle {
             CustomCheckBox {
                 id: checkbox
             }
-
         }
 
         SettingsItem {
@@ -274,9 +263,7 @@ Rectangle {
 
                     text: "vtt"
                 }
-
             }
-
         }
 
         SettingsItem {
@@ -339,9 +326,7 @@ Rectangle {
                         console.log("Canceled");
                     }
                 }
-
             }
-
         }
 
         SettingsItem {
@@ -355,7 +340,6 @@ Rectangle {
             CustomCheckBox {
                 id: jsonCheck
             }
-
         }
 
         SettingsItem {
@@ -370,9 +354,7 @@ Rectangle {
                     themeChanged(checked);
                 }
             }
-
         }
-
     }
 
     ColumnLayout {
@@ -398,7 +380,6 @@ Rectangle {
             horizontalAlignment: Text.AlignHCenter
             color: theme.fontPrimary
         }
-
     }
 
     Settings {
@@ -423,5 +404,4 @@ Rectangle {
 
         location: "file:settings.ini"
     }
-
 }

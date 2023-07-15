@@ -1,5 +1,5 @@
-import QtQuick 6.4
 pragma Singleton
+import QtQuick 6.4
 
 QtObject {
     property string theme_name: "غامق"
@@ -13,9 +13,7 @@ QtObject {
     property color fontSecondary: Qt.rgba(1, 1, 1, 0.6)
     property color fontThirty: Qt.rgba(1, 1, 1, 0.37)
     property var font: {
-        name:
-        "Poppins";
-        source:
-        "qrc:/poppins";
+        name: "Poppins";
+        source: "qrc:/poppins";
     }
 }

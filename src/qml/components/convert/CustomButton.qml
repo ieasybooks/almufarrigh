@@ -46,5 +46,4 @@ Button {
         opacity: enabled ? 1 : 0.3
         radius: 15
     }
-
 }

@@ -56,7 +56,5 @@ Rectangle {
             Layout.fillWidth: true
             Layout.fillHeight: true
         }
-
     }
-
 }

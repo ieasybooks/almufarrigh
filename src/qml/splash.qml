@@ -34,7 +34,6 @@ ApplicationWindow {
                 left: parent.left
                 topMargin: 64
             }
-
         }
 
         Text {
@@ -52,7 +51,6 @@ ApplicationWindow {
                 right: logo.right
                 topMargin: 16
             }
-
         }
 
         Column {
@@ -77,9 +75,7 @@ ApplicationWindow {
                 font.pointSize: 12
                 anchors.horizontalCenter: parent.horizontalCenter
             }
-
         }
-
     }
 
     Timer {
@@ -101,5 +97,4 @@ ApplicationWindow {
 
         location: "file:settings.ini"
     }
-
 }

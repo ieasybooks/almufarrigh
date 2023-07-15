@@ -34,7 +34,5 @@ CheckBox {
             color: theme.primary
             visible: checkbox.checked
         }
-
     }
-
 }

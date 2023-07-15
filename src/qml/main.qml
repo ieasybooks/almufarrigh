@@ -29,18 +29,16 @@ ApplicationWindow {
 
         anchors.fill: parent
         hoverEnabled: true
-        onPressed: (mouse) => {
+        onPressed: mouse => {
             clickPos = Qt.point(mouse.x, mouse.y);
         }
-        onMouseXChanged: (mouse) => {
+        onMouseXChanged: mouse => {
             if (mouse.buttons === Qt.LeftButton)
                 mainWindow.x += (mouse.x - clickPos.x);
-
         }
-        onMouseYChanged: (mouse) => {
+        onMouseYChanged: mouse => {
             if (mouse.buttons === Qt.LeftButton)
                 mainWindow.y += (mouse.y - clickPos.y);
-
         }
     }
 
@@ -50,7 +48,7 @@ ApplicationWindow {
         anchors.top: parent.top
         anchors.bottom: parent.bottom
         anchors.left: parent.left
-        onSidebarButtonClicked: (index) => {
+        onSidebarButtonClicked: index => {
             stackLayout.currentIndex = index;
             console.log("lol index changed");
         }
@@ -67,7 +65,7 @@ ApplicationWindow {
         }
 
         ConvertPage {
-            onConvertRequested: (audioUrls) => {
+            onConvertRequested: audioUrls => {
                 controller.setAudioUrls(audioUrls);
                 controller.setSettings(JSON.stringify(settingsPage.getSettingsData()));
             }
@@ -76,11 +74,10 @@ ApplicationWindow {
         SettingsPage {
             id: settingsPage
 
-            onThemeChanged: (state) => {
+            onThemeChanged: state => {
                 return isLightTheme = !state;
             }
         }
-
     }
 
     Settings {
@@ -90,5 +87,4 @@ ApplicationWindow {
 
         location: "file:settings.ini"
     }
-
 }

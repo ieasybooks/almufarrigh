@@ -38,7 +38,6 @@ Rectangle {
             topMargin: 64
             rightMargin: 75
         }
-
     }
 
     Image {
@@ -53,7 +52,6 @@ Rectangle {
             topMargin: title.anchors.topMargin + 48
             rightMargin: 60
         }
-
     }
 
     Text {
@@ -73,7 +71,6 @@ Rectangle {
             topMargin: 6
             rightMargin: 10
         }
-
     }
 
     Text {
@@ -91,18 +88,17 @@ Rectangle {
             right: title.right
             topMargin: 16
         }
-
     }
 
     AcceptTasks {
         id: acceptTasks
 
-        onAddedNewAudio: (audio) => {
+        onAddedNewAudio: audio => {
             console.log('From ConverPage ', audio);
             console.log("The list ", audioFilesModel.count);
             audioFilesModel.append({
-                "audioUrl": audio
-            });
+                    "audioUrl": audio
+                });
         }
 
         anchors {
@@ -112,7 +108,6 @@ Rectangle {
             rightMargin: 72
             leftMargin: 72
         }
-
     }
 
     Rectangle {
@@ -147,9 +142,7 @@ Rectangle {
                     audioFilesModel.remove(index); // Remove the audio file from the model
                 }
             }
-
         }
-
     }
 
     RowLayout {
@@ -186,7 +179,5 @@ Rectangle {
             Layout.fillWidth: true
             onClicked: audioFilesModel.clear()
         }
-
     }
-
 }

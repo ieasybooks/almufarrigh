@@ -5,7 +5,7 @@ MessageDialog {
 
     property url urlStr
 
-    signal pasteConfirmed()
+    signal pasteConfirmed
 
     function openWithUrl(_url) {
         urlStr = _url;
