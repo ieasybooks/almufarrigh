@@ -4,7 +4,7 @@ from PySide6.QtCore import Signal, QObject, QRunnable
 import traceback
 import sys
 
-from .progress import Progress
+from domain.progress import Progress
 
 
 # THREAD SIGNALS

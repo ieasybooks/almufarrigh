@@ -4,9 +4,9 @@ from typing import List, Generator, Dict
 from PySide6.QtCore import QObject, Signal, Property, Slot, QThreadPool
 from tafrigh import farrigh, Config
 
-from .progress import Progress
-from .config import CaseSensitiveConfigParser, AppConfig
-from .threadpool import WorkerSignals, Worker
+from domain.progress import Progress
+from domain.config import CaseSensitiveConfigParser, AppConfig
+from domain.threadpool import WorkerSignals, Worker
 
 os.system('cls')
 
