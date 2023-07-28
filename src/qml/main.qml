@@ -6,6 +6,7 @@ import QtQuick.Layouts 6.4
 import QtQuick.Window 6.4
 import "components"
 import "themes"
+import "components/convert"
 
 ApplicationWindow {
     id: mainWindow
@@ -29,16 +30,18 @@ ApplicationWindow {
 
         anchors.fill: parent
         hoverEnabled: true
-        onPressed: mouse => {
+        onPressed: (mouse) => {
             clickPos = Qt.point(mouse.x, mouse.y);
         }
-        onMouseXChanged: mouse => {
+        onMouseXChanged: (mouse) => {
             if (mouse.buttons === Qt.LeftButton)
                 mainWindow.x += (mouse.x - clickPos.x);
+
         }
-        onMouseYChanged: mouse => {
+        onMouseYChanged: (mouse) => {
             if (mouse.buttons === Qt.LeftButton)
                 mainWindow.y += (mouse.y - clickPos.y);
+
         }
     }
 
@@ -78,11 +81,12 @@ ApplicationWindow {
                 return isLightTheme = !state;
             }
         }
+        ProcessPage {
     }
 
     Settings {
         id: settings
-
+        category: "app"
         property alias isLightTheme: mainWindow.isLightTheme
 
         location: "file:settings.ini"
