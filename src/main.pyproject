@@ -17,8 +17,10 @@
         "qml/components/SideBar.qml",
         "qml/themes/DarkTheme.qml",
         "qml/themes/LightTheme.qml",
+        "qml/themes/qmldir",
         "qml/main.qml",
+        "qml/splash.qml",
         "qml/theme_demo.qml",
-        "qml/utils/audiohelper.mjs",
+        "qml/utils/audiohelper.mjs"
     ]
 }

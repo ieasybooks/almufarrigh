@@ -6,6 +6,7 @@ Rectangle {
     property int index: 0
 
     signal sidebarButtonClicked(int index)
+    signal folderClick()
 
     color: theme.primary
     width: 80
@@ -35,7 +36,7 @@ Rectangle {
         }
 
         IconImage {
-            source: index == 0 ? "qrc:/home_selected" : "qrc:/home_unselected"
+            source: index === 0 ? "qrc:/home_selected" : "qrc:/home_unselected"
             Layout.alignment: Qt.AlignHCenter
 
             MouseArea {
@@ -50,7 +51,7 @@ Rectangle {
         }
 
         IconImage {
-            source: index == 1 ? "qrc:/settings_selected" : "qrc:/settings_unselected"
+            source: index === 1 ? "qrc:/settings_selected" : "qrc:/settings_unselected"
             Layout.alignment: Qt.AlignHCenter
 
             MouseArea {
@@ -78,8 +79,8 @@ Rectangle {
                 anchors.fill: parent
                 hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
-                onClicked: {
-                }
+                onClicked: folderClick()
+                
             }
         }
 

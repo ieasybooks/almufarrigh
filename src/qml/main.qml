@@ -51,9 +51,11 @@ ApplicationWindow {
         anchors.top: parent.top
         anchors.bottom: parent.bottom
         anchors.left: parent.left
-        onSidebarButtonClicked: index => {
+        onFolderClick: {
+            backend.open_folder(settingsPage.saveLocation)
+        }
+        onSidebarButtonClicked: (index) => {
             stackLayout.currentIndex = index;
-            console.log("lol index changed");
         }
     }
 
@@ -68,20 +70,24 @@ ApplicationWindow {
         }
 
         ConvertPage {
-            onConvertRequested: audioUrls => {
-                controller.setAudioUrls(audioUrls);
-                controller.setSettings(JSON.stringify(settingsPage.getSettingsData()));
+            onConvertRequested: (urls) => {
+                backend.urls = urls
+                backend.start()
+                stackLayout.currentIndex = 2
             }
         }
 
         SettingsPage {
             id: settingsPage
 
-            onThemeChanged: state => {
-                return isLightTheme = !state;
+            onThemeChanged: (state) => {
+                isLightTheme = !state;
             }
         }
+
         ProcessPage {
+            id: processPage
+        }
     }
 
     Settings {
@@ -90,5 +96,14 @@ ApplicationWindow {
         property alias isLightTheme: mainWindow.isLightTheme
 
         location: "file:settings.ini"
+    }
+
+    Connections {
+        target: backend
+        enabled: mainWindow.visible
+
+        function onFinish() {
+            stackLayout.currentIndex = 0
+        }
     }
 }

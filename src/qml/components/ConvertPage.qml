@@ -1,13 +1,14 @@
 import "../utils/audiohelper.mjs" as AudioHelper
-import QtQuick 6.4
+import QtQuick 2.15
 import QtQuick.Controls 6.4
 import QtQuick.Dialogs
 import QtQuick.Layouts 6.4
 import "convert"
 
 Rectangle {
+    id: root
     //audioUrls must be in jsonstring format
-    signal convertRequested(string audioUrls)
+    signal convertRequested(list<string> urls)
 
     color: theme.background
 
@@ -38,6 +39,7 @@ Rectangle {
             topMargin: 64
             rightMargin: 75
         }
+
     }
 
     Image {
@@ -52,6 +54,7 @@ Rectangle {
             topMargin: title.anchors.topMargin + 48
             rightMargin: 60
         }
+
     }
 
     Text {
@@ -71,6 +74,7 @@ Rectangle {
             topMargin: 6
             rightMargin: 10
         }
+
     }
 
     Text {
@@ -88,17 +92,14 @@ Rectangle {
             right: title.right
             topMargin: 16
         }
+
     }
 
     AcceptTasks {
         id: acceptTasks
 
-        onAddedNewAudio: audio => {
-            console.log('From ConverPage ', audio);
-            console.log("The list ", audioFilesModel.count);
-            audioFilesModel.append({
-                    "audioUrl": audio
-                });
+        onAddedNewAudio: (audio) => {
+            audioFilesModel.append({'file': audio});
         }
 
         anchors {
@@ -108,6 +109,7 @@ Rectangle {
             rightMargin: 72
             leftMargin: 72
         }
+
     }
 
     Rectangle {
@@ -142,7 +144,9 @@ Rectangle {
                     audioFilesModel.remove(index); // Remove the audio file from the model
                 }
             }
+
         }
+
     }
 
     RowLayout {
@@ -162,14 +166,13 @@ Rectangle {
             text: qsTr("البــــدء")
             Layout.fillWidth: true
             onClicked: {
-                let convertData = {
-                    "audioUrlList": []
-                };
+                var listData = []
                 for (var i = 0; i < audioFilesModel.count; i++) {
-                    convertData.audioUrlList.push(audioFilesModel.get(i));
+                    var item = audioFilesModel.get(i)
+                    listData.push(item.file)
                 }
-                let jsonString = JSON.stringify(convertData);
-                convertRequested(jsonString);
+
+                root.convertRequested(listData)
             }
         }
 
@@ -178,6 +181,16 @@ Rectangle {
             backColor: theme.card
             Layout.fillWidth: true
             onClicked: audioFilesModel.clear()
+        }
+    }
+
+
+    Connections {
+        target: backend
+        enabled: root.visible
+
+        function onFinish() {
+            audioFilesModel.clear()
         }
     }
 }

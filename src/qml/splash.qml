@@ -92,7 +92,7 @@ ApplicationWindow {
 
     Settings {
         id: settings
-
+        category: "app"
         property alias isLightTheme: splash.isLightTheme
 
         location: "file:settings.ini"
