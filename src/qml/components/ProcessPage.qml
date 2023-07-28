@@ -101,8 +101,12 @@ Rectangle {
         target: backend
         enabled: progressPage.visible
 
-        function onProgress(progress, remaingTime) {
+        function onProgress(progress, remainingTime) {
             progressBar.value = progress;
+        }
+
+        function onFinish() {
+            progressBar.value = 0
         }
     }
 }

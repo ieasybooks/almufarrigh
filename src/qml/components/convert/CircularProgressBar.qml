@@ -64,17 +64,15 @@ Item {
         Text {
             text: progressBar.labelValue
             font.pixelSize: 64
-            color: "#000000"
+            color: theme.fontSecondary
             font.bold: true
-            opacity: 0.6
         }
 
         Text {
             text: "%"
             font.pixelSize: 64
-            color: "#000000"
+            color: theme.fontThirty
             font.bold: true
-            opacity: 0.36
         }
     }
 

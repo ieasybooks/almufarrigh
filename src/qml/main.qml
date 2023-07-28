@@ -103,6 +103,18 @@ ApplicationWindow {
         enabled: mainWindow.visible
 
         function onFinish() {
+            timer.start()
+        }
+    }
+
+    Timer {
+        id: timer
+
+        interval: 1000
+        running: false
+        repeat: false
+        onTriggered: {
+            timer.stop();
             stackLayout.currentIndex = 0
         }
     }

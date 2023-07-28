@@ -5,7 +5,7 @@ from PySide6.QtCore import QObject, Signal, Property, Slot, QThreadPool
 from tafrigh import farrigh, Config
 
 from .progress import Progress
-from .config import CaseSensitiveConfigParser
+from .config import CaseSensitiveConfigParser, AppConfig
 from .threadpool import WorkerSignals, Worker
 
 os.system('cls')
@@ -40,8 +40,6 @@ class Backend(QObject):
 
     @Slot()
     def start(self) -> None:
-        print("RUNNING")
-
         worker = Worker(func=self.run)
         worker.signals.finished.connect(self.on_finish)
         worker.signals.progress.connect(self.on_progress)
@@ -58,23 +56,22 @@ class Backend(QObject):
         self._urls = list(map(lambda x: x.replace("file:///", ""), value))
 
     def run(self, *args, **kwargs) -> Generator[Dict[str, int], None, None]:
-        app_config = CaseSensitiveConfigParser.read_config()
-        whisper_model = f"whisper-{app_config.whisper_model}-ct2"
+        app_config: AppConfig = CaseSensitiveConfigParser.read_config()
 
         config = Config(
             urls_or_paths=self.urls,
             playlist_items="",
-            verbose=True,
+            verbose=False,
             skip_if_output_exist=True,
-            model_name_or_path=whisper_model,
+            model_name_or_path=app_config.whisper_model,
             task='transcribe',
             language=app_config.convert_language,
             use_whisper_jax=False,
-            use_faster_whisper=False,
+            use_faster_whisper=True,
             beam_size=5,
-            ct2_compute_type='float16',
+            ct2_compute_type='default',
 
-            wit_client_access_token=app_config.wit_convert_key,
+            wit_client_access_token=app_config.wit_convert_key if app_config.is_wit_engine else None,
             max_cutting_duration=int(app_config.max_part_length),
 
             min_words_per_segment=app_config.word_count,
@@ -86,7 +83,7 @@ class Backend(QObject):
         )
 
         return farrigh(config)
-    
+
     @Slot(str)
     @staticmethod
     def open_folder(path: str):
