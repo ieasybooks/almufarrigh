@@ -106,7 +106,7 @@ Rectangle {
         }
 
         function onFinish() {
-            progressBar.value = 0
+            progressBar.value = 0;
         }
     }
 }

@@ -30,18 +30,16 @@ ApplicationWindow {
 
         anchors.fill: parent
         hoverEnabled: true
-        onPressed: (mouse) => {
+        onPressed: mouse => {
             clickPos = Qt.point(mouse.x, mouse.y);
         }
-        onMouseXChanged: (mouse) => {
+        onMouseXChanged: mouse => {
             if (mouse.buttons === Qt.LeftButton)
                 mainWindow.x += (mouse.x - clickPos.x);
-
         }
-        onMouseYChanged: (mouse) => {
+        onMouseYChanged: mouse => {
             if (mouse.buttons === Qt.LeftButton)
                 mainWindow.y += (mouse.y - clickPos.y);
-
         }
     }
 
@@ -52,9 +50,9 @@ ApplicationWindow {
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         onFolderClick: {
-            backend.open_folder(settingsPage.saveLocation)
+            backend.open_folder(settingsPage.saveLocation);
         }
-        onSidebarButtonClicked: (index) => {
+        onSidebarButtonClicked: index => {
             stackLayout.currentIndex = index;
         }
     }
@@ -70,17 +68,17 @@ ApplicationWindow {
         }
 
         ConvertPage {
-            onConvertRequested: (urls) => {
-                backend.urls = urls
-                backend.start()
-                stackLayout.currentIndex = 2
+            onConvertRequested: urls => {
+                backend.urls = urls;
+                backend.start();
+                stackLayout.currentIndex = 2;
             }
         }
 
         SettingsPage {
             id: settingsPage
 
-            onThemeChanged: (state) => {
+            onThemeChanged: state => {
                 isLightTheme = !state;
             }
         }
@@ -103,7 +101,7 @@ ApplicationWindow {
         enabled: mainWindow.visible
 
         function onFinish() {
-            timer.start()
+            timer.start();
         }
     }
 
@@ -115,7 +113,7 @@ ApplicationWindow {
         repeat: false
         onTriggered: {
             timer.stop();
-            stackLayout.currentIndex = 0
+            stackLayout.currentIndex = 0;
         }
     }
 }

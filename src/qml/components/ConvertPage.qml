@@ -8,7 +8,7 @@ import "convert"
 Rectangle {
     id: root
     //audioUrls must be in jsonstring format
-    signal convertRequested(list<string> urls)
+    signal convertRequested(list urls)
 
     color: theme.background
 
@@ -39,7 +39,6 @@ Rectangle {
             topMargin: 64
             rightMargin: 75
         }
-
     }
 
     Image {
@@ -54,7 +53,6 @@ Rectangle {
             topMargin: title.anchors.topMargin + 48
             rightMargin: 60
         }
-
     }
 
     Text {
@@ -74,7 +72,6 @@ Rectangle {
             topMargin: 6
             rightMargin: 10
         }
-
     }
 
     Text {
@@ -92,14 +89,15 @@ Rectangle {
             right: title.right
             topMargin: 16
         }
-
     }
 
     AcceptTasks {
         id: acceptTasks
 
-        onAddedNewAudio: (audio) => {
-            audioFilesModel.append({'file': audio});
+        onAddedNewAudio: audio => {
+            audioFilesModel.append({
+                    "file": audio
+                });
         }
 
         anchors {
@@ -109,7 +107,6 @@ Rectangle {
             rightMargin: 72
             leftMargin: 72
         }
-
     }
 
     Rectangle {
@@ -144,9 +141,7 @@ Rectangle {
                     audioFilesModel.remove(index); // Remove the audio file from the model
                 }
             }
-
         }
-
     }
 
     RowLayout {
@@ -166,31 +161,29 @@ Rectangle {
             text: qsTr("البــــدء")
             Layout.fillWidth: true
             onClicked: {
-                var listData = []
+                var listData = [];
                 for (var i = 0; i < audioFilesModel.count; i++) {
-                    var item = audioFilesModel.get(i)
-                    listData.push(item.file)
+                    var item = audioFilesModel.get(i);
+                    listData.push(item.file);
                 }
-
-                root.convertRequested(listData)
+                root.convertRequested(listData);
             }
         }
 
         CustomButton {
-            text: qsTr("الغــاء")
+            text: qsTr("إلغــاء")
             backColor: theme.card
             Layout.fillWidth: true
             onClicked: audioFilesModel.clear()
         }
     }
 
-
     Connections {
         target: backend
         enabled: root.visible
 
         function onFinish() {
-            audioFilesModel.clear()
+            audioFilesModel.clear();
         }
     }
 }

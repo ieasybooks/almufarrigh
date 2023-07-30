@@ -6,7 +6,7 @@ Rectangle {
     property int index: 0
 
     signal sidebarButtonClicked(int index)
-    signal folderClick()
+    signal folderClick
 
     color: theme.primary
     width: 80
@@ -80,7 +80,6 @@ Rectangle {
                 hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
                 onClicked: folderClick()
-                
             }
         }
 

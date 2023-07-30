@@ -1,7 +1,6 @@
 import QtQuick 6.4
 import QtQuick.Controls 6.4
 
-
 Item {
     id: progressBar
     property int value: 0
@@ -15,7 +14,7 @@ Item {
 
     onValueChanged: {
         canvas.degree = value;
-        labelValue = value
+        labelValue = value;
     }
 
     Canvas {
@@ -34,7 +33,6 @@ Item {
             const radius = Math.min(width, height) * 0.4;
             const startAngle = -90; // Start angle at the top (-90 degrees)
             const endAngle = startAngle + (degree / 100) * 360; // Calculate the end angle based on progress
-
             const ctx = getContext("2d");
             ctx.clearRect(0, 0, width, height); // Clear the canvas
 
@@ -52,14 +50,14 @@ Item {
             ctx.stroke();
         }
 
-        Behavior on degree {
+        Behavior on degree  {
             NumberAnimation {
                 duration: progressBar.animationDuration
             }
         }
     }
 
-   Row {
+    Row {
         anchors.centerIn: parent
         Text {
             text: progressBar.labelValue
@@ -76,7 +74,7 @@ Item {
         }
     }
 
-     Behavior on labelValue {
+    Behavior on labelValue  {
         NumberAnimation {
             duration: progressBar.animationDuration
         }
