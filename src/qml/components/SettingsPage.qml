@@ -158,7 +158,6 @@ Rectangle {
                     radius: 8
                 }
                 // Sets the font size to a small value
-
             }
         }
 
