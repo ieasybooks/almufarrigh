@@ -2,7 +2,7 @@
 name = "almufarrigh"
 version = "0.0.1"
 description = "الواجهة الرسومية الخاصة بأداة تفريغ على أنظمة التشغيل المختلفة"
-authors = ["Ali Hamdi Ali Fadel <AliOsm1997@gmail.com>", "yshalsager <ysh-alsager@hotmail.com>"]
+authors = ["الكتب المٌيسّرة <easybooksdev@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 homepage = "https://github.com/ieasybooks/almufarrigh/"
