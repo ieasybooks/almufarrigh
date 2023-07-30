@@ -8,7 +8,7 @@ import "convert"
 Rectangle {
     id: root
     //audioUrls must be in jsonstring format
-    signal convertRequested(list urls)
+    signal convertRequested(list<string> urls)
 
     color: theme.background
 

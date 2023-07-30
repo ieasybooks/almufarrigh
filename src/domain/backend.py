@@ -63,7 +63,6 @@ class Backend(QObject):
         app_config: AppConfig = CaseSensitiveConfigParser.read_config()
 
         config = Config(
-            *args,
             urls_or_paths=self.urls,
             playlist_items="",
             verbose=False,
@@ -85,13 +84,12 @@ class Backend(QObject):
             output_sample=0,
             output_formats=app_config.get_output_formats(),
             output_dir=app_config.save_location.replace("file:///", ""),
-            **kwargs,
         )
 
         return farrigh(config)
 
-    @staticmethod
     @Slot(str)
+    @staticmethod
     def open_folder(path: str) -> None:
         if system() == "Windows":
             from os import startfile  # type: ignore[attr-defined]
