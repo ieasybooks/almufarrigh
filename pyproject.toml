@@ -10,7 +10,8 @@ homepage = "https://github.com/ieasybooks/almufarrigh/"
 [tool.poetry.dependencies]
 python = ">=3.10,<3.12"
 pyside6 = "^6.5.0"
-tafrigh = {git = "https://github.com/ieasybooks/tafrigh", rev = "d4e36b3"}
+tafrigh = {git = "https://github.com/ieasybooks/tafrigh", rev = "5a4ac3b"}
+pydantic = "^2.1.1"
 
 [tool.poetry.group.dev.dependencies]
 absolufy-imports = "^0.3.1"
