@@ -1,13 +1,14 @@
 import "../utils/audiohelper.mjs" as AudioHelper
-import QtQuick 6.4
+import QtQuick 2.15
 import QtQuick.Controls 6.4
 import QtQuick.Dialogs
 import QtQuick.Layouts 6.4
 import "convert"
 
 Rectangle {
+    id: root
     //audioUrls must be in jsonstring format
-    signal convertRequested(string audioUrls)
+    signal convertRequested(list<string> urls)
 
     color: theme.background
 
@@ -94,10 +95,8 @@ Rectangle {
         id: acceptTasks
 
         onAddedNewAudio: audio => {
-            console.log('From ConverPage ', audio);
-            console.log("The list ", audioFilesModel.count);
             audioFilesModel.append({
-                    "audioUrl": audio
+                    "file": audio
                 });
         }
 
@@ -162,22 +161,29 @@ Rectangle {
             text: qsTr("البــــدء")
             Layout.fillWidth: true
             onClicked: {
-                let convertData = {
-                    "audioUrlList": []
-                };
+                var listData = [];
                 for (var i = 0; i < audioFilesModel.count; i++) {
-                    convertData.audioUrlList.push(audioFilesModel.get(i));
+                    var item = audioFilesModel.get(i);
+                    listData.push(item.file);
                 }
-                let jsonString = JSON.stringify(convertData);
-                convertRequested(jsonString);
+                root.convertRequested(listData);
             }
         }
 
         CustomButton {
-            text: qsTr("الغــاء")
+            text: qsTr("إلغــاء")
             backColor: theme.card
             Layout.fillWidth: true
             onClicked: audioFilesModel.clear()
+        }
+    }
+
+    Connections {
+        target: backend
+        enabled: root.visible
+
+        function onFinish() {
+            audioFilesModel.clear();
         }
     }
 }

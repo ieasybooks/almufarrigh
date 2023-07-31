@@ -10,25 +10,9 @@ Rectangle {
     id: root
 
     property bool isWitEngine: true
+    property alias saveLocation: saveLocation.value
 
     signal themeChanged(bool state)
-
-    function getSettingsData() {
-        console.log("hi ", convertLanguage.currentText);
-        let settingsData = {
-            "convertLanguage": convertLanguage.selectedText,
-            "engineSelector": engineSelector.selectedText,
-            "modelSelector": modelSelector.selectedText,
-            "convertKey": convertKey.selectedText,
-            "wordCount": wordCount.selectedText,
-            "maxPartLength": maxPartLength.selectedText,
-            "dropEmptyParts": dropEmptyParts.selectedValue,
-            "exportFormats": exportFormats.getSelectedValue(),
-            "saveLocation": saveLocation.selectedValue,
-            "jsonLoad": jsonLoad.selectedValue
-        };
-        return settingsData;
-    }
 
     color: theme.background
 
@@ -206,7 +190,8 @@ Rectangle {
 
             Slider {
                 id: slider
-
+                from: 3
+                to: 17
                 implicitWidth: parent.width / 3
             }
         }
@@ -228,14 +213,6 @@ Rectangle {
 
         SettingsItem {
             id: exportFormats
-
-            function getSelectedValue() {
-                return {
-                    "srt": srt.checked,
-                    "txt": txt.checked,
-                    "vtt": vtt.checked
-                };
-            }
 
             iconSource: "qrc:/export"
             labelText: qsTr("صيغ المخرجات")
@@ -383,7 +360,7 @@ Rectangle {
 
     Settings {
         id: settings
-
+        category: "config"
         property alias isWitEngine: root.isWitEngine
         property alias downloadJson: jsonCheck.checked
         property alias saveLocation: saveLocation.value
@@ -397,6 +374,12 @@ Rectangle {
         property alias whisperModel: whisperModel.value
         property alias convertEngine: convertEngine.value
         property alias convertLanguage: convertLanguage.value
+
+        location: "file:settings.ini"
+    }
+
+    Settings {
+        category: "app"
         property alias whisperModelIndex: whisperModel.currentIndex
         property alias convertEngineIndex: convertEngine.currentIndex
         property alias convertLanguageIndex: convertLanguage.currentIndex

@@ -40,9 +40,9 @@ DropArea {
         Canvas {
             anchors.fill: parent
             onPaint: {
-                var ctx = getContext("2d");
-                var borderRadius = 24;
-                var halfBorderWidth = 1.5; // Half the desired border width for proper positioning
+                const ctx = getContext("2d");
+                const borderRadius = 24;
+                const halfBorderWidth = 1.5; // Half the desired border width for proper positioning
                 ctx.strokeStyle = theme.primary;
                 ctx.lineWidth = 3;
                 ctx.setLineDash([5, 5]);

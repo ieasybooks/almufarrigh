@@ -17,7 +17,7 @@ SettingsItem {
         font.family: poppinsFontLoader.font.family
         model: dropdownModel
         onActivated: index => {
-            var selectedValue = model.get(index)[combo.valueRole];
+            const selectedValue = model.get(index)[combo.valueRole];
             console.log(selectedValue);
             changedSelection(index, selectedValue);
             combo.currentIndex = index;

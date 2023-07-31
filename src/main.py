@@ -10,8 +10,9 @@ from PySide6.QtQml import QQmlApplicationEngine
 from PySide6.QtQuickControls2 import QQuickStyle
 from PySide6.QtWidgets import QApplication
 
-from clipboardproxy import ClipboardProxy
-from controller import Controller
+from domain.backend import Backend
+from domain.clipboardproxy import ClipboardProxy
+
 
 QQuickStyle.setStyle("Material")
 
@@ -23,12 +24,13 @@ if __name__ == "__main__":
     app.setApplicationName("Almufaragh")
 
     engine = QQmlApplicationEngine()
-    controller = Controller()
+    backend = Backend()
     clipboard = QApplication.clipboard()
     clipboard_proxy = ClipboardProxy(clipboard)
 
     # Expose the Python object to QML
-    engine.rootContext().setContextProperty("controller", controller)
+    engine.quit.connect(app.quit)
+    engine.rootContext().setContextProperty("backend", backend)
     engine.rootContext().setContextProperty("clipboard", clipboard_proxy)
     path: Path = Path(__file__).parent / "qml"
 
@@ -40,7 +42,7 @@ if __name__ == "__main__":
     app.exec()
 
     # Load Main Window
-    engine.load(QUrl.fromLocalFile(path / "main.qml"))
+    engine.load(QUrl.fromLocalFile((path / "main.qml")))
 
     if not engine.rootObjects():
         sys.exit(-1)

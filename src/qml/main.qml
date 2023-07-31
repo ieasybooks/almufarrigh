@@ -6,6 +6,7 @@ import QtQuick.Layouts 6.4
 import QtQuick.Window 6.4
 import "components"
 import "themes"
+import "components/convert"
 
 ApplicationWindow {
     id: mainWindow
@@ -48,9 +49,11 @@ ApplicationWindow {
         anchors.top: parent.top
         anchors.bottom: parent.bottom
         anchors.left: parent.left
+        onFolderClick: {
+            backend.open_folder(settingsPage.saveLocation);
+        }
         onSidebarButtonClicked: index => {
             stackLayout.currentIndex = index;
-            console.log("lol index changed");
         }
     }
 
@@ -65,9 +68,10 @@ ApplicationWindow {
         }
 
         ConvertPage {
-            onConvertRequested: audioUrls => {
-                controller.setAudioUrls(audioUrls);
-                controller.setSettings(JSON.stringify(settingsPage.getSettingsData()));
+            onConvertRequested: urls => {
+                backend.urls = urls;
+                backend.start();
+                stackLayout.currentIndex = 2;
             }
         }
 
@@ -75,16 +79,41 @@ ApplicationWindow {
             id: settingsPage
 
             onThemeChanged: state => {
-                return isLightTheme = !state;
+                isLightTheme = !state;
             }
+        }
+
+        ProcessPage {
+            id: processPage
         }
     }
 
     Settings {
         id: settings
-
+        category: "app"
         property alias isLightTheme: mainWindow.isLightTheme
 
         location: "file:settings.ini"
+    }
+
+    Connections {
+        target: backend
+        enabled: mainWindow.visible
+
+        function onFinish() {
+            timer.start();
+        }
+    }
+
+    Timer {
+        id: timer
+
+        interval: 1000
+        running: false
+        repeat: false
+        onTriggered: {
+            timer.stop();
+            stackLayout.currentIndex = 0;
+        }
     }
 }
