@@ -30,31 +30,21 @@ Rectangle {
         SettingsDropDown {
             id: convertLanguage
 
-            property string value
+            property string value: convertLanguage.selectedValue
 
             onChangedSelection: (index, selected) => {
                 value = selected;
+                witConvertKey.value = backend.get_convert_token(selected);
             }
             iconSource: "qrc:/convert_language"
             labelText: qsTr("لــغة التحـويل")
-
-            dropdownModel: ListModel {
-                ListElement {
-                    text: qsTr("العــربية")
-                    value: "ar"
-                }
-
-                ListElement {
-                    text: qsTr("الانجليزية")
-                    value: "en"
-                }
-            }
+            currentIndex: 0
         }
 
         SettingsDropDown {
             id: convertEngine
 
-            property string value
+            property string value: convertEngine.selectedValue
 
             iconSource: "qrc:/convert_engine"
             labelText: qsTr("محرك التحـويل")
@@ -79,7 +69,7 @@ Rectangle {
         SettingsDropDown {
             id: whisperModel
 
-            property string value
+            property string value: whisperModel.selectedValue
 
             visible: !root.isWitEngine
             iconSource: "qrc:/select_model"
@@ -142,6 +132,11 @@ Rectangle {
                     radius: 8
                 }
                 // Sets the font size to a small value
+                onTextChanged: {
+                    const token = inputText.text;
+                    const language = convertLanguage.value;
+                    backend.save_convert_token(language, token);
+                }
             }
         }
 
@@ -296,7 +291,6 @@ Rectangle {
                     title: qsTr("Please choose a file")
                     onAccepted: {
                         saveLocation.value = selectedFolder;
-                        console.log(saveLocation.value);
                     }
                     onRejected: {
                         console.log("Canceled");
@@ -385,5 +379,16 @@ Rectangle {
         property alias convertLanguageIndex: convertLanguage.currentIndex
 
         location: "file:settings.ini"
+    }
+
+    Connections {
+        target: backend
+        enabled: root.visible
+    }
+
+    Component.onCompleted: {
+        backend.get_languages().forEach(function (language) {
+            convertLanguage.dropdownModel.append(language);
+        });
     }
 }

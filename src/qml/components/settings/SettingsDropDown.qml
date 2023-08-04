@@ -3,7 +3,7 @@ import QtQuick 6.4
 import QtQuick.Controls 6.4
 
 SettingsItem {
-    property alias selectedText: combo.currentText
+    property alias selectedValue: combo.currentValue
     property alias currentIndex: combo.currentIndex
     property ListModel dropdownModel
 
@@ -18,7 +18,6 @@ SettingsItem {
         model: dropdownModel
         onActivated: index => {
             const selectedValue = model.get(index)[combo.valueRole];
-            console.log(selectedValue);
             changedSelection(index, selectedValue);
             combo.currentIndex = index;
         }
