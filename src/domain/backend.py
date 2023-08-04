@@ -1,6 +1,6 @@
 """Backend that interacts with tafrigh."""
-from collections import OrderedDict
 import json
+from collections import OrderedDict
 from pathlib import Path
 from platform import system
 from subprocess import Popen
@@ -12,9 +12,7 @@ from tafrigh import Config, farrigh
 from domain.config import AppConfig, CaseSensitiveConfigParser
 from domain.progress import Progress
 from domain.threadpool import Worker, WorkerSignals
-
 from domain.token_manager import TokenManager
-
 
 
 # BACKEND
@@ -114,7 +112,7 @@ class Backend(QObject):
         self.token_manager.save_tokens(tokens)
 
     @Slot(str, result=str)
-    def get_convert_token(self, language: str) -> Optional[str]:
+    def get_convert_token(self, language: str) -> str | None:
         tokens = self.token_manager.read_tokens()
         return tokens.get(language, None)
 

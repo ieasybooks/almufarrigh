@@ -2,12 +2,12 @@ import json
 
 
 class TokenManager:
-    def __init__(self, filename: str = None) -> None:
+    def __init__(self, filename: str | None = None) -> None:
         self.filename = filename or "tokens.json"
 
     def read_tokens(self) -> dict:
         try:
-            with open(self.filename, "r") as reader:
+            with open(self.filename) as reader:
                 return json.load(reader)
         except FileNotFoundError:
             return {}
