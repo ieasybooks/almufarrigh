@@ -1,4 +1,7 @@
 """Backend that interacts with tafrigh."""
+import json
+from collections import OrderedDict
+from pathlib import Path
 from platform import system
 from subprocess import Popen
 from typing import Any
@@ -9,6 +12,7 @@ from tafrigh import Config, farrigh
 from domain.config import AppConfig, CaseSensitiveConfigParser
 from domain.progress import Progress
 from domain.threadpool import Worker, WorkerSignals
+from domain.token_manager import TokenManager
 
 
 # BACKEND
@@ -26,6 +30,7 @@ class Backend(QObject):
         super().__init__(parent=parent)
         self.signals = WorkerSignals()
         self.threadpool = QThreadPool()
+        self.token_manager = TokenManager()
         self._is_running = False
         self._urls: list[str] = []
 
@@ -99,3 +104,26 @@ class Backend(QObject):
             Popen(["open", path], shell=False)  # noqa: S603, S607
         else:
             Popen(["xdg-open", path], shell=False)  # noqa: S603, S607
+
+    @Slot(str, str)
+    def save_convert_token(self, language: str, token: str) -> None:
+        tokens = self.token_manager.read_tokens()
+        tokens[language] = token
+        self.token_manager.save_tokens(tokens)
+
+    @Slot(str, result=str)
+    def get_convert_token(self, language: str) -> str | None:
+        tokens = self.token_manager.read_tokens()
+        return tokens.get(language, None)
+
+    @Slot(result=list)
+    def get_languages(self) -> list[dict[str, str]]:
+        root_path = Path(__file__).parent.parent
+        languages_path = root_path / "resources/languages.json"
+        if not languages_path.exists():
+            return []
+        languages_dict = json.loads(
+            languages_path.read_text(encoding="utf-8"),
+            object_pairs_hook=OrderedDict,
+        )
+        return [{"text": text, "value": value} for value, text in languages_dict.items()]

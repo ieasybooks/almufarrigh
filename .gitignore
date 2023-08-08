@@ -34,6 +34,7 @@ venv.bak/
 
 # pyenv
 .python-version
+.tool-versions
 
 # Ruff
 .ruff_cache/
@@ -48,3 +49,4 @@ main.pyproject.user
 
 # App settings
 settings.ini
+tokens.json

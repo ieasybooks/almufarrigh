@@ -1,5 +1,5 @@
 import "../utils/audiohelper.mjs" as AudioHelper
-import QtQuick 2.15
+import QtQuick 6.4
 import QtQuick.Controls 6.4
 import QtQuick.Dialogs
 import QtQuick.Layouts 6.4
