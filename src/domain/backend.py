@@ -4,7 +4,7 @@ from collections import OrderedDict
 from pathlib import Path
 from platform import system
 from subprocess import Popen
-from typing import Any, Optional
+from typing import Any
 
 from PySide6.QtCore import Property, QObject, QThreadPool, Signal, Slot
 from tafrigh import Config, farrigh
@@ -106,7 +106,7 @@ class Backend(QObject):
             Popen(["xdg-open", path], shell=False)  # noqa: S603, S607
 
     @Slot(str, str)
-    def save_convert_token(self, language: str, token: str):
+    def save_convert_token(self, language: str, token: str) -> None:
         tokens = self.token_manager.read_tokens()
         tokens[language] = token
         self.token_manager.save_tokens(tokens)
@@ -117,12 +117,13 @@ class Backend(QObject):
         return tokens.get(language, None)
 
     @Slot(result=list)
-    def get_languages(self) -> list:
-        try:
-            root_path = Path(__file__).parent.parent
-            with open(f"{root_path}/resources/languages.json", encoding="utf-8") as rf:
-                languages_dict = json.load(rf, object_pairs_hook=OrderedDict)
-                data = [{"text": text, "value": value} for value, text in languages_dict.items()]
-            return data
-        except FileNotFoundError:
+    def get_languages(self) -> list[dict[str, str]]:
+        root_path = Path(__file__).parent.parent
+        languages_path = root_path / "resources/languages.json"
+        if not languages_path.exists():
             return []
+        languages_dict = json.loads(
+            languages_path.read_text(encoding="utf-8"),
+            object_pairs_hook=OrderedDict,
+        )
+        return [{"text": text, "value": value} for value, text in languages_dict.items()]
