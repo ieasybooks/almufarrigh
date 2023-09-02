@@ -4,14 +4,14 @@ import sys
 from pathlib import Path
 
 # noinspection PyUnresolvedReferences
-import resources_rc
+import src.resources_rc
 from PySide6.QtCore import QUrl
 from PySide6.QtQml import QQmlApplicationEngine
 from PySide6.QtQuickControls2 import QQuickStyle
 from PySide6.QtWidgets import QApplication
 
-from domain.backend import Backend
-from domain.clipboardproxy import ClipboardProxy
+from src.domain.backend import Backend
+from src.domain.clipboardproxy import ClipboardProxy
 
 
 QQuickStyle.setStyle("Material")

@@ -5,8 +5,7 @@ from collections.abc import Callable, Generator
 from typing import Any
 
 from PySide6.QtCore import QObject, QRunnable, Signal
-
-from domain.progress import Progress
+from src.domain.progress import Progress
 
 
 class WorkerSignals(QObject):

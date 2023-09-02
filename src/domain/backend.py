@@ -7,12 +7,11 @@ from subprocess import Popen
 from typing import Any
 
 from PySide6.QtCore import Property, QObject, QThreadPool, Signal, Slot
+from src.domain.config import AppConfig, CaseSensitiveConfigParser
+from src.domain.progress import Progress
+from src.domain.threadpool import Worker, WorkerSignals
+from src.domain.token_manager import TokenManager
 from tafrigh import Config, farrigh
-
-from domain.config import AppConfig, CaseSensitiveConfigParser
-from domain.progress import Progress
-from domain.threadpool import Worker, WorkerSignals
-from domain.token_manager import TokenManager
 
 
 def replace_path(path: str) -> str:
@@ -119,7 +118,7 @@ class Backend(QObject):
 
     @Slot(str, result=str)
     def get_convert_token(self, language: str) -> str | None:
-        tokens = self.token_manager.read_tokens()
+        tokens: dict[str, str] = self.token_manager.read_tokens()
         return tokens.get(language, None)
 
     @Slot(result=list)
