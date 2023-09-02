@@ -34,7 +34,7 @@ jobs:
           tar.exe -xf ffmpeg.zip
           move ffmpeg-6.0-essentials_build/bin/ffmpeg.exe ffmpeg.exe
           move ffmpeg-6.0-essentials_build/bin/ffprobe.exe ffprobe.exe
-      - run: python setup.py build -b dist
+      - run: python bundle.py build -b dist
       - run: tar.exe -acf AlMufarrigh-${{ runner.os }}-${{ matrix.architecture }}-portable.zip dist
       - uses: actions/upload-artifact@v3
         with:
@@ -70,7 +70,7 @@ jobs:
           tar.exe -xf ffmpeg.zip
           move ffmpeg-6.0-essentials_build/bin/ffmpeg.exe ffmpeg.exe
           move ffmpeg-6.0-essentials_build/bin/ffprobe.exe ffprobe.exe
-      - run: python setup.py build bdist_msi
+      - run: python bundle.py build bdist_msi
       #      - run: mv 'dist/*.msi' AlMufarrigh-${{ runner.os }}-${{ matrix.architecture }}.msi
       - uses: actions/upload-artifact@v3
         with:
@@ -89,11 +89,11 @@ jobs:
       - name: Install requirements
         run: |
           python -m pip install --upgrade pip setuptools wheel
-          sed -i 's/, "whisper"//' pyproject.toml
           pip install .
-          pip install cx-Freeze
+          pip uninstall tafrigh
+          pip install tafrigh[wit] cx-Freeze
       - name: Run cx_Freeze
-        run: python setup.py bdist_dmg
+        run: python bundle.py bdist_dmg
       - run: mv 'build/Install*.dmg' AlMufarrigh-macOS.dmg
       - uses: actions/upload-artifact@v3
         with:
@@ -112,11 +112,11 @@ jobs:
       - name: Install requirements
         run: |
           python -m pip install --upgrade pip setuptools wheel
-          sed -i 's/, "whisper"//' pyproject.toml
           pip install .
-          pip install cx-Freeze
+          pip uninstall tafrigh
+          pip install tafrigh[wit] cx-Freeze
       - name: Run cx_Freeze
-        run: python setup.py bdist_mac
+        run: python bundle.py bdist_mac
       - run: mv build/AlMufarrigh.app AlMufarrigh-macOS.app
       - run: zip -r9 AlMufarrigh-macOS-app.zip AlMufarrigh-macOS.app/*
       - uses: actions/upload-artifact@v3
@@ -136,12 +136,12 @@ jobs:
       - name: Install requirements
         run: |
           python -m pip install --upgrade pip setuptools wheel
-          sed -i 's/, "whisper"//' pyproject.toml
           pip install .
-          pip install cx-Freeze
+          pip uninstall tafrigh
+          pip install tafrigh[wit] cx-Freeze
       - name: Run cx_Freeze
         run: |
-          python setup.py build
+          python bundle.py build
           mv exe.linux-x86_64-3.10 AlMufarrigh-linux-x64
           zip -r9 AlMufarrigh-linux-x64.zip AlMufarrigh-linux-x64/*
       - uses: actions/upload-artifact@v3
