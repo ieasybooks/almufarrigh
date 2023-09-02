@@ -15,6 +15,13 @@ from domain.threadpool import Worker, WorkerSignals
 from domain.token_manager import TokenManager
 
 
+def replace_path(path: str) -> str:
+    """Remove file:/// from the path, handles both windows and linux paths."""
+    if system() == "Windows":
+        return path.replace("file:///", "")
+    return path.replace("file://", "")
+
+
 # BACKEND
 class Backend(QObject):
 
@@ -62,7 +69,7 @@ class Backend(QObject):
 
     @urls.setter  # type: ignore[no-redef]
     def urls(self, value: list[str]):
-        self._urls = [x.replace("file:///", "") for x in value]
+        self._urls = [replace_path(x) for x in value]
 
     def run(self, *args: Any, **kwargs: Any) -> Any:
         app_config: AppConfig = CaseSensitiveConfigParser.read_config()
@@ -75,20 +82,19 @@ class Backend(QObject):
             model_name_or_path=app_config.whisper_model,
             task="transcribe",
             language=app_config.convert_language,
-            use_whisper_jax=False,
             use_faster_whisper=True,
             beam_size=5,
             ct2_compute_type="default",
-            wit_client_access_token=app_config.wit_convert_key
+            wit_client_access_tokens=[app_config.wit_convert_key]
             if app_config.is_wit_engine
-            else None,
+            else [""],
             max_cutting_duration=int(app_config.max_part_length),
             min_words_per_segment=app_config.word_count,
             save_files_before_compact=False,
             save_yt_dlp_responses=app_config.download_json,
             output_sample=0,
             output_formats=app_config.get_output_formats(),
-            output_dir=app_config.save_location.replace("file:///", ""),
+            output_dir=replace_path(app_config.save_location),
         )
 
         return farrigh(config)

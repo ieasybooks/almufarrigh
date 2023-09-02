@@ -32,9 +32,10 @@ venv.bak/
 # macOS
 .DS_Store
 
-# pyenv
+# tools versions managers
 .python-version
 .tool-versions
+.rtx.toml
 
 # Ruff
 .ruff_cache/

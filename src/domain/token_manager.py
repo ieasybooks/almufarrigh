@@ -25,4 +25,4 @@ class TokenManager:
 
     def save_tokens(self, tokens: dict[str, str]) -> None:
         """Save the tokens to the file."""
-        self.filename.write_text(json.dumps(tokens, ensure_ascii=False, encoding="utf-8"))
+        self.filename.write_text(json.dumps(tokens, ensure_ascii=False), encoding="utf-8")
