@@ -10,7 +10,7 @@ homepage = "https://github.com/ieasybooks/almufarrigh/"
 [tool.poetry.dependencies]
 python = ">=3.10,<3.12"
 pyside6 = "^6.5.0"
-tafrigh = "^1.1.1"
+tafrigh = {version = "^1.1.1", extras = ["wit", "whisper"]}
 pydantic = "^2.1.1"
 
 [tool.poetry.group.dev.dependencies]
@@ -19,6 +19,10 @@ black = "^23.7.0"
 mypy = "^1.5.1"
 pre-commit = "^3.3.3"
 ruff = "^0.0.287"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
 
 [tool.black]  # https://black.readthedocs.io/en/stable/usage_and_configuration/the_basics.html#configuration-via-a-file
 line-length = 100
@@ -62,7 +66,3 @@ ignore = ["E501", "PGH001", "RET504", "S101", "D211", "D213", "N802", "D102", "E
 unfixable = ["ERA001", "F401", "F841", "T201", "T203"]
 src = ["src", "tests"]
 target-version = "py310"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
