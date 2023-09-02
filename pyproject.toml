@@ -12,6 +12,8 @@ python = ">=3.10,<3.12"
 pyside6 = "^6.5.0"
 tafrigh = {version = "^1.1.1", extras = ["wit", "whisper"]}
 pydantic = "^2.1.1"
+torch = "2.0.0"
+torchaudio = "2.0.1"
 
 [tool.poetry.group.dev.dependencies]
 absolufy-imports = "^0.3.1"
@@ -19,6 +21,7 @@ black = "^23.7.0"
 mypy = "^1.5.1"
 pre-commit = "^3.3.3"
 ruff = "^0.0.287"
+cx-freeze = "^6.15.6"
 
 [build-system]
 requires = ["poetry-core"]
