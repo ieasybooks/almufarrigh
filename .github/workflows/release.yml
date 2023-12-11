@@ -44,7 +44,7 @@ jobs:
           move ffmpeg-4.4-essentials_build/bin/ffmpeg.exe ffmpeg.exe
           move ffmpeg-4.4-essentials_build/bin/ffprobe.exe ffprobe.exe
       - name: Package
-        run: pyinstaller ${{ github.event.inputs.spec }} && tar.exe -acf AlMufarrigh-${{ runner.os }}-${{ matrix.architecture }}-portable.zip dist
+        run: poetry run pyinstaller ${{ github.event.inputs.spec }} && tar.exe -acf AlMufarrigh-${{ runner.os }}-${{ matrix.architecture }}-portable.zip dist
       - uses: actions/upload-artifact@v3
         with:
           name: AlMufarrigh-${{ runner.os }}-${{ matrix.architecture }}-portable
@@ -73,7 +73,7 @@ jobs:
           path: ./.venv
           key: venv-${{ hashFiles('poetry.lock') }}
       - name: Package
-        run: pyinstaller ${{ github.event.inputs.spec }} && zip -r9 AlMufarrigh-macOS-app.zip dist/*
+        run: poetry run pyinstaller ${{ github.event.inputs.spec }} && zip -r9 AlMufarrigh-macOS-app.zip dist/*
       - uses: actions/upload-artifact@v3
         with:
           name: AlMufarrigh-macOS-app.zip
@@ -102,7 +102,7 @@ jobs:
           path: ./.venv
           key: venv-${{ hashFiles('poetry.lock') }}
       - name: Package
-        run: pyinstaller ${{ github.event.inputs.spec }} && zip -r9 AlMufarrigh-linux-x64.zip dist/*
+        run: poetry run pyinstaller ${{ github.event.inputs.spec }} && zip -r9 AlMufarrigh-linux-x64.zip dist/*
       - uses: actions/upload-artifact@v3
         with:
           name: AlMufarrigh-linux-x64.zip
