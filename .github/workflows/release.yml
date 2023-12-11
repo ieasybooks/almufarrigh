@@ -26,6 +26,9 @@ jobs:
         include:
           - os: windows-latest
             architecture: 'x86'
+            python-version: "3.10"
+            poetry-version: "1.6.1"
+            variant: "wit"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
@@ -53,11 +56,12 @@ jobs:
         run: |
           poetry run pyside6-rcc src/resources.qrc -o src/resources_rc.py
           poetry run pyinstaller ${{ github.event.inputs.spec }}
-          if [[ "${{ runner.os }}" == "Windows" ]]; then
-            tar.exe -acf AlMufarrigh-${{ runner.os }}-${{ matrix.architecture }}-${{ matrix.variant }}-portable.zip dist
-          else
-            zip -r9 AlMufarrigh-${{ runner.os }}-${{ matrix.architecture }}-${{ matrix.variant }}.zip dist/*
-          fi
+      - name: Compress (Windows)
+        if: runner.os == 'Windows'
+        run: tar.exe -acf AlMufarrigh-${{ runner.os }}-${{ matrix.architecture }}-${{ matrix.variant }}-portable.zip dist
+      - name: Compress
+        if: runner.os != 'Windows'
+        run: zip -r9 AlMufarrigh-${{ runner.os }}-${{ matrix.architecture }}-${{ matrix.variant }}.zip dist/*
       - uses: actions/upload-artifact@v3
         with:
           name: AlMufarrigh-${{ runner.os }}-${{ matrix.architecture }}-${{ matrix.variant }}
