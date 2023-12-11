@@ -12,11 +12,20 @@ packages = [
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.12"
-pyside6 = "^6.5.0"
-tafrigh = { version = "^1.1.1", extras = ["wit", "whisper"] }
-pydantic = "^2.1.1"
-torch = "2.0.0"
-torchaudio = "2.0.1"
+pyside6 = "^6.6.1"
+pydantic = "^2.5.2"
+
+[tool.poetry.group.wit]
+optional = true
+
+[tool.poetry.group.wit.dependencies]
+tafrigh = { version = "^1.1.3", extras = ["wit"] }
+
+[tool.poetry.group.whisper]
+optional = true
+
+[tool.poetry.group.whisper.dependencies]
+tafrigh = { version = "^1.1.3", extras = ["wit", "whisper"] }
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.6.0"
