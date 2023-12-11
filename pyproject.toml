@@ -21,7 +21,7 @@ torchaudio = "2.0.1"
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.6.0"
 ruff = "^0.1.7"
-cx-freeze = "^6.15.11"
+pyinstaller = "^6.3.0"
 
 [build-system]
 requires = ["poetry-core"]
