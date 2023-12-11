@@ -102,7 +102,10 @@ jobs:
           path: ./.venv
           key: venv-${{ hashFiles('poetry.lock') }}
       - name: Package
-        run: poetry run pyinstaller ${{ github.event.inputs.spec }} && zip -r9 AlMufarrigh-linux-x64.zip dist/*
+        run: |
+          poetry run pyside6-rcc src/resources.qrc -o src/resources_rc.py
+          poetry run pyinstaller ${{ github.event.inputs.spec }}
+          zip -r9 AlMufarrigh-linux-x64.zip dist/*
       - uses: actions/upload-artifact@v3
         with:
           name: AlMufarrigh-linux-x64.zip
