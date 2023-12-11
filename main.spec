@@ -43,7 +43,7 @@ exe = EXE(
     a.datas,
     [],
     name="AlMufarrigh",
-    icon="./src/resources/images/icon.ico",
+    icon="src/resources/images/icon.ico",
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
