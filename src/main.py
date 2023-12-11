@@ -2,15 +2,14 @@
 """Entry point for the application."""
 import sys
 from pathlib import Path
-from platform import system
 
-# noinspection PyUnresolvedReferences
-import resources_rc
-from PySide6.QtCore import QUrl, QTimer
+from PySide6.QtCore import QTimer, QUrl
 from PySide6.QtQml import QQmlApplicationEngine
 from PySide6.QtQuickControls2 import QQuickStyle
 from PySide6.QtWidgets import QApplication
 
+# noinspection PyUnresolvedReferences
+import resources_rc
 from domain.backend import Backend
 from domain.clipboardproxy import ClipboardProxy
 
@@ -24,12 +23,6 @@ def load_main_window() -> None:
 
 
 if __name__ == "__main__":
-    if system() == "Windows":
-        import multiprocessing
-
-        multiprocessing.freeze_support()
-        multiprocessing.set_start_method("spawn")
-
     app = QApplication(sys.argv)
     app.setOrganizationName("ieasybooks")
     app.setOrganizationDomain("https://almufaragh.com/")

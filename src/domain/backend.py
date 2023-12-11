@@ -1,5 +1,6 @@
 """Backend that interacts with tafrigh."""
 import json
+import multiprocessing
 from collections import OrderedDict
 from pathlib import Path
 from platform import system
@@ -73,6 +74,9 @@ class Backend(QObject):
 
     @Slot()
     def start(self) -> None:
+        if system() != "Linux":
+            multiprocessing.freeze_support()
+
         worker = Worker(func=self.run)
         worker.signals.finished.connect(self.on_finish)
         worker.signals.progress.connect(self.on_progress)
