@@ -31,7 +31,7 @@ jobs:
         uses: abatilo/actions-poetry@v2
         with:
           poetry-version: ${{ matrix.poetry-version }}
-        run: poetry install
+      - run: poetry install
       - name: Caching
         uses: actions/cache@v3
         with:
@@ -61,7 +61,7 @@ jobs:
         uses: abatilo/actions-poetry@v2
         with:
           poetry-version: ${{ matrix.poetry-version }}
-        run: poetry install
+      - run: poetry install
       - name: Caching
         uses: actions/cache@v3
         with:
@@ -85,7 +85,7 @@ jobs:
         uses: abatilo/actions-poetry@v2
         with:
           poetry-version: ${{ matrix.poetry-version }}
-        run: poetry install
+      - run: poetry install
       - name: Caching
         uses: actions/cache@v3
         with:
