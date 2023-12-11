@@ -31,7 +31,11 @@ class AppConfig(BaseModel):
     export_txt: bool
 
     def get_output_formats(self) -> list[str]:
-        formats = {"srt": self.export_srt, "vtt": self.export_vtt, "txt": self.export_txt}
+        formats = {
+            "srt": self.export_srt,
+            "vtt": self.export_vtt,
+            "txt": self.export_txt,
+        }
         return [key for key, value in formats.items() if value]
 
 

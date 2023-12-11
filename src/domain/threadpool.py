@@ -37,7 +37,10 @@ class Worker(QRunnable):
         try:
             results = self.func(args=self.args, kwargs=self.kwargs)
             for result in results:
-                progress_value, remaining_time = result["progress"], result["remaining_time"]
+                progress_value, remaining_time = (
+                    result["progress"],
+                    result["remaining_time"],
+                )
                 progress = Progress(
                     value=progress_value,
                     remaining_time=remaining_time,
