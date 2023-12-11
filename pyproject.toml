@@ -2,7 +2,7 @@
 name = "almufarrigh"
 version = "0.0.1"
 description = "الواجهة الرسومية الخاصة بأداة تفريغ على أنظمة التشغيل المختلفة"
-authors = ["الكتب المٌيسّرة <easybooksdev@gmail.com>"]
+authors = ["ieasybooks <easybooksdev@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 homepage = "https://github.com/ieasybooks/almufarrigh/"
@@ -13,7 +13,7 @@ packages = [
 [tool.poetry.dependencies]
 python = ">=3.10,<3.12"
 pyside6 = "^6.5.0"
-tafrigh = {version = "^1.1.1", extras = ["wit", "whisper"]}
+tafrigh = { version = "^1.1.1", extras = ["wit", "whisper"] }
 pydantic = "^2.1.1"
 torch = "2.0.0"
 torchaudio = "2.0.1"
