@@ -13,14 +13,19 @@ on:
         default: "almufarrigh.spec"
 
 jobs:
-  build-windows:
-    runs-on: windows-latest
+  build:
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        architecture: [ 'x64', 'x86' ]
+        os: [ 'windows-latest', 'macos-latest', 'ubuntu-latest' ]
         python-version: [ "3.10" ]
         poetry-version: [ "1.6.1" ]
+        variant: [ 'wit', 'whisper' ]
+        architecture: [ 'x64' ]
+        include:
+          - os: windows-latest
+            architecture: 'x86'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
@@ -31,13 +36,14 @@ jobs:
         uses: abatilo/actions-poetry@v2
         with:
           poetry-version: ${{ matrix.poetry-version }}
-      - run: poetry install --with dev
+      - run: poetry install --with ${{ matrix.variant }} --with dev
       - name: Caching
         uses: actions/cache@v3
         with:
           path: ./.venv
           key: venv-${{ hashFiles('poetry.lock') }}
-      - name: Download ffmpeg
+      - name: Download ffmpeg (Windows)
+        if: runner.os == 'Windows'
         run: |
           Invoke-WebRequest https://github.com/GyanD/codexffmpeg/releases/download/4.4/ffmpeg-4.4-essentials_build.zip -O ffmpeg.zip
           tar.exe -xf ffmpeg.zip
@@ -47,79 +53,19 @@ jobs:
         run: |
           poetry run pyside6-rcc src/resources.qrc -o src/resources_rc.py
           poetry run pyinstaller ${{ github.event.inputs.spec }}
-          tar.exe -acf AlMufarrigh-${{ runner.os }}-${{ matrix.architecture }}-portable.zip dist
+          if [[ "${{ runner.os }}" == "Windows" ]]; then
+            tar.exe -acf AlMufarrigh-${{ runner.os }}-${{ matrix.architecture }}-${{ matrix.variant }}-portable.zip dist
+          else
+            zip -r9 AlMufarrigh-${{ runner.os }}-${{ matrix.architecture }}-${{ matrix.variant }}.zip dist/*
+          fi
       - uses: actions/upload-artifact@v3
         with:
-          name: AlMufarrigh-${{ runner.os }}-${{ matrix.architecture }}-portable
-          path: AlMufarrigh-${{ runner.os }}-${{ matrix.architecture }}-portable.zip
-  build-macos:
-    runs-on: macos-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        python-version: [ "3.10" ]
-        poetry-version: [ "1.6.1" ]
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v4
-        with:
-          python-version: ${{ matrix.python-version }}
-          architecture: 'x64'
-      - name: Install requirements
-        uses: abatilo/actions-poetry@v2
-        with:
-          poetry-version: ${{ matrix.poetry-version }}
-      - run: poetry install --with dev
-      - name: Caching
-        uses: actions/cache@v3
-        with:
-          path: ./.venv
-          key: venv-${{ hashFiles('poetry.lock') }}
-      - name: Package
-        run: |
-          poetry run pyside6-rcc src/resources.qrc -o src/resources_rc.py
-          poetry run pyinstaller ${{ github.event.inputs.spec }}
-          zip -r9 AlMufarrigh-macOS-app.zip dist/*
-      - uses: actions/upload-artifact@v3
-        with:
-          name: AlMufarrigh-macOS-app.zip
-          path: AlMufarrigh-macOS-app.zip
-  build-linux:
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        python-version: [ "3.10" ]
-        poetry-version: [ "1.6.1" ]
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v4
-        with:
-          python-version: ${{ matrix.python-version }}
-          architecture: 'x64'
-      - name: Install requirements
-        uses: abatilo/actions-poetry@v2
-        with:
-          poetry-version: ${{ matrix.poetry-version }}
-      - run: poetry install --with dev
-      - name: Caching
-        uses: actions/cache@v3
-        with:
-          path: ./.venv
-          key: venv-${{ hashFiles('poetry.lock') }}
-      - name: Package
-        run: |
-          poetry run pyside6-rcc src/resources.qrc -o src/resources_rc.py
-          poetry run pyinstaller ${{ github.event.inputs.spec }}
-          zip -r9 AlMufarrigh-linux-x64.zip dist/*
-      - uses: actions/upload-artifact@v3
-        with:
-          name: AlMufarrigh-linux-x64.zip
-          path: AlMufarrigh-linux-x64.zip
+          name: AlMufarrigh-${{ runner.os }}-${{ matrix.architecture }}-${{ matrix.variant }}
+          path: AlMufarrigh-${{ runner.os }}-${{ matrix.architecture }}-${{ matrix.variant }}.*
 
   release:
     runs-on: ubuntu-latest
-    needs: [ build-windows, build-macos, build-linux ]
+    needs: [ build ]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v3
