@@ -6,7 +6,7 @@ import QtQuick.Layouts 6.4
 RowLayout {
     property string fileName
 
-    signal removeAudioRequested
+    signal removeAudioRequested()
 
     width: parent ? parent.width : 0
     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
@@ -48,5 +48,7 @@ RowLayout {
             cursorShape: Qt.PointingHandCursor
             onClicked: removeAudioRequested()
         }
+
     }
+
 }

@@ -4,6 +4,7 @@ It is used to read the settings.ini file and convert it to a pydantic model.
 """
 import re
 from configparser import ConfigParser
+from pathlib import Path
 from typing import TypeVar, cast
 
 from pydantic import BaseModel
@@ -17,7 +18,7 @@ class AppConfig(BaseModel):
 
     download_json: bool
     convert_engine: str
-    save_location: str
+    save_location: str = str(Path.cwd())
     word_count: int
     is_wit_engine: bool
     export_vtt: bool

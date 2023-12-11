@@ -7,11 +7,13 @@ from subprocess import Popen
 from typing import Any
 
 from PySide6.QtCore import Property, QObject, QThreadPool, Signal, Slot
-from src.domain.config import AppConfig, CaseSensitiveConfigParser
-from src.domain.progress import Progress
-from src.domain.threadpool import Worker, WorkerSignals
-from src.domain.token_manager import TokenManager
+from PySide6.QtWidgets import QMessageBox
 from tafrigh import Config, farrigh
+
+from domain.config import AppConfig, CaseSensitiveConfigParser
+from domain.progress import Progress
+from domain.threadpool import Worker, WorkerSignals
+from domain.token_manager import TokenManager
 
 
 def replace_path(path: str) -> str:
@@ -19,6 +21,11 @@ def replace_path(path: str) -> str:
     if system() == "Windows":
         return path.replace("file:///", "")
     return path.replace("file://", "")
+
+
+def get_path(path: str) -> str:
+    """Get the path with file:/// prefix for windows and file:// for linux."""
+    return f"file:///{path}" if system() == "Windows" else f"file://{path}"
 
 
 # BACKEND
@@ -39,9 +46,20 @@ class Backend(QObject):
         self.token_manager = TokenManager()
         self._is_running = False
         self._urls: list[str] = []
+        self._stop_flag = False
+
+    @Slot()
+    def stop(self) -> None:
+        """Set the stop flag to True."""
+        self._stop_flag = True
+        self.finish.emit()
 
     def on_error(self, error: tuple[str, int, str]) -> None:
+        error_str, error_code, error_message = error
         self.error.emit(error)
+
+        QMessageBox.warning(None, "Warning", str(error_code))
+
         self._is_running = False
 
     def on_result(self, result: dict[str, Any]) -> None:
@@ -93,7 +111,7 @@ class Backend(QObject):
             save_yt_dlp_responses=app_config.download_json,
             output_sample=0,
             output_formats=app_config.get_output_formats(),
-            output_dir=replace_path(app_config.save_location),
+            output_dir=replace_path(app_config.save_location or get_path(str(Path.cwd()))),
         )
 
         return farrigh(config)

@@ -18,8 +18,11 @@ Rectangle {
         source: theme.font.source
     }
 
-    ListModel {
+    property ListModel audioFilesModel: ListModel {
         id: audioFilesModel
+    }
+    function clearAudioFiles() {
+        audioFilesModel.clear();
     }
 
     Text {
@@ -167,6 +170,7 @@ Rectangle {
                     listData.push(item.file);
                 }
                 root.convertRequested(listData);
+                root.startConversionClicked();
             }
         }
 
@@ -176,6 +180,8 @@ Rectangle {
             Layout.fillWidth: true
             onClicked: audioFilesModel.clear()
         }
+
+
     }
 
     Connections {
@@ -186,4 +192,5 @@ Rectangle {
             audioFilesModel.clear();
         }
     }
+    signal startConversionClicked();
 }

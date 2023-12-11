@@ -15,6 +15,11 @@ Rectangle {
     signal themeChanged(bool state)
 
     color: theme.background
+    Component.onCompleted: {
+        backend.get_languages().forEach(function(language) {
+            convertLanguage.dropdownModel.append(language);
+        });
+    }
 
     ColumnLayout {
         spacing: 10
@@ -63,7 +68,9 @@ Rectangle {
                     text: "Whisper"
                     value: "Whisper"
                 }
+
             }
+
         }
 
         SettingsDropDown {
@@ -103,7 +110,9 @@ Rectangle {
                     text: qsTr("كبير (أفضل دقة)")
                     value: "large-v2"
                 }
+
             }
+
         }
 
         SettingsItem {
@@ -124,6 +133,11 @@ Rectangle {
                 font.pixelSize: 16
                 selectByMouse: true // Allows selecting the text with the mouse
                 inputMethodHints: Qt.ImhDigitsOnly // Restricts input to digits only
+                onTextChanged: {
+                    const token = inputText.text;
+                    const language = convertLanguage.value;
+                    backend.save_convert_token(language, token);
+                }
 
                 background: Rectangle {
                     color: theme.field
@@ -132,12 +146,9 @@ Rectangle {
                     radius: 8
                 }
                 // Sets the font size to a small value
-                onTextChanged: {
-                    const token = inputText.text;
-                    const language = convertLanguage.value;
-                    backend.save_convert_token(language, token);
-                }
+
             }
+
         }
 
         SettingsItem {
@@ -171,7 +182,9 @@ Rectangle {
                     bottom: 0
                     top: 999
                 }
+
             }
+
         }
 
         SettingsItem {
@@ -185,10 +198,12 @@ Rectangle {
 
             Slider {
                 id: slider
+
                 from: 3
                 to: 17
                 implicitWidth: parent.width / 3
             }
+
         }
 
         SettingsItem {
@@ -204,6 +219,7 @@ Rectangle {
             CustomCheckBox {
                 id: checkbox
             }
+
         }
 
         SettingsItem {
@@ -234,7 +250,9 @@ Rectangle {
 
                     text: "vtt"
                 }
+
             }
+
         }
 
         SettingsItem {
@@ -296,7 +314,9 @@ Rectangle {
                         console.log("Canceled");
                     }
                 }
+
             }
+
         }
 
         SettingsItem {
@@ -310,6 +330,7 @@ Rectangle {
             CustomCheckBox {
                 id: jsonCheck
             }
+
         }
 
         SettingsItem {
@@ -324,7 +345,9 @@ Rectangle {
                     themeChanged(checked);
                 }
             }
+
         }
+
     }
 
     ColumnLayout {
@@ -350,11 +373,12 @@ Rectangle {
             horizontalAlignment: Text.AlignHCenter
             color: theme.fontPrimary
         }
+
     }
 
     Settings {
         id: settings
-        category: "config"
+
         property alias isWitEngine: root.isWitEngine
         property alias downloadJson: jsonCheck.checked
         property alias saveLocation: saveLocation.value
@@ -369,15 +393,16 @@ Rectangle {
         property alias convertEngine: convertEngine.value
         property alias convertLanguage: convertLanguage.value
 
+        category: "config"
         location: "file:settings.ini"
     }
 
     Settings {
-        category: "app"
         property alias whisperModelIndex: whisperModel.currentIndex
         property alias convertEngineIndex: convertEngine.currentIndex
         property alias convertLanguageIndex: convertLanguage.currentIndex
 
+        category: "app"
         location: "file:settings.ini"
     }
 
@@ -386,9 +411,4 @@ Rectangle {
         enabled: root.visible
     }
 
-    Component.onCompleted: {
-        backend.get_languages().forEach(function (language) {
-            convertLanguage.dropdownModel.append(language);
-        });
-    }
 }

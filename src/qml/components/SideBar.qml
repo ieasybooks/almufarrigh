@@ -23,6 +23,7 @@ Rectangle {
             right: parent.right
             topMargin: 16
         }
+
     }
 
     ColumnLayout {
@@ -48,6 +49,7 @@ Rectangle {
                     sidebarButtonClicked(0);
                 }
             }
+
         }
 
         IconImage {
@@ -63,6 +65,7 @@ Rectangle {
                     sidebarButtonClicked(1);
                 }
             }
+
         }
 
         Rectangle {
@@ -81,6 +84,7 @@ Rectangle {
                 cursorShape: Qt.PointingHandCursor
                 onClicked: folderClick()
             }
+
         }
 
         IconImage {
@@ -93,6 +97,7 @@ Rectangle {
                 cursorShape: Qt.PointingHandCursor
                 onClicked: mainWindow.showMinimized()
             }
+
         }
 
         IconImage {
@@ -105,6 +110,9 @@ Rectangle {
                 cursorShape: Qt.PointingHandCursor
                 onClicked: Qt.quit()
             }
+
         }
+
     }
+
 }

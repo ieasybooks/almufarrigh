@@ -7,6 +7,13 @@ import "convert"
 
 Rectangle {
     id: progressPage
+
+    property int index: 0
+    property bool completionTextDisplayed: false
+
+    signal sidebarButtonClicked(int index)
+    signal clearAudioFiles()
+
     color: theme.background
 
     FontLoader {
@@ -36,6 +43,7 @@ Rectangle {
             topMargin: 64
             rightMargin: 75
         }
+
     }
 
     Image {
@@ -50,6 +58,7 @@ Rectangle {
             topMargin: title.anchors.topMargin + 48
             rightMargin: 60
         }
+
     }
 
     Text {
@@ -69,6 +78,7 @@ Rectangle {
             topMargin: 6
             rightMargin: 10
         }
+
     }
 
     Text {
@@ -86,27 +96,73 @@ Rectangle {
             right: title.right
             topMargin: 16
         }
+
     }
 
     CircularProgressBar {
         id: progressBar
+
         anchors.centerIn: parent
         width: 290
         height: 290
         foregroundColor: theme.primary
         backgroundColor: "#00000000"
     }
+    // Add this property to track text display
+
+    CustomButton {
+        id: stopButton
+
+        text: qsTr("توقــف")
+        Layout.fillWidth: true
+        onClicked: {
+            backend.stop(); // Call a method in the backend to stop the process
+            clearAudioFiles(); // Emit a signal to clear audioFilesModel in ConvertPage.qml
+            stackLayout.currentIndex = 0; // Go back to ConvertPage.qml
+        }
+
+        anchors {
+            horizontalCenter: parent.horizontalCenter
+            top: progressBar.bottom
+            topMargin: 16
+        }
+
+    }
+
+    Text {
+        //   Component.onCompleted: {
+        // Set the flag to true when the text is first displayed
+        //   completionTextDisplayed = true;
+        // }
+
+        id: completionText
+
+        text: qsTr(". . . جاري تهيــئة الملـــــــفات . . .")
+        color: theme.black
+        font.pixelSize: 25
+        visible: progressBar.value === 0 && !completionTextDisplayed
+
+        anchors {
+            horizontalCenter: parent.horizontalCenter
+            top: stopButton.bottom
+            topMargin: 8
+        }
+
+    }
 
     Connections {
-        target: backend
-        enabled: progressPage.visible
-
         function onProgress(progress, remainingTime) {
             progressBar.value = progress;
         }
 
         function onFinish() {
             progressBar.value = 0;
+            // Reset the completionTextDisplayed flag when the process finishes
+            let completionTextDisplayed = true;
         }
+
+        target: backend
+        enabled: progressPage.visible
     }
+
 }

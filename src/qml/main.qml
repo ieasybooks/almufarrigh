@@ -5,8 +5,8 @@ import QtQuick.Controls.Material 6.4
 import QtQuick.Layouts 6.4
 import QtQuick.Window 6.4
 import "components"
-import "themes"
 import "components/convert"
+import "themes"
 
 ApplicationWindow {
     id: mainWindow
@@ -30,16 +30,18 @@ ApplicationWindow {
 
         anchors.fill: parent
         hoverEnabled: true
-        onPressed: mouse => {
+        onPressed: (mouse) => {
             clickPos = Qt.point(mouse.x, mouse.y);
         }
-        onMouseXChanged: mouse => {
+        onMouseXChanged: (mouse) => {
             if (mouse.buttons === Qt.LeftButton)
                 mainWindow.x += (mouse.x - clickPos.x);
+
         }
-        onMouseYChanged: mouse => {
+        onMouseYChanged: (mouse) => {
             if (mouse.buttons === Qt.LeftButton)
                 mainWindow.y += (mouse.y - clickPos.y);
+
         }
     }
 
@@ -52,7 +54,7 @@ ApplicationWindow {
         onFolderClick: {
             backend.open_folder(settingsPage.saveLocation);
         }
-        onSidebarButtonClicked: index => {
+        onSidebarButtonClicked: (index) => {
             stackLayout.currentIndex = index;
         }
     }
@@ -68,41 +70,60 @@ ApplicationWindow {
         }
 
         ConvertPage {
-            onConvertRequested: urls => {
+            id: convertPage
+
+            function clearAudioFiles() {
+                audioFilesModel.clear();
+            }
+
+            onConvertRequested: (urls) => {
                 backend.urls = urls;
                 backend.start();
                 stackLayout.currentIndex = 2;
+            }
+            // Connect to the signal and update completionTextDisplayed
+            onStartConversionClicked: {
+                processPage.completionTextDisplayed = false;
             }
         }
 
         SettingsPage {
             id: settingsPage
 
-            onThemeChanged: state => {
-                isLightTheme = !state;
+            onThemeChanged: (state) => {
+                let isLightTheme = !state;
             }
         }
 
         ProcessPage {
             id: processPage
         }
+
+        Connections {
+            target: processPage
+            onClearAudioFiles: {
+                convertPage.clearAudioFiles();
+            }
+        }
+
     }
 
     Settings {
         id: settings
-        category: "app"
+
         property alias isLightTheme: mainWindow.isLightTheme
 
+        category: "app"
         location: "file:settings.ini"
     }
 
     Connections {
-        target: backend
-        enabled: mainWindow.visible
-
         function onFinish() {
             timer.start();
         }
+
+        target: backend
+        enabled: mainWindow.visible
     }
 
     Timer {
@@ -116,4 +137,5 @@ ApplicationWindow {
             stackLayout.currentIndex = 0;
         }
     }
+
 }
