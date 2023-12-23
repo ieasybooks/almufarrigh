@@ -62,7 +62,7 @@ jobs:
       - name: Compress
         if: runner.os != 'Windows'
         run: zip -r9 AlMufarrigh-${{ runner.os }}-${{ matrix.architecture }}-${{ matrix.variant }}.zip dist/*
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: AlMufarrigh-${{ runner.os }}-${{ matrix.architecture }}-${{ matrix.variant }}
           path: AlMufarrigh-${{ runner.os }}-${{ matrix.architecture }}-${{ matrix.variant }}.*
