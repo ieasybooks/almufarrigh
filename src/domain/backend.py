@@ -1,4 +1,5 @@
 """Backend that interacts with tafrigh."""
+
 import json
 import multiprocessing
 from collections import OrderedDict
@@ -31,7 +32,6 @@ def get_path(path: str) -> str:
 
 # BACKEND
 class Backend(QObject):
-
     """Backend object."""
 
     result = Signal(dict)

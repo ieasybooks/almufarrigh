@@ -2,6 +2,7 @@
 
 It is used to read the settings.ini file and convert it to a pydantic model.
 """
+
 import re
 from configparser import ConfigParser
 from pathlib import Path
@@ -13,7 +14,6 @@ T = TypeVar("T", bound=BaseModel)
 
 
 class AppConfig(BaseModel):
-
     """App configuration model."""
 
     download_json: bool
@@ -40,7 +40,6 @@ class AppConfig(BaseModel):
 
 
 class CaseSensitiveConfigParser(ConfigParser):
-
     """A case sensitive config parser."""
 
     def optionxform(self, option_str: str) -> str:

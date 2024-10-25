@@ -1,9 +1,9 @@
 """Clipboard Warapper for sys clipboard so that it can be accessed from qml."""
+
 from PySide6.QtCore import QObject, Signal, Slot
 
 
 class ClipboardProxy(QObject):
-
     """The proxy class.
 
     params:
