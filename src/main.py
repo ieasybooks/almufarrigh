@@ -1,5 +1,6 @@
 # ruff: noqa
 """Entry point for the application."""
+
 import sys
 from pathlib import Path
 

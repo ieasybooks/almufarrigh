@@ -1,4 +1,5 @@
 """Backend that interacts with tafrigh."""
+
 import json
 import multiprocessing
 from collections import OrderedDict
@@ -31,7 +32,6 @@ def get_path(path: str) -> str:
 
 # BACKEND
 class Backend(QObject):
-
     """Backend object."""
 
     result = Signal(dict)
@@ -141,7 +141,7 @@ class Backend(QObject):
     @Slot(str, result=str)
     def get_convert_token(self, language: str) -> str | None:
         tokens: dict[str, str] = self.token_manager.read_tokens()
-        return tokens.get(language, None)
+        return tokens.get(language)
 
     @Slot(result=list)
     def get_languages(self) -> list[dict[str, str]]:
