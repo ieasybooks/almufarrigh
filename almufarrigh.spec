@@ -1,3 +1,4 @@
+from contextlib import suppress
 from os import name as os_name
 from shutil import which
 
@@ -10,9 +11,11 @@ datas = []
 datas += collect_data_files("whisper")
 datas += collect_data_files("transformers", include_py_files=True)
 datas += collect_data_files("torch")
-datas += copy_metadata("torch")
+with suppress(PackageNotFoundError):
+    datas += copy_metadata("torch")
 datas += copy_metadata("tqdm")
-datas += copy_metadata("numpy")
+with suppress(PackageNotFoundError):
+    datas += copy_metadata("numpy")
 datas += copy_metadata("requests")
 datas += copy_metadata("pydub")
 datas += copy_metadata("auditok")
