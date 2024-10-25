@@ -18,7 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ 'windows-latest', 'macos-latest', 'ubuntu-latest' ]
+        os: [ 'windows-latest', 'macos-latest' ]
         python-version: [ "3.12" ]
         poetry-version: [ "1.8.4" ]
         variant: [ 'wit', 'whisper' ]
