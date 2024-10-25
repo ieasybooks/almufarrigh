@@ -26,7 +26,8 @@ binaries = []
 if os_name == "nt":
     binaries += [("ffmpeg.exe", "."), ("ffprobe.exe", ".")]
 else:
-    datas += [(which("ffmpeg"), ".")]
+    if ffmpeg_path := which("ffmpeg"):
+        datas += [(ffmpeg_path, ".")]
 
 a = Analysis(
     ["src/main.py"],

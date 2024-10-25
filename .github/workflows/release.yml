@@ -52,6 +52,26 @@ jobs:
           tar.exe -xf ffmpeg.zip
           move ffmpeg-4.4-essentials_build/bin/ffmpeg.exe ffmpeg.exe
           move ffmpeg-4.4-essentials_build/bin/ffprobe.exe ffprobe.exe
+      - name: Download FFmpeg and FFprobe (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          wget https://www.johnvansickle.com/ffmpeg/old-releases/ffmpeg-4.4-amd64-static.tar.xz
+          tar xvf ffmpeg-4.4-amd64-static.tar.xz
+          mv ffmpeg-4.4-amd64-static/ffmpeg .
+          mv ffmpeg-4.4-amd64-static/ffprobe .
+          chmod +x ffmpeg ffprobe
+          ./ffmpeg -version
+          ./ffprobe -version
+      - name: Download FFmpeg and FFprobe (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          curl -L https://evermeet.cx/pub/ffmpeg/ffmpeg-4.4.zip -o ffmpeg.zip
+          curl -L https://evermeet.cx/pub/ffprobe/ffprobe-4.4.zip -o ffprobe.zip
+          unzip ffmpeg.zip
+          unzip ffprobe.zip
+          chmod +x ffmpeg ffprobe
+          ./ffmpeg -version
+          ./ffprobe -version
       - name: Package
         run: |
           poetry run pyside6-rcc src/resources.qrc -o src/resources_rc.py
