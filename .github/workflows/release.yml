@@ -48,7 +48,7 @@ jobs:
       - name: Download ffmpeg (Windows)
         if: runner.os == 'Windows'
         run: |
-          Invoke-WebRequest https://github.com/GyanD/codexffmpeg/releases/download/4.4/ffmpeg-4.4-essentials_build.zip -O ffmpeg.zip
+          Invoke-WebRequest https://github.com/GyanD/codexffmpeg/releases/download/4.4/ffmpeg-4.4-essentials_build.zip -OutFile ffmpeg.zip
           tar.exe -xf ffmpeg.zip
           move ffmpeg-4.4-essentials_build/bin/ffmpeg.exe ffmpeg.exe
           move ffmpeg-4.4-essentials_build/bin/ffprobe.exe ffprobe.exe
