@@ -1,4 +1,5 @@
 from contextlib import suppress
+from importlib.metadata import PackageNotFoundError
 from os import name as os_name
 from shutil import which
 
