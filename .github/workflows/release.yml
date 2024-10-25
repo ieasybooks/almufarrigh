@@ -41,7 +41,7 @@ jobs:
           poetry-version: ${{ matrix.poetry-version }}
       - run: poetry install --with ${{ matrix.variant }} --with dev
       - name: Caching
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ./.venv
           key: venv-${{ hashFiles('poetry.lock') }}
