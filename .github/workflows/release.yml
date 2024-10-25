@@ -40,10 +40,6 @@ jobs:
         with:
           poetry-version: ${{ matrix.poetry-version }}
       - run: poetry install --with ${{ matrix.variant }} --with dev
-      - name: Install PIL on macOS
-        if: runner.os == 'macOS'
-        run: |
-          poetry add Pillow
       - name: Caching
         uses: actions/cache@v4
         with:
