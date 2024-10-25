@@ -23,12 +23,12 @@ jobs:
         poetry-version: [ "1.8.4" ]
         variant: [ 'wit', 'whisper' ]
         architecture: [ 'x64' ]
-        include:
-          - os: windows-latest
-            architecture: 'x86'
-            python-version: "3.9"
-            poetry-version: "1.8.4"
-            variant: "wit"
+        # include:
+        #   - os: windows-latest
+        #     architecture: 'x86'
+        #     python-version: "3.9"
+        #     poetry-version: "1.8.4"
+        #     variant: "wit"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -71,7 +71,7 @@ jobs:
       - name: Package
         run: |
           poetry run pyside6-rcc src/resources.qrc -o src/resources_rc.py
-          poetry run pyinstaller --log-level DEBUG ${{ github.event.inputs.spec }}
+          poetry run pyinstaller ${{ github.event.inputs.spec }}
       - name: Compress (Windows)
         if: runner.os == 'Windows'
         run: tar.exe -acf AlMufarrigh-${{ runner.os }}-${{ matrix.architecture }}-${{ matrix.variant }}-portable.zip dist
