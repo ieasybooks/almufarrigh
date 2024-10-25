@@ -4,7 +4,6 @@ from PySide6.QtCore import QObject, Signal, Slot
 
 
 class ClipboardProxy(QObject):
-
     """The proxy class.
 
     params:
