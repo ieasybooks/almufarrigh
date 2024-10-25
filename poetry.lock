@@ -1365,7 +1365,7 @@ files = [
 [package.dependencies]
 annotated-types = ">=0.6.0"
 pydantic-core = "2.23.4"
-typing-extensions = {version = ">=4.12.2", markers = "python_version >= \"3.13\""}
+typing-extensions = {version = ">=4.6.1", markers = "python_version < \"3.13\""}
 
 [package.extras]
 email = ["email-validator (>=2.0.0)"]
@@ -2127,6 +2127,7 @@ nvidia-nvjitlink-cu12 = {version = "12.4.127", markers = "platform_system == \"L
 nvidia-nvtx-cu12 = {version = "12.4.127", markers = "platform_system == \"Linux\" and platform_machine == \"x86_64\""}
 setuptools = {version = "*", markers = "python_version >= \"3.12\""}
 sympy = {version = "1.13.1", markers = "python_version >= \"3.9\""}
+triton = {version = "3.1.0", markers = "platform_system == \"Linux\" and platform_machine == \"x86_64\" and python_version < \"3.13\""}
 typing-extensions = ">=4.8.0"
 
 [package.extras]
@@ -2382,5 +2383,5 @@ test = ["pytest (>=8.1,<9.0)", "pytest-rerunfailures (>=14.0,<15.0)"]
 
 [metadata]
 lock-version = "2.0"
-python-versions = ">=3.13,<3.14"
-content-hash = "99621aa34ad162ca6e810247e4e2d8dc28c532918750872776220312a9ba09d7"
+python-versions = ">=3.12,<3.13"
+content-hash = "75560377c53283ea473f8aa84cd031d82bdfb244ba1ca8616d32ef23a51afbe3"
