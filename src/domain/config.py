@@ -14,6 +14,7 @@ T = TypeVar("T", bound=BaseModel)
 
 
 class AppConfig(BaseModel):
+
     """App configuration model."""
 
     download_json: bool
@@ -40,6 +41,7 @@ class AppConfig(BaseModel):
 
 
 class CaseSensitiveConfigParser(ConfigParser):
+
     """A case sensitive config parser."""
 
     def optionxform(self, option_str: str) -> str:

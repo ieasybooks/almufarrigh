@@ -6,6 +6,7 @@ from typing import cast
 
 
 class TokenManager:
+
     """Token manager class."""
 
     def __init__(self, filename: str | None = None) -> None:

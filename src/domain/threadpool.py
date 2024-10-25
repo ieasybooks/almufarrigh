@@ -11,6 +11,7 @@ from domain.progress import Progress
 
 
 class WorkerSignals(QObject):
+
     """Signals emitted by worker threads."""
 
     finished = Signal()
@@ -20,6 +21,7 @@ class WorkerSignals(QObject):
 
 
 class Worker(QRunnable):
+
     """Custom thread class."""
 
     def __init__(

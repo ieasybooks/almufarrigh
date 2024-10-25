@@ -32,6 +32,7 @@ def get_path(path: str) -> str:
 
 # BACKEND
 class Backend(QObject):
+
     """Backend object."""
 
     result = Signal(dict)
