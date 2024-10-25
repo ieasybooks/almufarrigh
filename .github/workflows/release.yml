@@ -76,7 +76,7 @@ jobs:
       - name: Display structure of downloaded files
         run: ls -R
       - name: Release
-        uses: ncipollo/release-action@v1.13.0
+        uses: ncipollo/release-action@v1.14.0
         with:
           allowUpdates: true
           commit: 'master'
