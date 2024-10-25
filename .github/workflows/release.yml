@@ -35,16 +35,16 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           architecture: ${{ matrix.architecture }}
-      - name: Install requirements
-        uses: abatilo/actions-poetry@v2
-        with:
-          poetry-version: ${{ matrix.poetry-version }}
-      - run: poetry install --with ${{ matrix.variant }} --with dev
       - name: Caching
         uses: actions/cache@v4
         with:
           path: ./.venv
           key: venv-${{ runner.os }}-${{ hashFiles('poetry.lock') }}
+      - name: Install requirements
+        uses: abatilo/actions-poetry@v2
+        with:
+          poetry-version: ${{ matrix.poetry-version }}
+      - run: poetry install --with ${{ matrix.variant }} --with dev
       - name: Download ffmpeg (Windows)
         if: runner.os == 'Windows'
         run: |
