@@ -62,7 +62,7 @@ exe = EXE(
     a.scripts,
     [],
     name="AlMufarrigh",
-    icon="./src/resources/images/icon.ico",
+    icon="./src/resources/images/logo.ico",
     exclude_binaries=True,
     debug=True,
     bootloader_ignore_signals=False,
@@ -91,7 +91,7 @@ coll = COLLECT(
 app = BUNDLE(
     coll,
     name="AlMufarrigh.app",
-    icon="./src/resources/images/icon.icns",
+    icon="./src/resources/images/logo.icns",
     bundle_identifier="com.almufarrigh",
     version="0.1.0",
     info_plist={
