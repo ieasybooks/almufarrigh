@@ -27,6 +27,7 @@ class ClipboardProxy(QObject):
         Returns
         -------
             str: _description_
+
         """
         return str(self._clipboard.text())
 
