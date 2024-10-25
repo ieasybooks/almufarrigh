@@ -11,7 +11,7 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.10,<3.12"
+python = ">=3.13,<3.14"
 pyside6 = "^6.6.1"
 pydantic = "^2.5.2"
 
