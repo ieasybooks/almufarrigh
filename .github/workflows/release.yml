@@ -19,14 +19,14 @@ jobs:
       fail-fast: false
       matrix:
         os: [ 'windows-latest', 'macos-latest', 'ubuntu-latest' ]
-        python-version: [ "3.13" ]
+        python-version: [ "3.12" ]
         poetry-version: [ "1.8.4" ]
         variant: [ 'wit', 'whisper' ]
         architecture: [ 'x64' ]
         include:
           - os: windows-latest
             architecture: 'x86'
-            python-version: "3.13"
+            python-version: "3.12"
             poetry-version: "1.8.4"
             variant: "wit"
     steps:
