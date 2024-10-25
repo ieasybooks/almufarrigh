@@ -55,7 +55,7 @@ jobs:
       - name: Package
         run: |
           poetry run pyside6-rcc src/resources.qrc -o src/resources_rc.py
-          poetry run pyinstaller ${{ github.event.inputs.spec }}
+          poetry run pyinstaller --log-level DEBUG ${{ github.event.inputs.spec }}
       - name: Compress (Windows)
         if: runner.os == 'Windows'
         run: tar.exe -acf AlMufarrigh-${{ runner.os }}-${{ matrix.architecture }}-${{ matrix.variant }}-portable.zip dist
