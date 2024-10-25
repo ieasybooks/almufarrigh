@@ -85,7 +85,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: AlMufarrigh-${{ runner.os }}-${{ matrix.architecture }}-${{ matrix.variant }}
-          path: AlMufarrigh-${{ runner.os }}-${{ matrix.architecture }}-${{ matrix.variant }}.*
+          path: AlMufarrigh-${{ runner.os }}-${{ matrix.architecture }}-${{ matrix.variant }}*
 
   release:
     runs-on: ubuntu-latest
