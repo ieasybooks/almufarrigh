@@ -8,7 +8,11 @@ from PyInstaller.building.build_main import Analysis
 from PyInstaller.building.osx import BUNDLE
 from PyInstaller.utils.hooks import collect_data_files, copy_metadata
 
-datas = []
+datas = [
+    ("src/qml", "qml/"),
+    ("src/resources", "resources/"),
+    ("src/resources_rc.py", "."),
+]
 datas += collect_data_files("whisper")
 datas += collect_data_files("transformers", include_py_files=True)
 datas += collect_data_files("torch")
