@@ -1,6 +1,7 @@
 import "../../utils/audiohelper.mjs" as AudioHelper
 import QtQuick 6.4
 import QtQuick.Controls 6.4
+import QtQuick.Controls.impl
 import QtQuick.Layouts 6.4
 
 RowLayout {

@@ -1,6 +1,7 @@
 import "."
 import QtQuick 6.4
 import QtQuick.Controls 6.4
+import QtQuick.Controls.impl
 
 SettingsItem {
     property alias selectedValue: combo.currentValue
