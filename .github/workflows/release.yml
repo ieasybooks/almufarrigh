@@ -95,7 +95,7 @@ jobs:
         uses: ncipollo/release-action@v1.14.0
         with:
           allowUpdates: true
-          commit: 'master'
+          commit: 'main'
           tag: ${{ github.event.inputs.version }}
           name: ${{ github.event.inputs.version }}
           artifacts: '*/*.zip'
