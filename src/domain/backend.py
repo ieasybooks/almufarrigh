@@ -96,26 +96,35 @@ class Backend(QObject):
         app_config: AppConfig = CaseSensitiveConfigParser.read_config()
 
         config = Config(
-            urls_or_paths=self.urls,
-            playlist_items="",
-            verbose=False,
-            skip_if_output_exist=True,
-            model_name_or_path=app_config.whisper_model,
-            task="transcribe",
-            language=app_config.convert_language,
-            use_faster_whisper=True,
-            beam_size=5,
-            ct2_compute_type="default",
-            wit_client_access_tokens=[app_config.wit_convert_key]
-            if app_config.is_wit_engine
-            else [""],
-            max_cutting_duration=int(app_config.max_part_length),
-            min_words_per_segment=app_config.word_count,
-            save_files_before_compact=False,
-            save_yt_dlp_responses=app_config.download_json,
-            output_sample=0,
-            output_formats=app_config.get_output_formats(),
-            output_dir=replace_path(app_config.save_location or get_path(str(Path.cwd()))),
+            input=Config.Input(
+                urls_or_paths=self.urls,
+                skip_if_output_exist=True,
+                download_retries=3,
+                playlist_items="",
+                verbose=False,
+            ),
+            whisper=Config.Whisper(
+                model_name_or_path=app_config.whisper_model,
+                task="transcribe",
+                language=app_config.convert_language,
+                use_faster_whisper=True,
+                beam_size=5,
+                ct2_compute_type="default",
+            ),
+            wit=Config.Wit(
+                wit_client_access_tokens=[app_config.wit_convert_key]
+                if app_config.is_wit_engine
+                else [""],
+                max_cutting_duration=int(app_config.max_part_length),
+            ),
+            output=Config.Output(
+                min_words_per_segment=app_config.word_count,
+                save_files_before_compact=False,
+                save_yt_dlp_responses=app_config.download_json,
+                output_sample=0,
+                output_formats=app_config.get_output_formats(),
+                output_dir=replace_path(app_config.save_location or get_path(str(Path.cwd()))),
+            ),
         )
 
         return farrigh(config)
