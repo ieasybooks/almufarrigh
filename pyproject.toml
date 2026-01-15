@@ -29,7 +29,7 @@ tafrigh = { version = "^1.6.2", extras = ["wit", "whisper"] }
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^4.0.0"
-ruff = "^0.7.0"
+ruff = "^0.14.0"
 pyinstaller = "^6.3.0"
 pillow = "^11.0.0"
 
