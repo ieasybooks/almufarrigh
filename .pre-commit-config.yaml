@@ -2,7 +2,7 @@
 #ci:
 #  skip: [qmlformat, qmllint]
 default_install_hook_types: [ commit-msg, pre-commit ]
-default_stages: [ commit, manual ]
+default_stages: [ pre-commit, manual ]
 fail_fast: true
 repos:
   - repo: meta
@@ -18,7 +18,7 @@ repos:
       - id: rst-inline-touching-normal
       - id: text-unicode-replacement-char
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
+    rev: v6.0.0
     hooks:
       - id: check-added-large-files
       - id: check-ast
@@ -45,7 +45,7 @@ repos:
       - id: trailing-whitespace
         types: [ python ]
   - repo: https://github.com/python-poetry/poetry
-    rev: '1.8.4'  # add version here
+    rev: '2.3.0'  # add version here
     hooks:
       - id: poetry-check
 #      - id: poetry-lock
@@ -55,13 +55,13 @@ repos:
       - id: absolufy-imports
   - repo: https://github.com/astral-sh/ruff-pre-commit
     # Ruff version.
-    rev: 'v0.7.1'
+    rev: 'v0.14.13'
     hooks:
       - id: ruff
         args: [ '--fix', '--exit-zero' ]
       - id: ruff-format
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: 'v1.13.0'  # Use the sha / tag you want to point at
+    rev: 'v1.19.1'  # Use the sha / tag you want to point at
     hooks:
       - id: mypy
 #  - repo: local
