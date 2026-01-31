@@ -36,7 +36,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
           architecture: ${{ matrix.architecture }}
       - name: Caching
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ./.venv
           key: venv-${{ runner.os }}-${{ hashFiles('poetry.lock') }}
